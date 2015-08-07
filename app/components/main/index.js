@@ -9,7 +9,7 @@ var Main = React.createClass({
     componentDidMount: function () {},
     render: function () {
         return (
-            <div>Things</div>
+            <h1>Things</h1>
         );
     }
 });

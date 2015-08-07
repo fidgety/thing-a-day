@@ -1,0 +1,29 @@
+{
+  "name": "thing-a-day",
+  "version": "0.0.1",
+  "description": "Do something tecchy at least once a day",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fidgety/thing-a-day.git"
+  },
+  "author": "me",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fidgety/thing-a-day/issues"
+  },
+  "homepage": "https://github.com/fidgety/thing-a-day#readme",
+  "devDependencies": {
+    "babel-core": "^5.8.21",
+    "babel-loader": "^5.3.2",
+    "css-loader": "^0.15.6",
+    "extract-text-webpack-plugin": "^0.8.2",
+    "node-sass": "^3.2.0",
+    "sass-loader": "^2.0.0",
+    "style-loader": "^0.12.3",
+    "webpack": "^1.11.0"
+  }
+}
