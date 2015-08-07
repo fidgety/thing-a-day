@@ -2,6 +2,8 @@ var React = require('react');
 require('./reset.scss');
 require('./style.scss');
 
+var Map = require('../Map');
+
 var Main = React.createClass({
     getInitialState: function () {
         return {};
@@ -9,7 +11,7 @@ var Main = React.createClass({
     componentDidMount: function () {},
     render: function () {
         return (
-            <h1>Things</h1>
+            <div id="main"><Map></Map></div>
         );
     }
 });
