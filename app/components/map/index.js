@@ -1,7 +1,7 @@
 var React = require('react');
 require('./style.scss');
 
-var mapMethods = require('./mapMethods');
+var mapMethods = require('./directionsUtils');
 
 module.exports = React.createClass({
     getInitialState: function () {
