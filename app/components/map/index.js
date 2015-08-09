@@ -35,7 +35,7 @@ module.exports = React.createClass({
                     new google.maps.Marker({
                         position: latLng,
                         map: that.state.map,
-                        title: "Hello World!"
+                        icon: 'images/icons/first-pin.png'
                     });
                 })
             });
