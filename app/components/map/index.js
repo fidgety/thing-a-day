@@ -2,6 +2,7 @@ var React = require('react');
 require('./style.scss');
 
 var mapMethods = require('./directionsUtils');
+var customMarker = require('./customMarker');
 
 module.exports = React.createClass({
     getInitialState: function () {
@@ -32,11 +33,12 @@ module.exports = React.createClass({
 
             google.maps.event.addListener(map, 'click', function (e) {
                 mapMethods.snapToRoute(e.latLng, function (latLng) {
-                    new google.maps.Marker({
-                        position: latLng,
-                        map: that.state.map,
-                        icon: 'images/icons/first-pin.png'
-                    });
+                    customMarker(latLng, that.state.map);
+                    //new google.maps.Marker({
+                    //    position: latLng,
+                    //    map: that.state.map,
+                    //    //icon: 'images/icons/first-pin.png'
+                    //}); turn on for accuracy check
                 })
             });
 

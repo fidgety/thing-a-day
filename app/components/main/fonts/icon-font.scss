@@ -1,0 +1,28 @@
+@font-face {
+    font-family: 'thing-a-day';
+    src:url('thing-a-day.eot?-on30la');
+    src:url('thing-a-day.eot?#iefix-on30la') format('embedded-opentype'),
+    url('thing-a-day.ttf?-on30la') format('truetype'),
+    url('thing-a-day.woff?-on30la') format('woff'),
+    url('thing-a-day.svg?-on30la#thing-a-day') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    font-family: 'thing-a-day';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-location:before {
+    content: "\e600";
+}

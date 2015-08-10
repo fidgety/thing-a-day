@@ -1,6 +1,7 @@
 var React = require('react');
 require('./reset.scss');
 require('./style.scss');
+require('./fonts/icon-font.scss');
 
 var Map = require('../Map');
 

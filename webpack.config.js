@@ -13,11 +13,14 @@ module.exports = {
         }, {
             test: /\.scss$/,
             loader: ExtractTextPlugin.extract(
-    // activate source maps via loader query
-    'css?sourceMap!' +
-    'sass?sourceMap&' +
-            'includePaths[]=' +
-            './app/components/main/sass-globals')
+                // activate source maps via loader query
+                'css?sourceMap!' +
+                'sass?sourceMap&' +
+                'includePaths[]=' +
+                './app/components/main/sass-globals')
+        }, {
+            test: /\.(png([\?]?.*)$|woff([\?]?.*)$|woff2([\?]?.*)$|eot([\?]?.*)$|ttf([\?]?.*)$|svg([\?]?.*)$)$/,
+            loader: 'url-loader?limit=100000'
         }]
     },
     plugins: [
