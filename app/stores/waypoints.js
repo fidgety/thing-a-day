@@ -1,6 +1,6 @@
 var Reflux = require('reflux');
-var mapMethods = require('./directionsUtils');
-var actions = require('../actions/waypointRequested');
+var mapMethods = require('../utils/googleMaps/directions');
+var actions = require('../actions/map');
 
 module.exports = Reflux.createStore({
     listenables: actions,
