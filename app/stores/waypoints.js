@@ -1,8 +1,9 @@
 var Reflux = require('reflux');
 var mapMethods = require('./directionsUtils');
+var actions = require('../actions/waypointRequested');
 
 module.exports = Reflux.createStore({
-    listenables: require('../actions/waypointRequested'),
+    listenables: actions,
     onMapClicked: function (latLng) {
         var that = this;
         mapMethods.snapToRoute(latLng, function (latLng) {
@@ -12,6 +13,6 @@ module.exports = Reflux.createStore({
     },
     waypoints: [],
     getInitialState: function () {
-        return [];
+        return waypointsStore;
     }
 });
