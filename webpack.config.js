@@ -19,7 +19,7 @@ module.exports = {
                 'includePaths[]=' +
                 './app/components/main/sass-globals')
         }, {
-            test: /\.(png([\?]?.*)$|woff([\?]?.*)$|woff2([\?]?.*)$|eot([\?]?.*)$|ttf([\?]?.*)$|svg([\?]?.*)$)$/,
+            test: /\.(woff([\?]?.*)$|woff2([\?]?.*)$|eot([\?]?.*)$|ttf([\?]?.*)$|svg([\?]?.*)$)$/,
             loader: 'url-loader?limit=100000'
         }]
     },

@@ -1,14 +1,43 @@
 var React = require('react');
+var Reflux = require('reflux');
+
 require('./style.scss');
 
-var mapMethods = require('./directionsUtils');
+var mapMethods = require('../../stores/directionsUtils');
 var customMarker = require('./customMarker');
 
+var actions = require('../../actions/waypointRequested');
+
+// reflux bit
+var waypointsStore = Reflux.createStore({
+    listenables: actions,
+    onMapClicked: function (latLng) {
+        var that = this;
+        mapMethods.snapToRoute(latLng, function (latLng) {
+            that.waypoints.push(latLng);
+            that.trigger(that.waypoints);
+        });
+    },
+    waypoints: [],
+    getInitialState: function () {
+        return waypointsStore;
+    }
+});
+
+// end reflux
+
+
+
+
 module.exports = React.createClass({
+    mixins: [Reflux.listenTo(waypointsStore,"onWaypointsChange")],
     getInitialState: function () {
         return {
             map: undefined
         };
+    },
+    onWaypointsChange: function (waypoints) {
+        customMarker(waypoints[waypoints.length - 1], this.state.map)
     },
     componentDidMount: function () {
         var mapOptions = {
@@ -32,14 +61,15 @@ module.exports = React.createClass({
             });
 
             google.maps.event.addListener(map, 'click', function (e) {
-                mapMethods.snapToRoute(e.latLng, function (latLng) {
-                    customMarker(latLng, that.state.map);
-                    //new google.maps.Marker({
-                    //    position: latLng,
-                    //    map: that.state.map,
-                    //    //icon: 'images/icons/first-pin.png'
-                    //}); turn on for accuracy check
-                })
+                actions.mapClicked(e.latLng);
+                //mapMethods.snapToRoute(e.latLng, function (latLng) {
+                //    customMarker(latLng, that.state.map);
+                //    //new google.maps.Marker({
+                //    //    position: latLng,
+                //    //    map: that.state.map,
+                //    //    //icon: 'images/icons/first-pin.png'
+                //    //}); turn on for accuracy check
+                //})
             });
 
             google.maps.event.addListener(map, 'zoom_changed', function () {
