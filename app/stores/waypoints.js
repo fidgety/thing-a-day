@@ -7,12 +7,15 @@ module.exports = Reflux.createStore({
     onMapClicked: function (latLng) {
         var that = this;
         mapMethods.snapToRoute(latLng, function (latLng) {
-            that.waypoints.push(latLng);
-            that.trigger(that.waypoints);
+            that.store.push({
+                latLng,
+                key: latLng.lat() + ',' + latLng.lng()
+            });
+            that.trigger(that.store);
         });
     },
-    waypoints: [],
+    store: [],
     getInitialState: function () {
-        return waypointsStore;
+        return this.store;
     }
 });
