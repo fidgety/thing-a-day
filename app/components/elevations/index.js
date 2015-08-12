@@ -19,8 +19,8 @@ module.exports = React.createClass({
     },
     render: function () {
         var ele = this.state.elevations.map(function (elevation) {
-            return (<li>{elevation.elevation}</li>)
+            return (<li key={elevation.elevation}>{Math.floor(elevation.elevation)}m</li>)
         });
-        return (<ul id="elevations">{ele}</ul>);
+        return (<div id="elevations"><h2>Elevations</h2><ul>{ele}</ul></div>);
     }
 });
