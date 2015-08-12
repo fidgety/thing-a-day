@@ -17,7 +17,7 @@ module.exports = {
             if (status == google.maps.DirectionsStatus.OK) {
                 return callback(response.routes[0]);
             }
-            alert(response, status);
+            alert('bad response from directions service', response, status);
         });
     }
 };

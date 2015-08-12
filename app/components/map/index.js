@@ -18,7 +18,6 @@ module.exports = React.createClass({
         };
     },
     onWaypointsChange: function (waypoints) {
-        //customMarker(waypoints[waypoints.length - 1], this.state.map)
         this.setState({
             waypoints
         })
