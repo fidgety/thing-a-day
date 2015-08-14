@@ -1,6 +1,8 @@
-require('./style.scss');
+var LineChart = require("react-chartjs").Line;
 
+require('./style.scss');
 var React = require('react');
+
 var Reflux = require('reflux');
 
 var elevationsStore = require('../../stores/elevations');
@@ -9,7 +11,7 @@ module.exports = React.createClass({
     mixins: [Reflux.listenTo(elevationsStore, 'onElevationsChange')],
     getInitialState: function () {
         return {
-            elevations: []
+            elevations: [1]
         };
     },
     onElevationsChange: function (elevations) {
@@ -18,9 +20,29 @@ module.exports = React.createClass({
         });
     },
     render: function () {
-        var ele = this.state.elevations.map(function (elevation) {
-            return (<li key={elevation.elevation}>{Math.floor(elevation.elevation)}m</li>)
-        });
-        return (<div id="elevations"><h2>Elevations</h2><ul>{ele}</ul></div>);
+        var ops = {
+            showScale: false,
+            scaleShowGridLines: false,
+            pointDot: false,
+            responsive: true,
+            maintainAspectRatio: false
+        };
+
+        var data = {
+            labels: [],
+            datasets: [
+                {
+                    label: "My First dataset",
+                    fillColor: "rgba(100,100,100,0.8)",
+                    strokeColor: "rgba(100,100,100,1)",
+                    pointColor: "rgba(220,220,220,1)",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    data: this.state.elevations.elevations
+                }
+            ]
+        };
+        return <div id="elevations"><LineChart data={data} options={ops}/></div>;
     }
 });
