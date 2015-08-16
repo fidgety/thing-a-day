@@ -22,6 +22,7 @@ module.exports = Reflux.createStore({
             mapMethods.getDirections(this._previousWaypoint(), latLng, function (route) {
                 console.log('directions', route)
                 that._updatePath(routeMethods.routeToLatLngs(route));
+                that.trigger(that.store);
             })
         } else {
             this.store.getPath().push(latLng);
@@ -29,9 +30,7 @@ module.exports = Reflux.createStore({
 
     },
     store: new google.maps.Polyline({
-        path: [],
-        strokeColor: '#0077ff',
-        strokeWeight: 6
+        path: []
     }),
     getInitialState() {
         return this.store;
