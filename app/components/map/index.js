@@ -5,6 +5,7 @@ var Reflux = require('reflux');
 
 var actions = require('../../actions/map');
 var waypointsStore = require('../../stores/waypoints');
+var routeStore = require('../../stores/route');
 
 var mainMapOptions = require('./../../utils/googleMaps/mainMapOptions');
 var Marker = require('../marker');
