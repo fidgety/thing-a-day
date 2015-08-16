@@ -5,6 +5,7 @@ require('./fonts/icon-font.scss');
 
 var Map = require('../Map');
 var Elevations = require('../elevations');
+var Header = require('../header');
 
 var Main = React.createClass({
     getInitialState: function () {
@@ -13,7 +14,7 @@ var Main = React.createClass({
     componentDidMount: function () {},
     render: function () {
         return (
-            <div id="main"><Map></Map><Elevations></Elevations></div>
+            <div id="main"><Header/><Map></Map><Elevations></Elevations></div>
         );
     }
 });

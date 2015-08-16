@@ -1,10 +1,9 @@
-var LineChart = require("react-chartjs").Line;
-
 require('./style.scss');
-var React = require('react');
 
+var React = require('react');
 var Reflux = require('reflux');
 
+var LineChart = require("react-chartjs").Line;
 var elevationsStore = require('../../stores/elevations');
 
 module.exports = React.createClass({
