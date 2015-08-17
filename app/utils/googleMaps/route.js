@@ -1,5 +1,9 @@
 module.exports = {
-    routeToLatLngs(route) {
+    routeToLatLngs: function(route) {
+        if (!route || !route.legs) {
+            return;
+        }
+
         var latLngs = [];
 
         route.legs.forEach(function (leg) {
@@ -12,7 +16,7 @@ module.exports = {
 
         return latLngs;
     },
-    makeSamplePoints(latLngs, offset, sampleRate) {
+    makeSamplePoints: function(latLngs, offset, sampleRate) {
         var i = 0;
         var samplepoints = new Array();
         var s = google.maps.geometry.spherical;
