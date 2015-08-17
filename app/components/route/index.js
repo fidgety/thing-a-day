@@ -12,11 +12,7 @@ module.exports = React.createClass({
         };
     },
     shouldComponentUpdate: function (nextProps) {
-        var currentPath = this.state.route.getPath();
-        var newPath = nextProps.route.getPath();
-        var currentPathLength = currentPath.getLength();
-        var newPathLength = newPath.getLength();
-        return currentPathLength !== newPathLength;
+        return this.state.route.getPath().getLength() !== nextProps.route.getPath().getLength();
     },
     componentDidMount() {
     },
