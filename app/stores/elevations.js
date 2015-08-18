@@ -1,14 +1,19 @@
 var Reflux = require('reflux');
 var elevations = require('../utils/googleMaps/elevations');
 var actions = require('../actions/map');
+var routeUtils = require('../utils/googleMaps/route');
 
 module.exports = Reflux.createStore({
     listenables: actions,
-    onNewWaypoint(latLng) {
+    onRouteUpdated(latLngs) {
         var that = this;
-        elevations([latLng], function (results) {
-            that.store.elevations.push(results[0].elevation);
-            that.store.positions.push(results[0].location);
+        console.log('make sample points in elevations store', routeUtils.makeSamplePoints(latLngs))
+        elevations(routeUtils.makeSamplePoints(latLngs), function (results) {
+            results.forEach(function (result) {
+                that.store.elevations.push(result.elevation);
+                that.store.positions.push(result.location);
+            });
+
             that.trigger(that.store);
         });
     },

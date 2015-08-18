@@ -4,7 +4,7 @@
   "description": "Do something tecchy at least once a day",
   "main": "webpack.config.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/karma start"
   },
   "repository": {
     "type": "git",
@@ -34,7 +34,6 @@
     "react-chartjs": "^0.6.0",
     "reflux": "^0.2.12",
     "sass-loader": "^2.0.0",
-    "scriptjs": "^2.5.7",
     "style-loader": "^0.12.3",
     "url-loader": "^0.5.6",
     "webpack": "^1.11.0"

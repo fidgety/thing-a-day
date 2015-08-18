@@ -20,8 +20,9 @@ module.exports = Reflux.createStore({
         var that = this;
         if (this._routeStarted()) {
             mapMethods.getDirections(this._previousWaypoint(), latLng, function (route) {
-                console.log('directions', route)
-                that._updatePath(routeMethods.routeToLatLngs(route));
+                var newRouteLatLngs = routeMethods.routeToLatLngs(route);
+                that._updatePath(newRouteLatLngs);
+                actions.routeUpdated(newRouteLatLngs);
                 that.trigger(that.store);
             })
         } else {
