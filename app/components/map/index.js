@@ -31,7 +31,7 @@ module.exports = React.createClass({
     onRouteChange(route) {
         console.log('onRouteChange, map',route)
         this.setState({
-            route
+            route: route.path
         });
     },
     componentDidMount: function () {

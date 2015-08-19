@@ -6,14 +6,14 @@ var actions = require('../actions/map');
 module.exports = Reflux.createStore({
     listenables: actions,
     _routeStarted() {
-        return this.store.getPath().length > 0;
+        return this.store.path.getPath().length > 0;
     },
     _previousWaypoint() {
-        var path = this.store.getPath();
+        var path = this.store.path.getPath();
         return path.getAt(path.getLength()-1)
     },
     _updatePath(newLatLngs) {
-        var path = this.store.getPath();
+        var path = this.store.path.getPath();
         newLatLngs.forEach(latLng => path.push(latLng));
     },
     onNewWaypoint(latLng) {
@@ -22,17 +22,21 @@ module.exports = Reflux.createStore({
             mapMethods.getDirections(this._previousWaypoint(), latLng, function (route) {
                 var newRouteLatLngs = routeMethods.routeToLatLngs(route);
                 that._updatePath(newRouteLatLngs);
+                that.store.distance = google.maps.geometry.spherical.computeLength(that.store.path.getPath().getArray());
                 actions.routeUpdated(newRouteLatLngs);
                 that.trigger(that.store);
             })
         } else {
-            this.store.getPath().push(latLng);
+            this.store.path.getPath().push(latLng);
         }
 
     },
-    store: new google.maps.Polyline({
-        path: []
-    }),
+    store: {
+        path: new google.maps.Polyline({
+            path: []
+        }),
+        distance: 0
+    },
     getInitialState() {
         return this.store;
     }

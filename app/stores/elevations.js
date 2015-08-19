@@ -8,8 +8,8 @@ module.exports = Reflux.createStore({
     onRouteUpdated(latLngs) {
         var that = this;
         console.log('make sample points in elevations store', routeUtils.makeSamplePoints(latLngs))
-        elevations(routeUtils.makeSamplePoints(latLngs), function (results) {
-            results.forEach(function (result) {
+        elevations(routeUtils.makeSamplePoints(latLngs, undefined, 1000), function (results) {
+            results.forEach(result => {
                 that.store.elevations.push(result.elevation);
                 that.store.positions.push(result.location);
             });
