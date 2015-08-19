@@ -11,20 +11,22 @@ module.exports = React.createClass({
     ],
     getInitialState: function () {
         return {
-            distance: 0
+            distance: 0,
+            class: ''
         };
     },
     onRouteChange(route) {
         updateNumber(this.state.distance, (route.distance / 1000).toFixed(2), this);
     },
     render: function () {
-        return <div id="distance">{this.state.distance}km</div>
+        return <div id="distance" className={this.state.class}>{this.state.distance}km</div>
     }
 });
 
 function updateNumber(oldNumber, newNumber, that) {
-    //var initialClassName = element.className;
-    //element.className += ' ticker-animation';
+    that.setState({
+        class: 'ticker-animation'
+    });
 
     newNumber = parseFloat(newNumber);
 
@@ -39,7 +41,9 @@ function updateNumber(oldNumber, newNumber, that) {
         currentNumber += numberPerFrame;
 
         if (++currentFrame === framesPerSecond) {
-            //element.className = initialClassName;
+            that.setState({
+                class: ''
+            });
             currentNumber = newNumber;
         }
 
