@@ -18,6 +18,7 @@ module.exports = {
                 return callback(response.routes[0]);
             }
             alert('bad response from directions service', response, status);
+            console.log('bad response from directions service', response, status);
         });
     }
 };

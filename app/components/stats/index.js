@@ -34,9 +34,9 @@ module.exports = React.createClass({
     },
     render: function () {
         return <div>
-            <Ticker name="distance" value={this.state.distance} animate={true}/>
-            <Ticker name="asc" value={this.state.ascending} animate={true}/>
-            <Ticker name="desc" value={this.state.descending} animate={true}/>
+            <Ticker name="distance" value={this.state.distance} label="km" animate={true}/>
+            <Ticker name="asc" value={this.state.ascending} label="m" animate={true}/>
+            <Ticker name="desc" value={this.state.descending} label="m" animate={true}/>
         </div>
     }
 });
