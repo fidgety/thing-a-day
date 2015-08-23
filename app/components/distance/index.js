@@ -30,7 +30,7 @@ function updateNumber(oldNumber, newNumber, that) {
 
     newNumber = parseFloat(newNumber);
 
-    var framesPerSecond = 30;
+    var framesPerSecond = 20;
     var millisecondsPerFrame = 1000 / framesPerSecond;
     var currentNumber = parseFloat(oldNumber);
     var difference = newNumber - currentNumber;

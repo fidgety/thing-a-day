@@ -4,7 +4,7 @@ require('./style.scss');
 require('./fonts/icon-font.scss');
 
 var Map = require('../Map');
-var Elevations = require('../elevations');
+var ElevationChart = require('../elevationChart');
 var Header = require('../header');
 
 var Main = React.createClass({
@@ -14,7 +14,7 @@ var Main = React.createClass({
     componentDidMount: function () {},
     render: function () {
         return (
-            <div id="main"><Header/><Map></Map><Elevations></Elevations></div>
+            <div id="main"><Header/><Map></Map><ElevationChart/></div>
         );
     }
 });
