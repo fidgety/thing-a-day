@@ -3,7 +3,7 @@ require('./style.scss');
 var React = require('react');
 var Reflux = require('reflux');
 
-var Distance = require('../distance');
+var Stats = require('../stats');
 
 module.exports = React.createClass({
     getInitialState: function () {
@@ -16,6 +16,6 @@ module.exports = React.createClass({
         });
     },
     render: function () {
-        return <div id="header"><h1>Thing-a-day</h1><Distance/></div>;
+        return <div id="header"><h1>Thing-a-day</h1><Stats/></div>;
     }
 });

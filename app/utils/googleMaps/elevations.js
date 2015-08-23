@@ -9,5 +9,6 @@ module.exports = function (samplePoints, callback) {
         }
 
         alert('bad response from elevations service', samplePoints, results, status);
+        console.log('bad response from elevations service', samplePoints, results, status);
     });
 };

@@ -1,25 +1,27 @@
-require('./style.scss');
-
 var React = require('react');
-var Reflux = require('reflux');
-
-var routeStore = require('../../stores/route');
 
 module.exports = React.createClass({
-    mixins: [
-        Reflux.listenTo(routeStore, 'onRouteChange')
-    ],
     getInitialState: function () {
         return {
-            distance: 0,
-            class: ''
+            value: this.props.value,
+            class: '',
+            label: this.props.label || ''
         };
     },
-    onRouteChange(route) {
-        updateNumber(this.state.distance, (route.distance / 1000).toFixed(2), this);
+    componentWillReceiveProps(nextProps) {
+        if (this.props.animate) {
+            updateNumber(this.state.value, nextProps.value, this);
+        }
+        else {
+            this.setState({
+                value: nextProps.value
+            })
+        }
     },
     render: function () {
-        return <div id="distance" className={this.state.class}>{this.state.distance}km</div>
+        return <div id={this.props.name} className={this.state.class}>
+            {this.state.value}<span className="label">{this.state.label}</span>
+        </div>
     }
 });
 
@@ -35,9 +37,9 @@ function updateNumber(oldNumber, newNumber, that) {
     var currentNumber = parseFloat(oldNumber);
     var difference = newNumber - currentNumber;
     var numberPerFrame = difference / framesPerSecond;
-    var currentFrame = 1;
+    var currentFrame = 0;
 
-    var increment = function() {
+    var increment = function () {
         currentNumber += numberPerFrame;
 
         if (++currentFrame === framesPerSecond) {
@@ -48,7 +50,7 @@ function updateNumber(oldNumber, newNumber, that) {
         }
 
         that.setState({
-            distance: currentNumber.toFixed(2)
+            value: currentNumber.toFixed(2)
         });
     };
 
