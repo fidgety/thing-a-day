@@ -20,6 +20,7 @@ describe('distance component', function () {
             }
         });
 
+        // https://www.npmjs.com/package/proxy-loader
         var DistanceFactory = require('proxy!../../../app/components/distance');
         var Distance = DistanceFactory({
             '../../stores/route': fakeStore
