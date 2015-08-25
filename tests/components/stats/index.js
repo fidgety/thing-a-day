@@ -21,7 +21,7 @@ describe('stats component', function () {
         });
 
         // https://www.npmjs.com/package/proxy-loader
-        var StatsFactory = require('proxy!../../../app/components/stats');
+        var StatsFactory = require('inject!../../../app/components/stats');
         var Stats = StatsFactory({
             '../../stores/route': fakeStore
         });

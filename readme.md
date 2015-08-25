@@ -53,4 +53,4 @@ So far...
 ###Day 12
 * Start TDDing react components, this makes use of the test utils React provide. First test just asserts post mount setup.
 * Noticed a huge performance hit on test speed when the react utils were included.
-* 
+

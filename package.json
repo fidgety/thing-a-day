@@ -24,6 +24,7 @@
     "core-js": "^1.1.1",
     "css-loader": "^0.15.6",
     "extract-text-webpack-plugin": "^0.8.2",
+    "inject-loader": "^2.0.1",
     "karma-chrome-launcher": "^0.2.0",
     "karma-cli": "^0.1.0",
     "karma-phantomjs-launcher": "^0.2.1",
