@@ -10,6 +10,7 @@ var routeStore = require('../../stores/route');
 var mainMapOptions = require('./../../utils/googleMaps/mainMapOptions');
 var Marker = require('../marker');
 var Route = require('../route');
+var Legs = require('../legs');
 
 module.exports = React.createClass({
     mixins: [
@@ -60,6 +61,11 @@ module.exports = React.createClass({
         var markers = this.state.waypoints.map(function (waypoint) {
             return <Marker key={waypoint.key} latLng={waypoint.latLng} map={that.state.map}></Marker>
         });
-        return (<div id="map"><Route route={this.state.route} legs={this.state.legs} map={this.state.map}/><div id="map-canvas">{markers}</div></div>);
+        return (
+            <div id="map">
+                <Route route={this.state.route} map={this.state.map}/>
+                <Legs legs={this.state.legs} map={this.state.map}/>
+                <div id="map-canvas">{markers}</div>
+            </div>);
     }
 });

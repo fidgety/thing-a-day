@@ -54,3 +54,19 @@ So far...
 * Start TDDing react components, this makes use of the test utils React provide. First test just asserts post mount setup.
 * Noticed a huge performance hit on test speed when the react utils were included.
 
+###Day 13
+* Included elevation information, this needed a refactor to an existing component and updating the store.
+* Elevations are computed on update - this makes the store more flexible for route changes, but is less performant.
+
+###Day 14
+* Refactor to make a ticker component which tweens any two numbers, this allowed me to reuse component for all distance stats.
+* Props used to move functionality and configuration into relevant places.
+
+###Day 15
+* Start the process of refactoring so undo/redo can be added.
+* Side by side refactor so existing functionality can work whilst things are moved over.
+
+
+
+
+
