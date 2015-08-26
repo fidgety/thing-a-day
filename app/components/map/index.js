@@ -20,7 +20,8 @@ module.exports = React.createClass({
         return {
             map: undefined,
             waypoints: [],
-            route: new google.maps.Polyline()
+            route: new google.maps.Polyline(),
+            legs: []
         };
     },
     onWaypointsChange(waypoints) {
@@ -30,7 +31,8 @@ module.exports = React.createClass({
     },
     onRouteChange(route) {
         this.setState({
-            route: route.path
+            route: route.path,
+            legs: route.legs
         });
     },
     componentDidMount: function () {
@@ -58,6 +60,6 @@ module.exports = React.createClass({
         var markers = this.state.waypoints.map(function (waypoint) {
             return <Marker key={waypoint.key} latLng={waypoint.latLng} map={that.state.map}></Marker>
         });
-        return (<div id="map"><Route route={this.state.route} map={this.state.map}/><div id="map-canvas">{markers}</div></div>);
+        return (<div id="map"><Route route={this.state.route} legs={this.state.legs} map={this.state.map}/><div id="map-canvas">{markers}</div></div>);
     }
 });
