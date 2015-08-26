@@ -2,20 +2,25 @@ var Reflux = require('reflux');
 var elevations = require('../utils/googleMaps/elevations');
 var actions = require('../actions/map');
 var routeUtils = require('../utils/googleMaps/route');
+var flattenArray = require('../utils/array/flatten');
 
 module.exports = Reflux.createStore({
     listenables: actions,
-    _updateElevations(newElevations) {
+    _addLegElevations(newElevations) {
+        this.store.legs.push(newElevations);
+        this._updateElevations()
+    },
+    _updateElevations() {
         var store = this.store;
-        var leg = [];
+        var allElevations = flattenArray(store.legs);
 
-        newElevations.forEach(newElevation => {
-            store.elevations.push(newElevation.elevation);
-            store.positions.push(newElevation.location);
-            leg.push(newElevation);
+        store.elevations = [];
+        store.positions = [];
+
+        allElevations.forEach(elevation => {
+            store.elevations.push(elevation.elevation);
+            store.positions.push(elevation.location);
         });
-
-        store.legs.push(leg);
     },
     _updateAscDesc() {
         var store = this.store;
@@ -29,12 +34,18 @@ module.exports = Reflux.createStore({
             return currentValue;
         });
     },
+    onUndo() {
+        this.store.legs.pop();
+        this._updateElevations();
+        this._updateAscDesc();
+        this.trigger(this.store);
+    },
     onRouteUpdated(latLngs) {
         var store = this.store;
         var that = this;
 
         elevations(routeUtils.makeSamplePoints(latLngs, undefined, 1000), function (results) {
-            that._updateElevations(results);
+            that._addLegElevations(results);
             that._updateAscDesc();
             that.trigger(store);
         });

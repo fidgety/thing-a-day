@@ -15,7 +15,7 @@ module.exports = React.createClass({
     },
     onElevationsChange: function (elevations) {
         this.setState({
-            elevations
+            elevations: elevations.elevations
         });
     },
     render: function () {
@@ -28,7 +28,7 @@ module.exports = React.createClass({
         };
 
         var data = {
-            labels: [],
+            labels: this.state.elevations,
             datasets: [
                 {
                     label: "My First dataset",
@@ -38,10 +38,11 @@ module.exports = React.createClass({
                     pointStrokeColor: "#fff",
                     pointHighlightFill: "#fff",
                     pointHighlightStroke: "rgba(220,220,220,1)",
-                    data: this.state.elevations.elevations
+                    data: this.state.elevations
                 }
             ]
         };
+
         return <div id="elevations"><LineChart data={data} options={ops}/></div>;
     }
 });

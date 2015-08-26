@@ -2,6 +2,7 @@ var Reflux = require('reflux');
 var mapMethods = require('../utils/googleMaps/directions');
 var routeMethods = require('../utils/googleMaps/route');
 var actions = require('../actions/map');
+var flattenArray = require('../utils/array/flatten');
 
 module.exports = Reflux.createStore({
     listenables: actions,
@@ -21,7 +22,7 @@ module.exports = Reflux.createStore({
         newLatLngs.forEach(latLng => path.push(latLng));
     },
     _calcDistance() {
-        var route = Array.prototype.concat.apply([], this.store.legs.map(polyline => polyline.polyline.getPath().getArray()));
+        var route = flattenArray(this.store.legs.map(polyline => polyline.polyline.getPath().getArray()));
         this.store.distance = google.maps.geometry.spherical.computeLength(route);
     },
     _addLeg(newLatLngs) {
