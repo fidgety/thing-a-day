@@ -24,6 +24,10 @@ module.exports = Reflux.createStore({
             polyline
         });
     },
+    onUndo() {
+        this.store.legs.pop();
+        this.trigger(this.store);
+    },
     onNewWaypoint(latLng) {
         var that = this;
         if (this._routeStarted()) {

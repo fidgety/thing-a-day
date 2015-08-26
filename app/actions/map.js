@@ -1,3 +1,3 @@
 var Reflux = require('reflux');
 
-module.exports = Reflux.createActions(['mapClicked', 'newWaypoint', 'routeUpdated']);
+module.exports = Reflux.createActions(['mapClicked', 'newWaypoint', 'routeUpdated', 'undo']);

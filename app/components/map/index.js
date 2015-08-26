@@ -9,7 +9,6 @@ var routeStore = require('../../stores/route');
 
 var mainMapOptions = require('./../../utils/googleMaps/mainMapOptions');
 var Marker = require('../marker');
-var Route = require('../route');
 var Legs = require('../legs');
 
 module.exports = React.createClass({
@@ -63,7 +62,6 @@ module.exports = React.createClass({
         });
         return (
             <div id="map">
-                <Route route={this.state.route} map={this.state.map}/>
                 <Legs legs={this.state.legs} map={this.state.map}/>
                 <div id="map-canvas">{markers}</div>
             </div>);
