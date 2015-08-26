@@ -6,15 +6,23 @@ var actions = require('../actions/map');
 module.exports = Reflux.createStore({
     listenables: actions,
     _routeStarted() {
-        return this.store.path.getPath().length > 0;
+        return this.store.startingLatLng;
     },
     _previousWaypoint() {
-        var path = this.store.path.getPath();
-        return path.getAt(path.getLength()-1)
+        if(this.store.legs.length) {
+            var path = this.store.legs[this.store.legs.length - 1].polyline.getPath();
+            return path.getAt(path.getLength() - 1)
+        }
+
+        return this.store.startingLatLng;
     },
     _updatePath(newLatLngs) {
         var path = this.store.path.getPath();
         newLatLngs.forEach(latLng => path.push(latLng));
+    },
+    _calcDistance() {
+        var route = Array.prototype.concat.apply([], this.store.legs.map(polyline => polyline.polyline.getPath().getArray()));
+        this.store.distance = google.maps.geometry.spherical.computeLength(route);
     },
     _addLeg(newLatLngs) {
         var polyline = new google.maps.Polyline({
@@ -26,6 +34,7 @@ module.exports = Reflux.createStore({
     },
     onUndo() {
         this.store.legs.pop();
+        this._calcDistance();
         this.trigger(this.store);
     },
     onNewWaypoint(latLng) {
@@ -33,14 +42,13 @@ module.exports = Reflux.createStore({
         if (this._routeStarted()) {
             mapMethods.getDirections(this._previousWaypoint(), latLng, function (route) {
                 var newRouteLatLngs = routeMethods.routeToLatLngs(route);
-                that._updatePath(newRouteLatLngs);
                 that._addLeg(newRouteLatLngs);
-                that.store.distance = google.maps.geometry.spherical.computeLength(that.store.path.getPath().getArray());
+                that._calcDistance();
                 actions.routeUpdated(newRouteLatLngs);
                 that.trigger(that.store);
             })
         } else {
-            this.store.path.getPath().push(latLng);
+            this.store.startingLatLng = latLng;
         }
 
     },

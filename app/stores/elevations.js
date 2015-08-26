@@ -7,10 +7,15 @@ module.exports = Reflux.createStore({
     listenables: actions,
     _updateElevations(newElevations) {
         var store = this.store;
+        var leg = [];
+
         newElevations.forEach(newElevation => {
             store.elevations.push(newElevation.elevation);
             store.positions.push(newElevation.location);
+            leg.push(newElevation);
         });
+
+        store.legs.push(leg);
     },
     _updateAscDesc() {
         var store = this.store;
@@ -37,6 +42,7 @@ module.exports = Reflux.createStore({
     store: {
         elevations: [],
         positions: [],
+        legs: [],
         ascending: 0,
         descending: 0
     },
