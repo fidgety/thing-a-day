@@ -33,7 +33,7 @@ module.exports = React.createClass({
         });
     },
     render: function () {
-        return <div>
+        return <div id="stats">
             <Ticker name="distance" value={this.state.distance} label="km" animate={true}/>
             <Ticker name="asc" value={this.state.ascending} label="m" animate={true}/>
             <Ticker name="desc" value={this.state.descending} label="m" animate={true}/>

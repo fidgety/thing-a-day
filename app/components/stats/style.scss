@@ -1,9 +1,10 @@
-#distance {
+#stats {
     color: white;
     font-size: 3em;
     position: absolute;
     right: 10px;
     top: 10px;
+    z-index: 2;
 
     &.ticker-animation {
         animation: grow 1.2s;

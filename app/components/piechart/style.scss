@@ -1,0 +1,46 @@
+#piechart {
+    background: rgba(0,0,0,0.75);
+    height: 200px;
+    width: 400px;
+    position: absolute;
+    right: 0;
+    z-index: 2;
+    color: white;
+
+    .ascdesc {
+        position: absolute;
+        top: 80px;
+        font-size: 30px;
+        width: 100px;
+        text-align: right;
+    }
+
+    .ascdesc span {
+
+    }
+
+    .asc {
+        right: 0;
+        text-align: left;
+    }
+
+    .distance {
+        position: absolute;
+        width: 100px;
+        top: 65px;
+        left: 150px;
+        text-align: center;
+        font-size: 45px;
+    }
+
+    .distance div {
+        font-size: 20px;
+
+    }
+
+    canvas {
+        margin: 10px 0 0 110px;
+        width: 180px;
+        height: 180px;
+    }
+}

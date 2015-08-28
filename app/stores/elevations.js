@@ -6,9 +6,36 @@ var flattenArray = require('../utils/array/flatten');
 
 module.exports = Reflux.createStore({
     listenables: actions,
-    _addLegElevations(newElevations) {
+    onUndo() {
+        this.store.legs.pop();
+        this._updateStoreWithNewValues();
+    },
+    onRouteUpdated(latLngs) {
+        var that = this;
+
+        elevations(routeUtils.makeSamplePoints(latLngs, undefined, 1000), function (results) {
+            that._addLeg(results);
+            that._updateStoreWithNewValues();
+        });
+    },
+    store: {
+        elevations: [],
+        positions: [],
+        legs: [],
+        ascending: 0,
+        descending: 0,
+        flatish: 0
+    },
+    getInitialState() {
+        return this.store;
+    },
+    _updateStoreWithNewValues() {
+        this._updateElevations();
+        this._updateAscDesc();
+        this.trigger(this.store);
+    },
+    _addLeg(newElevations) {
         this.store.legs.push(newElevations);
-        this._updateElevations()
     },
     _updateElevations() {
         var store = this.store;
@@ -26,38 +53,19 @@ module.exports = Reflux.createStore({
         var store = this.store;
         store.ascending = 0;
         store.descending = 0;
+        store.flatish = 0;
 
         store.elevations.reduce((prevValue, currentValue) => {
             var difference = prevValue - currentValue;
+            var differenceAbs = Math.abs(difference);
 
-            difference > 0 ? store.descending += Math.abs(difference) : store.ascending += Math.abs(difference);
+            if (differenceAbs < 10) {
+                store.flatish += differenceAbs;
+            }
+            else {
+                difference > 0 ? store.descending += differenceAbs : store.ascending += differenceAbs;
+            }
             return currentValue;
         });
-    },
-    onUndo() {
-        this.store.legs.pop();
-        this._updateElevations();
-        this._updateAscDesc();
-        this.trigger(this.store);
-    },
-    onRouteUpdated(latLngs) {
-        var store = this.store;
-        var that = this;
-
-        elevations(routeUtils.makeSamplePoints(latLngs, undefined, 1000), function (results) {
-            that._addLegElevations(results);
-            that._updateAscDesc();
-            that.trigger(store);
-        });
-    },
-    store: {
-        elevations: [],
-        positions: [],
-        legs: [],
-        ascending: 0,
-        descending: 0
-    },
-    getInitialState() {
-        return this.store;
     }
 });

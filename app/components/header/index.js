@@ -18,6 +18,6 @@ module.exports = React.createClass({
         });
     },
     render: function () {
-        return <div id="header"><h1>Thing-a-day</h1><div onClick={actions.undo}>undo</div><Stats/></div>;
+        return <div id="header"><div className="logo icon-teapot"></div></div>;
     }
 });

@@ -23,6 +23,9 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-teapot:before {
+    content: "\e601";
+}
 .icon-location:before {
     content: "\e600";
 }

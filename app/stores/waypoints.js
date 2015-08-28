@@ -4,6 +4,10 @@ var actions = require('../actions/map');
 
 module.exports = Reflux.createStore({
     listenables: actions,
+    onUndo() {
+        this.store.pop();
+        this.trigger(this.store);
+    },
     onMapClicked(latLng) {
         var that = this;
         mapMethods.snapToRoute(latLng, function (latLng) {

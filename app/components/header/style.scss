@@ -1,16 +1,18 @@
 @import "colours";
 
 #header {
-    width: 100%;
-    height: 80px;
-    background: rgba(0,0,0,0.8);
+    width: 90px;
+    height: 90px;
+    background: rgba(0,0,0,0.75);
     position: absolute;
+    top: 10px;
+    left: 10px;
     z-index: 2;
+    border-radius: 9999px;
 
-    h1 {
-        color: $headings;
-        font-family: futura;
-        font-size: 2em;
-        padding: .5em;
+    .logo {
+        padding: 15px 0 0 15px;
+        color: white;
+        font-size: 60px;
     }
 }
