@@ -1,7 +1,6 @@
 var React = require('react');
 var Reflux = require('reflux');
 var TestUtils = require('react/addons').addons.TestUtils;
-var Stats = require('../../../app/components/stats');
 
 function setUpComponent() {
     var fakeRouteStore = Reflux.createStore({
@@ -20,14 +19,21 @@ function setUpComponent() {
             });
         }
     });
-    var StatsFactory = require('inject!../../../app/components/stats');
-    var Stats = StatsFactory({
+    var PieChartFactory = require('inject!../../../app/components/piechart');
+    var PieChart = PieChartFactory({
         '../../stores/route': fakeRouteStore,
-        '../../stores/elevations': fakeElevationsStore
+        '../../stores/elevations': fakeElevationsStore,
+        'react-chartjs': {
+            Pie: new React.createClass({
+                render() {
+                    return (<div>hello</div>)
+                }
+            })
+        }
     });
 
-    var componentUnderTest = TestUtils.renderIntoDocument(<Stats/>);
-    var dom = TestUtils.findRenderedComponentWithType(componentUnderTest, Stats).getDOMNode();
+    var componentUnderTest = TestUtils.renderIntoDocument(<PieChart/>);
+    var dom = TestUtils.findRenderedComponentWithType(componentUnderTest, PieChart).getDOMNode();
 
     fakeRouteStore.updateNumber();
     fakeElevationsStore.updateNumber();
@@ -35,8 +41,7 @@ function setUpComponent() {
 }
 describe('stats component', function () {
     it('should render as zero initially', function () {
-        var componentUnderTest = TestUtils.renderIntoDocument(<Stats/>);
-        var dom = TestUtils.findRenderedComponentWithType(componentUnderTest, Stats).getDOMNode();
+        var dom = setUpComponent();
 
         dom.getElementsByTagName('span')[0].innerHTML.should.equal('0');
     });
@@ -44,8 +49,8 @@ describe('stats component', function () {
     it('should update overall distance, converting to km when store is updated', function (done) {
         var dom = setUpComponent();
 
-        setTimeout( () => {
-            dom.getElementsByTagName('span')[0].innerHTML.should.equal('92.00');
+        setTimeout(() => {
+            dom.getElementsByTagName('span')[3].innerHTML.should.equal('92.0');
             done();
         }, 1000);
     });
@@ -53,16 +58,16 @@ describe('stats component', function () {
     it('should update overall ascending when store is updated', function (done) {
         var dom = setUpComponent();
 
-        setTimeout( () => {
-            dom.getElementsByTagName('span')[2].innerHTML.should.equal('10.00');
+        setTimeout(() => {
+            dom.getElementsByClassName('desc')[0].getElementsByTagName('span')[0].innerHTML.should.equal('10');
             done();
         }, 1000);
     });
 
     it('should update overall descending when store is updated', function (done) {
         var dom = setUpComponent();
-        setTimeout( () => {
-            dom.getElementsByTagName('span')[4].innerHTML.should.equal('12.20');
+        setTimeout(() => {
+            dom.getElementsByClassName('asc')[0].getElementsByTagName('span')[0].innerHTML.should.equal('12');
             done();
         }, 1000);
     });
