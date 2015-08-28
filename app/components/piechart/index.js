@@ -4,6 +4,7 @@ var React = require('react');
 var Reflux = require('reflux');
 
 var Pie = require('react-chartjs').Pie;
+var Ticker = require('../ticker');
 
 var routeStore = require('../../stores/route');
 var elevationsStore = require('../../stores/elevations');
@@ -67,15 +68,15 @@ module.exports = React.createClass({
 
         return <div>
             <div id="piechart">
-                <div className="ascdesc asc">{this.state.descending}
-                    <span>m</span>
+                <div className="ascdesc asc"><Ticker value={this.state.descending} animate="true" decimalPlaces="0"/>
+                    <span className="m">m</span>
                 </div>
-                <div className="distance">{this.state.distance}
-                    <div>km</div>
+                <div className="distance"><Ticker value={this.state.distance} animate="true" decimalPlaces="1"/>
+                    <div className="km">km</div>
                 </div>
                 <Pie data={data} options={options}/>
-                <div className="ascdesc desc">{this.state.ascending}
-                    <span>m</span>
+                <div className="ascdesc desc"><Ticker value={this.state.ascending} animate="true" decimalPlaces="0"/>
+                    <span className="m">m</span>
                 </div>
             </div>
         </div>

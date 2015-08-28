@@ -10,7 +10,7 @@ module.exports = React.createClass({
     },
     componentWillReceiveProps(nextProps) {
         if (this.props.animate) {
-            updateNumber(this.state.value, nextProps.value, this);
+            updateNumber(this.state.value, nextProps.value, this, this.props.decimalPlaces);
         }
         else {
             this.setState({
@@ -25,7 +25,7 @@ module.exports = React.createClass({
     }
 });
 
-function updateNumber(oldNumber, newNumber, that) {
+function updateNumber(oldNumber, newNumber, that, decimalPlaces) {
     that.setState({
         class: 'ticker-animation'
     });
@@ -50,7 +50,7 @@ function updateNumber(oldNumber, newNumber, that) {
         }
 
         that.setState({
-            value: currentNumber.toFixed(2)
+            value: currentNumber.toFixed(decimalPlaces)
         });
     };
 

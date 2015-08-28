@@ -15,8 +15,8 @@
         text-align: right;
     }
 
-    .ascdesc span {
-
+    .ascdesc div {
+        display: inline-block;
     }
 
     .asc {
@@ -33,7 +33,7 @@
         font-size: 45px;
     }
 
-    .distance div {
+    .distance .km {
         font-size: 20px;
 
     }
