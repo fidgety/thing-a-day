@@ -55,6 +55,10 @@ module.exports = Reflux.createStore({
         store.descending = 0;
         store.flatish = 0;
 
+        if (store.elevations.length === 0) {
+            return;
+        }
+
         store.elevations.reduce((prevValue, currentValue) => {
             var difference = prevValue - currentValue;
             var differenceAbs = Math.abs(difference);

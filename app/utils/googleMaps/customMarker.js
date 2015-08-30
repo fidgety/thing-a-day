@@ -18,10 +18,10 @@ function CustomOverlay(bounds, map, content, hoverEvent) {
 
 CustomOverlay.prototype.onAdd = function () {
     var div = document.createElement('div');
-    div.className = 'custom-marker icon-location';
+    div.className = 'custom-marker icon-pin';
     div.innerHTML = '';
     div.style.position = 'absolute';
-    div.style.fontSize = '4em';
+    div.style.fontSize = '3em';
 
     var that = this;
 

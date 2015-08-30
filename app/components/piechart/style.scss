@@ -24,6 +24,16 @@
         text-align: left;
     }
 
+    .icon-arrow-up2:before, .icon-arrow-down2:before {
+        color: #666;
+        position: absolute;
+        top: -20px;
+        left: 0;
+    }
+    .icon-arrow-down2:before {
+        right: 0;
+    }
+
     .distance {
         position: absolute;
         width: 50px;

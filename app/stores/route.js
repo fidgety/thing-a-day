@@ -9,6 +9,9 @@ module.exports = Reflux.createStore({
 
     onUndo() {
         this.store.legs.pop();
+        if (this.store.legs.length === 0) {
+            this.store.startingLatLng = undefined;
+        }
         this._calcDistance();
         this.trigger(this.store);
     },

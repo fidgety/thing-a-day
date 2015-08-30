@@ -10,7 +10,8 @@ module.exports = React.createClass({
     mixins: [Reflux.listenTo(elevationsStore, 'onElevationsChange')],
     getInitialState: function () {
         return {
-            elevations: [1]
+            elevations: [1],
+            labels: [0]
         };
     },
     onElevationsChange: function (elevations) {
@@ -25,14 +26,20 @@ module.exports = React.createClass({
             pointDot: false,
             responsive: true,
             maintainAspectRatio: false,
-            datasetStrokeWidth: 1
+            datasetStrokeWidth: 1,
+            showTooltips: true,
+            customTooltips: function (tooltip) {
+                if (!tooltip) {
+                    return;
+                }
+                console.log(tooltip.text)
+            }
         };
 
         var data = {
             labels: this.state.elevations,
             datasets: [
                 {
-                    label: "My First dataset",
                     fillColor: "rgba(0,0,0,0)",
                     strokeColor: "white",
                     pointColor: "rgba(220,220,220,1)",

@@ -16,7 +16,7 @@ var Main = React.createClass({
     componentDidMount: function () {},
     render: function () {
         return (
-            <div id="main"><Header/><div className="undo" onClick={actions.undo}>undo</div><Map></Map><Stats/></div>
+            <div id="main"><div className="undo" onClick={actions.undo}>undo</div><Map/><Stats/></div>
         );
     }
 });
