@@ -1,7 +1,7 @@
 #piechart {
-    background: rgba(0,0,0,0.75);
-    height: 200px;
-    width: 400px;
+    //background: rgba(0,0,0,0.75);
+    height: 100px;
+    width: 200px;
     position: absolute;
     right: 0;
     z-index: 2;
@@ -9,9 +9,9 @@
 
     .ascdesc {
         position: absolute;
-        top: 80px;
-        font-size: 30px;
-        width: 100px;
+        top: 40px;
+        font-size: 15px;
+        width: 50px;
         text-align: right;
     }
 
@@ -26,21 +26,21 @@
 
     .distance {
         position: absolute;
-        width: 100px;
-        top: 65px;
-        left: 150px;
+        width: 50px;
+        top: 32.5px;
+        left: 75px;
         text-align: center;
-        font-size: 45px;
+        font-size: 22px;
     }
 
     .distance .km {
-        font-size: 20px;
+        font-size: 10px;
 
     }
 
     canvas {
-        margin: 10px 0 0 110px;
-        width: 180px;
-        height: 180px;
+        margin: 5px 0 0 55px;
+        width: 90px;
+        height: 90px;
     }
 }

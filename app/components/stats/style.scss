@@ -1,36 +1,19 @@
 #stats {
-    color: white;
-    font-size: 3em;
-    position: absolute;
-    right: 10px;
-    top: 10px;
     z-index: 2;
+    bottom: 0;
+    position: absolute;
+    overflow: hidden;
+    width: 100%;
+    background: rgba(0,0,0,0.75);
 
-    &.ticker-animation {
-        animation: grow 1.2s;
+    .left {
+        width: 70%;
+        float: left;
     }
 
-    @keyframes grow {
-        0% {
-            transform: scale(1);
-        }
-        10% {
-            transform: scale(1);
-        }
-        50% {
-            transform: scale(1.1);
-        }
-        90% {
-            transform: scale(1);
-        }
-        100% {
-            transform: scale(1);
-        }
+    .right {
+        width: 30%;
+        float: left;
     }
 }
 
-#asc, #desc {
-    float: right;
-    color: white;
-    padding-left: 10px;
-}

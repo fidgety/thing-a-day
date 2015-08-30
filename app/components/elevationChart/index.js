@@ -24,7 +24,8 @@ module.exports = React.createClass({
             scaleShowGridLines: false,
             pointDot: false,
             responsive: true,
-            maintainAspectRatio: false
+            maintainAspectRatio: false,
+            datasetStrokeWidth: 3
         };
 
         var data = {
@@ -32,8 +33,8 @@ module.exports = React.createClass({
             datasets: [
                 {
                     label: "My First dataset",
-                    fillColor: "rgba(100,100,100,0.8)",
-                    strokeColor: "rgba(100,100,100,1)",
+                    fillColor: "#869327",
+                    strokeColor: "white",
                     pointColor: "rgba(220,220,220,1)",
                     pointStrokeColor: "#fff",
                     pointHighlightFill: "#fff",
