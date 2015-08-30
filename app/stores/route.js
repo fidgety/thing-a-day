@@ -8,9 +8,12 @@ module.exports = Reflux.createStore({
     listenables: actions,
 
     onUndo() {
-        this.store.legs.pop();
         if (this.store.legs.length === 0) {
             this.store.startingLatLng = undefined;
+        }
+        this.store.legs.pop();
+        if (this.store.legs.length === 1) {
+            this.store.endLatLng = undefined;
         }
         this._calcDistance();
         this.trigger(this.store);
@@ -22,6 +25,7 @@ module.exports = Reflux.createStore({
                 var newRouteLatLngs = routeMethods.routeToLatLngs(route);
                 actions.routeUpdated(newRouteLatLngs);
                 that._addLeg(newRouteLatLngs);
+                that.store.endLatLng = newRouteLatLngs[newRouteLatLngs.length];
                 that._calcDistance();
                 that.trigger(that.store);
             })
@@ -32,7 +36,9 @@ module.exports = Reflux.createStore({
     },
     store: {
         legs: [],
-        distance: 0
+        distance: 0,
+        startingLatLng: undefined,
+        endLatLng: undefined
     },
     getInitialState() {
         return this.store;
@@ -41,12 +47,7 @@ module.exports = Reflux.createStore({
         return this.store.startingLatLng;
     },
     _previousWaypoint() {
-        if (this.store.legs.length) {
-            var path = this.store.legs[this.store.legs.length - 1].polyline.getPath();
-            return path.getAt(path.getLength() - 1)
-        }
-
-        return this.store.startingLatLng;
+        return this.store.endLatLng || this.store.startingLatLng;
     },
     _calcDistance() {
         var route = flattenArray(this.store.legs.map(polyline => polyline.polyline.getPath().getArray()));

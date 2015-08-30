@@ -11,15 +11,18 @@ module.exports = React.createClass({
     getInitialState: function () {
         return {
             elevations: [1],
-            labels: [0]
+            labels: [0],
+            positions: []
         };
     },
     onElevationsChange: function (elevations) {
         this.setState({
-            elevations: elevations.elevations
+            elevations: elevations.elevations,
+            positions: elevations.positions
         });
     },
     render: function () {
+        var that = this;
         var ops = {
             showScale: false,
             scaleShowGridLines: false,
@@ -30,9 +33,13 @@ module.exports = React.createClass({
             showTooltips: true,
             customTooltips: function (tooltip) {
                 if (!tooltip) {
-                    return;
+                    return console.log('event no pin')
                 }
-                console.log(tooltip.text)
+                var text = tooltip.text;
+                var colonPos = text.indexOf(':');
+                var elevation = text.slice(colonPos + 1);
+                var posInArray = that.state.elevations.indexOf(parseFloat(elevation));
+                console.log('action hover pin', that.state.positions[posInArray]);
             }
         };
 
