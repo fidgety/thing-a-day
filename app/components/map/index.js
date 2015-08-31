@@ -8,6 +8,7 @@ var waypointsStore = require('../../stores/waypoints');
 var routeStore = require('../../stores/route');
 
 var mainMapOptions = require('./../../utils/googleMaps/mainMapOptions');
+var Markers = require('../markers');
 var Marker = require('../marker');
 var Legs = require('../legs');
 
@@ -63,7 +64,8 @@ module.exports = React.createClass({
         return (
             <div id="map">
                 <Legs legs={this.state.legs} map={this.state.map}/>
-                <div id="map-canvas">{markers}</div>
+                <Markers map={this.state.map}/>
+                <div id="map-canvas"></div>
             </div>);
     }
 });

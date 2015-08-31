@@ -12,25 +12,24 @@ module.exports = Reflux.createStore({
             this.store.startingLatLng = undefined;
         }
         this.store.legs.pop();
-        if (this.store.legs.length === 1) {
-            this.store.endLatLng = undefined;
-        }
+        this.store.endLatLng = this._endOfRoute();
         this._calcDistance();
         this.trigger(this.store);
     },
     onNewWaypoint(latLng) {
         var that = this;
         if (this._routeStarted()) {
-            mapMethods.getDirections(this._previousWaypoint(), latLng, function (route) {
+            mapMethods.getDirections(this._endOfRoute(), latLng, function (route) {
                 var newRouteLatLngs = routeMethods.routeToLatLngs(route);
                 actions.routeUpdated(newRouteLatLngs);
                 that._addLeg(newRouteLatLngs);
-                that.store.endLatLng = newRouteLatLngs[newRouteLatLngs.length];
+                that.store.endLatLng = that._endOfRoute();
                 that._calcDistance();
                 that.trigger(that.store);
             })
         } else {
             this.store.startingLatLng = latLng;
+            that.trigger(that.store);
         }
 
     },
@@ -46,8 +45,13 @@ module.exports = Reflux.createStore({
     _routeStarted() {
         return this.store.startingLatLng;
     },
-    _previousWaypoint() {
-        return this.store.endLatLng || this.store.startingLatLng;
+    _endOfRoute() {
+        if (this.store.legs.length) {
+            var path = this.store.legs[this.store.legs.length - 1].polyline.getPath();
+            return path.getAt(path.getLength() - 1)
+        }
+
+        return this.store.startingLatLng;
     },
     _calcDistance() {
         var route = flattenArray(this.store.legs.map(polyline => polyline.polyline.getPath().getArray()));

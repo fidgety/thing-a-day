@@ -7,7 +7,15 @@ module.exports = React.createClass({
         return {};
     },
     shouldComponentUpdate: function (nextProps) {
-        return nextProps.key !== this.props.key;
+        if (!nextProps.latLng) {
+            return false;
+        }
+
+        if (!this.props.latLng && nextProps.latLng) {
+            return true;
+        }
+
+        return nextProps.latLng.toString() !== this.props.latLng.toString();
     },
     componentWillUnmount: function () {
         this.state.marker.setMap(null);

@@ -50,16 +50,21 @@ CustomOverlay.prototype.offHighlighted = function () {
 };
 
 CustomOverlay.prototype.draw = function () {
-    var overlayProjection = this.getProjection();
+    if (this.latLng) {
+        var overlayProjection = this.getProjection();
 
-    var sw = overlayProjection.fromLatLngToDivPixel(this.latLng);
+        var sw = overlayProjection.fromLatLngToDivPixel(this.latLng);
 
-    var div = this.div_;
-    var width = div.offsetWidth;
-    var height = div.offsetHeight;
+        var div = this.div_;
+        var width = div.offsetWidth;
+        var height = div.offsetHeight;
 
-    div.style.left = (sw.x - (width / 2)) + 'px';
-    div.style.top = (sw.y - height) + 'px';
+        div.style.left = (sw.x - (width / 2)) + 'px';
+        div.style.top = (sw.y - height) + 'px';
+    }
+    else {
+        this.div_.style.display = 'none';
+    }
 };
 
 CustomOverlay.prototype.onRemove = function () {
