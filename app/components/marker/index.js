@@ -23,7 +23,8 @@ module.exports = React.createClass({
     render: function () {
         this.state.marker = customMarker(
             this.props.latLng,
-            this.props.map
+            this.props.map,
+            this.props.classNames || 'custom-marker icon-pin'
         );
         return null;
     }

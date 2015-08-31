@@ -1,15 +1,16 @@
-module.exports = function(latLng, map, content, hoverEvent) {
+module.exports = function(latLng, map, className, content, hoverEvent) {
     //var bounds = new google.maps.LatLng(lat, lng);
 
-    return new CustomOverlay(latLng, map, content, hoverEvent || function () {});
+    return new CustomOverlay(latLng, map, className, content, hoverEvent || function () {});
 };
 
 CustomOverlay.prototype = new google.maps.OverlayView();
 
-function CustomOverlay(bounds, map, content, hoverEvent) {
+function CustomOverlay(bounds, map, className, content, hoverEvent) {
     this.latLng = bounds;
     this.content = content;
     this.hoverEvent = hoverEvent;
+    this.className = className;
 
     this.div_ = null;
 
@@ -18,10 +19,7 @@ function CustomOverlay(bounds, map, content, hoverEvent) {
 
 CustomOverlay.prototype.onAdd = function () {
     var div = document.createElement('div');
-    div.className = 'custom-marker icon-pin';
-    div.innerHTML = '';
-    div.style.position = 'absolute';
-    div.style.fontSize = '3em';
+    div.className = this.className;
 
     var that = this;
 

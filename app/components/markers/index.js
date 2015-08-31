@@ -16,7 +16,8 @@ module.exports = React.createClass({
     getInitialState: function () {
         return {
             start: undefined,
-            end: undefined
+            end: undefined,
+            elevationHover: undefined
         };
     },
     shouldComponentUpdate() {
@@ -25,7 +26,8 @@ module.exports = React.createClass({
     onRouteChange(route) {
         this.setState({
             start: route.startingLatLng,
-            end: route.endLatLng
+            end: route.endLatLng,
+            elevationHover: route.elevationHover
         });
     },
     componentDidMount: function () {
@@ -33,8 +35,9 @@ module.exports = React.createClass({
     render: function () {
         return (
             <div>
-                <Marker key={'s' + this.state.start} latLng={this.state.start} map={this.props.map}/>
-                <Marker key={'e' + this.state.end} latLng={this.state.end} map={this.props.map}/>
+                <Marker key={'s' + this.state.start} latLng={this.state.start} map={this.props.map} classNames="start-marker icon-pin"/>
+                <Marker key={'e' + this.state.end} latLng={this.state.end} map={this.props.map} classNames="end-marker icon-pin"/>
+                <Marker key={'eh' + this.state.elevationHover} latLng={this.state.elevationHover} map={this.props.map} classNames="hover-marker icon-pin"/>
             </div>
         );
     }

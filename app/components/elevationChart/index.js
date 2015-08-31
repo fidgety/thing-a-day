@@ -6,6 +6,8 @@ var Reflux = require('reflux');
 var LineChart = require("react-chartjs").Line;
 var elevationsStore = require('../../stores/elevations');
 
+var actions = require('../../actions/map');
+
 module.exports = React.createClass({
     mixins: [Reflux.listenTo(elevationsStore, 'onElevationsChange')],
     getInitialState: function () {
@@ -33,13 +35,13 @@ module.exports = React.createClass({
             showTooltips: true,
             customTooltips: function (tooltip) {
                 if (!tooltip) {
-                    return console.log('event no pin')
+                    return actions.elevationHover(undefined);
                 }
                 var text = tooltip.text;
                 var colonPos = text.indexOf(':');
                 var elevation = text.slice(colonPos + 1);
                 var posInArray = that.state.elevations.indexOf(parseFloat(elevation));
-                console.log('action hover pin', that.state.positions[posInArray]);
+                actions.elevationHover(that.state.positions[posInArray]);
             }
         };
 

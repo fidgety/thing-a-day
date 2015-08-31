@@ -13,7 +13,15 @@ module.exports = Reflux.createStore({
         }
         this.store.legs.pop();
         this.store.endLatLng = this._endOfRoute();
+
+        if (this.store.legs.length === 0) {
+            this.store.endLatLng = undefined;
+        }
         this._calcDistance();
+        this.trigger(this.store);
+    },
+    onElevationHover(latLng) {
+        this.store.elevationHover = latLng;
         this.trigger(this.store);
     },
     onNewWaypoint(latLng) {
@@ -37,7 +45,8 @@ module.exports = Reflux.createStore({
         legs: [],
         distance: 0,
         startingLatLng: undefined,
-        endLatLng: undefined
+        endLatLng: undefined,
+        elevationHover: undefined
     },
     getInitialState() {
         return this.store;
