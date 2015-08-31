@@ -12,8 +12,8 @@ module.exports = React.createClass({
     mixins: [Reflux.listenTo(elevationsStore, 'onElevationsChange')],
     getInitialState: function () {
         return {
-            elevations: [1],
-            labels: [0],
+            elevations: [1,1],
+            labels: [0,0],
             positions: []
         };
     },

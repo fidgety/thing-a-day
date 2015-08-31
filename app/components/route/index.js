@@ -5,14 +5,14 @@ module.exports = React.createClass({
         return {
             route2: new google.maps.Polyline({
                 path: [],
-                strokeColor: '#fff',
-                strokeWeight: 7,
+                strokeColor: 'rgba(0,0,0,0.3)',
+                strokeWeight: 12,
                 map: this.props.map
             }),
             route: new google.maps.Polyline({
                 path: [],
-                strokeColor: '#444',
-                strokeWeight: 5,
+                strokeColor: '#FF6633',
+                strokeWeight: 4,
                 map: this.props.map
             })
         };
