@@ -6,16 +6,15 @@ var actions = require('../../app/actions/map');
 
 var unlisten;
 
-describe.only('picks store', function () {
+describe('picks store', function () {
     afterEach(function () {
         unlisten && unlisten();
     });
 
     it('should return an initial state', function () {
-        picks.getInitialState().should.deep.equal({
-            picks: [],
-            highlighted: undefined
-        });
+        var initialState = picks.getInitialState();
+        expect(initialState.highlighted).to.equal(undefined);
+        expect(initialState.picks).to.be.a('array');
     });
     
     it('should provide a list of picks for the area specified', function (done) {

@@ -5,7 +5,12 @@ var find = require('../utils/array/find');
 module.exports = Reflux.createStore({
     listenables: actions,
     store: {
-        picks: [],
+        picks: [{
+            name: 'gliding club',
+            tags: ['climb', 'view', 'quiet'],
+            latLng: new google.maps.LatLng(53.320646, -1.650674),
+            img: '/picks/gliding-club.jpg'
+        }],
         highlighted: undefined
     },
     onPickHighlighted(name) {
@@ -19,12 +24,7 @@ module.exports = Reflux.createStore({
         this.trigger(this.store);
     },
     getPicksForBounds() {
-        this.store.picks = [{
-            name: 'gliding club',
-            tags: ['climb', 'view', 'quiet'],
-            latLng: 'thing',
-            img: '/picks/gliding-club.jpg'
-        }];
+        //this.store.picks = ['some picks from somewhere'];
         this.trigger(this.store);
     },
     getInitialState() {

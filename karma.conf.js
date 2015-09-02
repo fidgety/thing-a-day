@@ -6,7 +6,7 @@ module.exports = function (config) {
         frameworks: ['mocha', 'chai'],
         reporters: ['dots'],
         files: [
-            //'https://maps.googleapis.com/maps/api/js?key=AIzaSyBqHMoN6nB_EgKgG0rZ9LjC5dNu2UV34KY&libraries=geometry',
+            'https://maps.googleapis.com/maps/api/js?key=AIzaSyBqHMoN6nB_EgKgG0rZ9LjC5dNu2UV34KY&libraries=geometry',
             'tests.webpack.js'
         ],
         preprocessors: {

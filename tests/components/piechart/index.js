@@ -59,7 +59,7 @@ describe('stats component', function () {
         var dom = setUpComponent();
 
         setTimeout(() => {
-            dom.getElementsByClassName('desc')[0].getElementsByTagName('span')[0].innerHTML.should.equal('10');
+            dom.getElementsByClassName('desc')[0].getElementsByTagName('span')[0].innerHTML.should.equal('12');
             done();
         }, 1000);
     });
@@ -67,7 +67,7 @@ describe('stats component', function () {
     it('should update overall descending when store is updated', function (done) {
         var dom = setUpComponent();
         setTimeout(() => {
-            dom.getElementsByClassName('asc')[0].getElementsByTagName('span')[0].innerHTML.should.equal('12');
+            dom.getElementsByClassName('asc')[0].getElementsByTagName('span')[0].innerHTML.should.equal('10');
             done();
         }, 1000);
     });

@@ -11,6 +11,7 @@ var mainMapOptions = require('./../../utils/googleMaps/mainMapOptions');
 var Markers = require('../markers');
 var Marker = require('../marker');
 var Legs = require('../legs');
+var Picks = require('../picks/picksMarkers');
 
 module.exports = React.createClass({
     mixins: [
@@ -65,6 +66,7 @@ module.exports = React.createClass({
             <div id="map">
                 <Legs legs={this.state.legs} map={this.state.map}/>
                 <Markers map={this.state.map}/>
+                <Picks map={this.state.map}/>
                 <div id="map-canvas"></div>
             </div>);
     }

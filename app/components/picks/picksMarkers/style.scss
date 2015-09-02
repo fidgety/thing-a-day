@@ -1,0 +1,26 @@
+.picks-marker {
+    position: absolute;
+    font-size: 30px;
+    animation: spin 0.2s linear 0s 1;
+}
+
+.picks-marker:hover {
+    font-size: 40px;
+    margin: -10px 0 0 -5px;
+}
+
+.start-picks-marker {
+    color: green;
+}
+
+@keyframes spin {
+    0% {
+        transform: perspective( 400px ) rotateY(90deg);
+        transform-style: preserve-3d;
+    }
+
+    100% {
+        transform: perspective( 400px ) rotateY(0deg);
+        transform-style: preserve-3d;
+    }
+}

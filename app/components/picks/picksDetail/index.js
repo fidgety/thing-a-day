@@ -3,9 +3,9 @@ require('./style.scss');
 var React = require('react');
 var Reflux = require('reflux');
 
-var actions = require('../../actions/map');
+var actions = require('../../../actions/map');
 
-var Picks = require('../../stores/picks');
+var Picks = require('../../../stores/picks');
 
 module.exports = React.createClass({
     getInitialState: function () {

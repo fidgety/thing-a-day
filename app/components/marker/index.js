@@ -21,6 +21,7 @@ module.exports = React.createClass({
         this.state.marker.setMap(null);
     },
     render: function () {
+        console.log(this.props, 'marker')
         this.state.marker = customMarker(
             this.props.latLng,
             this.props.map,
