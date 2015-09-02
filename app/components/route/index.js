@@ -37,8 +37,13 @@ module.exports = React.createClass({
         this.state.route.setMap(this.props.map);
 
         for (var i = currentPathLength; i < newPathLength; i++) {
-            currentPath2.push(newPath.getAt(i));
-            currentPath.push(newPath.getAt(i));
+            (function () {
+                var count = i;
+                setTimeout(function () {
+                    currentPath2.push(newPath.getAt(count));
+                    currentPath.push(newPath.getAt(count));
+                }, i);
+            }());
         }
 
         return null;
