@@ -66,6 +66,12 @@ So far...
 * Start the process of refactoring so undo/redo can be added.
 * Side by side refactor so existing functionality can work whilst things are moved over.
 
+###Day 16-20
+* UX! - CSS animations, tidy up charts, transitions when new data added.
+
+###Day 21
+* Circle CI integration and ES Lint added to test
+
 
 
 
