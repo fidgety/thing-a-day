@@ -18,7 +18,7 @@ module.exports = function (config) {
         logLevel: config.LOG_INFO,
         autoWatch: true,
         browsers: ['PhantomJS'],
-        singleRun: false,
+        singleRun: true,
         webpack: { //kind of a copy of your webpack config
             devtool: 'inline-source-map', //just do inline source maps instead of the default
             module: {
