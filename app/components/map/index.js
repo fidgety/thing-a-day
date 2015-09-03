@@ -9,7 +9,7 @@ var routeStore = require('../../stores/route');
 
 var mainMapOptions = require('./../../utils/googleMaps/mainMapOptions');
 var Markers = require('../markers');
-var Marker = require('../marker');
+//var Marker = require('../marker');
 var Legs = require('../legs');
 var Picks = require('../picks/picksMarkers');
 
@@ -58,10 +58,10 @@ module.exports = React.createClass({
         });
     },
     render: function () {
-        var that = this;
-        var markers = this.state.waypoints.map(function (waypoint) {
-            return <Marker key={waypoint.key} latLng={waypoint.latLng} map={that.state.map}></Marker>
-        });
+        //var that = this;
+        //var markers = this.state.waypoints.map(function (waypoint) {
+        //    return <Marker key={waypoint.key} latLng={waypoint.latLng} map={that.state.map}></Marker>
+        //});
         return (
             <div id="map">
                 <Legs legs={this.state.legs} map={this.state.map}/>

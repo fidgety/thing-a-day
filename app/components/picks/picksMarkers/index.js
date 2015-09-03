@@ -24,11 +24,17 @@ module.exports = React.createClass({
         });
     },
     render: function () {
-        console.log(this.props)
         var pickMarkers = this.state.picks.map((pick) => {
-            return <Marker key={pick.name + this.props.map} latLng={pick.latLng} map={this.props.map} classNames="picks-marker start-picks-marker icon-pin"/>
+            var tooltipDiv = document.createElement('div');
+            var goHereDiv = document.createElement('div');
+            goHereDiv.innerHTML = 'go here';
+            goHereDiv.onclick = function () {
+                actions.mapClicked(pick.latLng);
+                return false;
+            };
+            tooltipDiv.appendChild(goHereDiv);
+            return <Marker key={pick.name + this.props.map} latLng={pick.latLng} map={this.props.map} classNames="picks-marker start-picks-marker icon-pin" tooltopDiv={tooltipDiv}/>
         });
-        console.log(pickMarkers)
         return <div>{pickMarkers}</div>;
     }
 });

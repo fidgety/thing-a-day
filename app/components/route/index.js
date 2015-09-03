@@ -27,24 +27,19 @@ module.exports = React.createClass({
         this.state.route2.setMap(null);
     },
     render: function () {
-        var currentPath = this.state.route.getPath();
-        var currentPath2 = this.state.route2.getPath();
-        var newPath = this.props.route.getPath();
-        var currentPathLength = currentPath.getLength();
-        var newPathLength = newPath.getLength();
+        var newPath = this.props.route.getPath().getArray();
+        var route = this.state.route.getPath();
+        var route2 = this.state.route2.getPath();
 
         this.state.route2.setMap(this.props.map);
         this.state.route.setMap(this.props.map);
 
-        for (var i = currentPathLength; i < newPathLength; i++) {
-            (function () {
-                var count = i;
-                setTimeout(function () {
-                    currentPath2.push(newPath.getAt(count));
-                    currentPath.push(newPath.getAt(count));
-                }, i);
-            }());
-        }
+        newPath.forEach((latLng, count) => {
+            setTimeout(function () {
+                route2.push(newPath[count]);
+                route.push(newPath[count]);
+            }, count);
+        });
 
         return null;
     }

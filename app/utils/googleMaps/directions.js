@@ -14,7 +14,7 @@ module.exports = {
         };
 
         directionsService.route(request, function (response, status) {
-            if (status == google.maps.DirectionsStatus.OK) {
+            if (status === google.maps.DirectionsStatus.OK) {
                 return callback(response.routes[0]);
             }
             alert('bad response from directions service', response, status);

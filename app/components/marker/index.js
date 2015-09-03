@@ -25,7 +25,8 @@ module.exports = React.createClass({
         this.state.marker = customMarker(
             this.props.latLng,
             this.props.map,
-            this.props.classNames || 'custom-marker icon-pin'
+            this.props.classNames || 'custom-marker icon-pin',
+            this.props.tooltopDiv
         );
         return null;
     }

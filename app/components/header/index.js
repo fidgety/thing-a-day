@@ -1,11 +1,6 @@
 require('./style.scss');
 
 var React = require('react');
-var Reflux = require('reflux');
-
-var actions = require('../../actions/map');
-
-var Stats = require('../stats');
 
 module.exports = React.createClass({
     getInitialState: function () {

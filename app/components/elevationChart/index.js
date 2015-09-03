@@ -3,7 +3,7 @@ require('./style.scss');
 var React = require('react');
 var Reflux = require('reflux');
 
-var LineChart = require("react-chartjs").Line;
+var LineChart = require('react-chartjs').Line;
 var elevationsStore = require('../../stores/elevations');
 
 var actions = require('../../actions/map');
@@ -49,12 +49,12 @@ module.exports = React.createClass({
             labels: this.state.elevations,
             datasets: [
                 {
-                    fillColor: "rgba(0,0,0,0)",
-                    strokeColor: "white",
-                    pointColor: "rgba(220,220,220,1)",
-                    pointStrokeColor: "#fff",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    fillColor: 'rgba(0,0,0,0)',
+                    strokeColor: 'white',
+                    pointColor: 'rgba(220,220,220,1)',
+                    pointStrokeColor: '#fff',
+                    pointHighlightFill: '#fff',
+                    pointHighlightStroke: 'rgba(220,220,220,1)',
                     data: this.state.elevations
                 }
             ]

@@ -48,21 +48,21 @@ module.exports = React.createClass({
         var data = [
             {
                 value: this.state.ascending || 1,
-                color:"#FF6633",
-                highlight: "#FF5A5E",
-                label: "ascending"
+                color:'#FF6633',
+                highlight: '#FF5A5E',
+                label: 'ascending'
             },
             {
                 value: this.state.flatish || 0,
-                color: "#FEE71A",
-                highlight: "#FFC870",
-                label: "flat (sort of)"
+                color: '#FEE71A',
+                highlight: '#FFC870',
+                label: 'flat (sort of)'
             },
             {
                 value: this.state.descending || 1,
-                color: "#ABCA43",
-                highlight: "#5AD3D1",
-                label: "descending"
+                color: '#ABCA43',
+                highlight: '#5AD3D1',
+                label: 'descending'
             }
         ];
 

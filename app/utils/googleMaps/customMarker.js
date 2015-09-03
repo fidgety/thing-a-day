@@ -1,50 +1,67 @@
-module.exports = function(latLng, map, className, content, hoverEvent) {
+module.exports = function(latLng, map, className, tooltipDiv, hoverEvent) {
     //var bounds = new google.maps.LatLng(lat, lng);
 
-    return new CustomOverlay(latLng, map, className, content, hoverEvent || function () {});
+    return new CustomOverlay(latLng, map, className, tooltipDiv, hoverEvent || function () {});
 };
 
 CustomOverlay.prototype = new google.maps.OverlayView();
 
-function CustomOverlay(bounds, map, className, content, hoverEvent) {
+function CustomOverlay(bounds, map, className, tooltipDiv, hoverEvent) {
     this.latLng = bounds;
-    this.content = content;
     this.hoverEvent = hoverEvent;
     this.className = className;
 
-    this.div_ = null;
+    this.markerDiv = document.createElement('div');
+    this.markerDiv.className = this.className;
+
+    if (tooltipDiv) {
+        this.tooltipDiv = tooltipDiv;
+        this.tooltipDiv.className = 'tooltip';
+    }
 
     this.setMap(map);
 }
 
 CustomOverlay.prototype.onAdd = function () {
-    var div = document.createElement('div');
-    div.className = this.className;
-
     var that = this;
 
-    div.onmouseover = function () {
+    this.markerDiv.onclick = function () {
         that.hoverEvent(that.content);
+        that.markerDiv.className = that.className + ' marker-active';
+        if (that.tooltipDiv) {
+            that.tooltipDiv.className = 'tooltip tooltip-active';
+        }
+        return false;
     };
 
-    div.onmouseout = function () {
+    this.markerDiv.onmouseout = function () {
         that.hoverEvent({});
     };
 
-    this.div_ = div;
-
     var panes = this.getPanes();
-    panes.floatPane.appendChild(div);
+
+    if (this.tooltipDiv) {
+        panes.floatPane.appendChild(this.tooltipDiv);
+    }
+    panes.floatPane.appendChild(this.markerDiv);
 };
 
 CustomOverlay.prototype.onHighlighted = function () {
-    this.div_.classList.add('highlighted');
+    this.markerDiv.classList.add('highlighted');
 };
 
 CustomOverlay.prototype.offHighlighted = function () {
-    if (this.div_) {
-        this.div_.classList.remove('highlighted');
+    if (this.markerDiv) {
+        this.markerDiv.classList.remove('highlighted');
     }
+};
+
+CustomOverlay.prototype.positionDivOnMap = function(div, sw) {
+    var width = div.offsetWidth;
+    var height = div.offsetHeight;
+
+    div.style.left = (sw.x - (width / 2)) + 'px';
+    div.style.top = (sw.y - height) + 'px';
 };
 
 CustomOverlay.prototype.draw = function () {
@@ -53,20 +70,20 @@ CustomOverlay.prototype.draw = function () {
 
         var sw = overlayProjection.fromLatLngToDivPixel(this.latLng);
 
-        var div = this.div_;
-        var width = div.offsetWidth;
-        var height = div.offsetHeight;
-
-        div.style.left = (sw.x - (width / 2)) + 'px';
-        div.style.top = (sw.y - height) + 'px';
+        this.positionDivOnMap(this.markerDiv, sw);
+        if (this.tooltipDiv) {
+            this.tooltipDiv.style.display = 'block';
+            this.positionDivOnMap(this.tooltipDiv, sw);
+            this.tooltipDiv.style.display = '';
+        }
     }
     else {
-        this.div_.style.display = 'none';
+        this.markerDiv.style.display = 'none';
     }
 };
 
 CustomOverlay.prototype.onRemove = function () {
-    this.div_.parentNode.removeChild(this.div_);
-    this.div_ = null;
+    this.markerDiv.parentNode.removeChild(this.markerDiv);
+    this.markerDiv = null;
 };
 

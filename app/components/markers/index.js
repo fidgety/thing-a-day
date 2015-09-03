@@ -3,11 +3,9 @@ require('./style.scss');
 var React = require('react');
 var Reflux = require('reflux');
 
-var actions = require('../../actions/map');
 var routeStore = require('../../stores/route');
 
 var Marker = require('../marker');
-var Legs = require('../legs');
 
 module.exports = React.createClass({
     mixins: [

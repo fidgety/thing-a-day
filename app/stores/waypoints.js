@@ -10,12 +10,12 @@ module.exports = Reflux.createStore({
     },
     onMapClicked(latLng) {
         var that = this;
-        mapMethods.snapToRoute(latLng, function (latLng) {
+        mapMethods.snapToRoute(latLng, function (newLatLng) {
             that.store.push({
-                latLng,
-                key: latLng.lat() + ',' + latLng.lng()
+                newLatLng,
+                key: newLatLng.lat() + ',' + newLatLng.lng()
             });
-            actions.newWaypoint(latLng);
+            actions.newWaypoint(newLatLng);
             that.trigger(that.store);
         });
     },

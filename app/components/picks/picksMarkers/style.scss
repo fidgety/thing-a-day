@@ -1,16 +1,42 @@
 .picks-marker {
     position: absolute;
     font-size: 30px;
-    animation: spin 0.2s linear 0s 1;
+    xanimation: spin 0.2s linear 0s 1;
+    cursor: pointer;
 }
 
-.picks-marker:hover {
-    font-size: 40px;
-    margin: -10px 0 0 -5px;
+.picks-marker.marker-active {
+    xfont-size: 40px;
+    xmargin: -10px 0 0 -5px;
+    transform: perspective( 400px ) rotateY(180deg);
+    transform-style: preserve-3d;
+    transition: all 0.3s;
 }
 
 .start-picks-marker {
-    color: green;
+    color: pink;
+}
+
+.tooltip {
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 9999px;
+    opacity: 0;
+    line-height: 20px;
+    text-align: center;
+    transition: all 0.2s;
+}
+
+.tooltip-active {
+    transition: all 0.2s 0.2s;
+    height: 60px;
+    width: 60px;
+    line-height: 60px;
+    opacity: 1;
+    margin-left: -20px;
+    margin-top: -80px;
 }
 
 @keyframes spin {

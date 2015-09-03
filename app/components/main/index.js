@@ -4,7 +4,6 @@ require('./style.scss');
 require('./fonts/icon-font.scss');
 
 var Map = require('../Map');
-var Header = require('../header');
 var PicksDetail = require('../picks/picksDetail');
 var Stats = require('../stats');
 
