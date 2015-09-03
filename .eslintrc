@@ -1,20 +1,15 @@
 {
     "env": {
-        "jasmine": true,
         "node": true,
         "mocha": true,
         "browser": true,
-        "builtin": true
+        "es6": true
     },
     "plugins": [
         "react"
     ],
     "ecmaFeatures": {
-        "arrowFunctions": true,
-        "blockBindings": true,
-        "jsx": true,
-        "objectLiteralShorthandMethods": true,
-        "objectLiteralShorthandProperties": true
+        "jsx": true
     },
     "globals": {
         "google": true
