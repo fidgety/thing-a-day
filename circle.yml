@@ -5,4 +5,4 @@ deployment:
   production:
     branch: master
     commands:
-     - webpack
+      - "npm run-script deploy"

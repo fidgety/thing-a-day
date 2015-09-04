@@ -4,8 +4,8 @@
   "description": "Do something tecchy at least once a day",
   "main": "webpack.config.js",
   "scripts": {
-    "test": "node node_modules/eslint/bin/eslint.js app/**/* && ./node_modules/.bin/karma start"
-    "deploy": "webpack -w && surge --project ./public --domain veloptuous.surge.sh"
+    "test": "node node_modules/eslint/bin/eslint.js app/**/* && ./node_modules/.bin/karma start",
+    "deploy": "webpack && surge --project ./public --domain veloptuous.surge.sh"
   },
   "repository": {
     "type": "git",
