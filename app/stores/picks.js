@@ -7,9 +7,12 @@ module.exports = Reflux.createStore({
     store: {
         picks: [{
             name: 'gliding club',
+            type: 'climb',
             tags: ['climb', 'view', 'quiet'],
             latLng: new google.maps.LatLng(53.320646, -1.650674),
-            img: '/picks/gliding-club.jpg'
+            img: 'images/gliding-club.jpg',
+            distance: 3423,
+            elevation: 253
         }],
         highlighted: undefined
     },

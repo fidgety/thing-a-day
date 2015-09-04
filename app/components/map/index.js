@@ -30,6 +30,7 @@ module.exports = React.createClass({
         this.setState({
             waypoints
         });
+        //this.state.map.panTo(this.state.waypoints[this.state.waypoints.length - 1].latLng);
     },
     onRouteChange(route) {
         this.setState({

@@ -12,7 +12,7 @@ module.exports = Reflux.createStore({
         var that = this;
         mapMethods.snapToRoute(latLng, function (newLatLng) {
             that.store.push({
-                newLatLng,
+                latLng: newLatLng,
                 key: newLatLng.lat() + ',' + newLatLng.lng()
             });
             actions.newWaypoint(newLatLng);

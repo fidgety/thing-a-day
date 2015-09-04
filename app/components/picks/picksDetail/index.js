@@ -16,25 +16,25 @@ module.exports = React.createClass({
             highlighted: undefined
         };
     },
-    onPicksChange: function (picksStore) {
+    onPicksChange: function (updatedPicksStore) {
         this.setState({
-            highlighted: picksStore.highlighted
+            highlighted: updatedPicksStore.highlighted
         });
     },
     render: function () {
         var activeClass = this.state.highlighted ? 'picks-active' : '';
-
+        var pick = this.state.highlighted || {};
         return (
             <div id="picks" className={activeClass}>
                 <div className="outer">
                     <ul className="inner">
                         <li>
-                            <h4>climb</h4>
-                            <h3>Gliding Club</h3>
-                            <img src="images/gliding-club.jpg"/>
+                            <h4>{pick.type}</h4>
+                            <h3>{pick.name}</h3>
+                            <img src={pick.img}/>
                             <div className="info">
-                                <div className="distance">3.4km</div>
-                                <div className="ascending">193m</div>
+                                <div className="distance">{pick.distance}</div>
+                                <div className="ascending">{pick.elevation}</div>
                             </div>
                         </li>
                     </ul>

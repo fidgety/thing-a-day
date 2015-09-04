@@ -11,10 +11,12 @@
     height: 70%;
     color: white;
     left: -400px;
+    opacity: 0;
 
     &.picks-active {
-        transition: left 0.5s;
+        transition: all 0.5s;
         left: 0;
+        opacity: 1;
     }
 
 
@@ -47,6 +49,7 @@
         text-align: center;
         position: absolute;
         font-size: 1.2em;
+        text-transform: capitalize;
     }
 
     li img {
