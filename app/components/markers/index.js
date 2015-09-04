@@ -33,9 +33,9 @@ module.exports = React.createClass({
     render: function () {
         return (
             <div>
-                <Marker key={'s' + this.state.start} latLng={this.state.start} map={this.props.map} classNames="marker start-marker icon-pin"/>
-                <Marker key={'e' + this.state.end} latLng={this.state.end} map={this.props.map} classNames="marker end-marker icon-pin"/>
-                <Marker key={'eh' + this.state.elevationHover} latLng={this.state.elevationHover} map={this.props.map} classNames="marker hover-marker icon-pin"/>
+                <Marker key={'s' + this.state.start} latLng={this.state.start} map={this.props.map} classPrefix="start"/>
+                <Marker key={'e' + this.state.end} latLng={this.state.end} map={this.props.map} classPrefix="end"/>
+                <Marker key={'eh' + this.state.elevationHover} latLng={this.state.elevationHover} map={this.props.map} classPrefix="hover"/>
             </div>
         );
     }

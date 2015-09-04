@@ -17,6 +17,11 @@ module.exports = React.createClass({
 
         return nextProps.latLng.toString() !== this.props.latLng.toString();
     },
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.highlighted !== this.props.highlighted) {
+            nextProps.highlighted ? this.state.marker.onHighlighted() : this.state.marker.offHighlighted()
+        }
+    },
     componentWillUnmount: function () {
         this.state.marker.setMap(null);
     },
@@ -24,8 +29,9 @@ module.exports = React.createClass({
         this.state.marker = customMarker(
             this.props.latLng,
             this.props.map,
-            this.props.classNames || 'custom-marker icon-pin',
-            this.props.tooltopDiv
+            this.props.classPrefix,
+            this.props.tooltopDiv,
+            this.props.onclick
         );
         return null;
     }

@@ -1,20 +1,23 @@
-.marker {
+.start-marker, .end-marker, .hover-marker {
     position: absolute;
     font-size: 3em;
+    width: 20px;
+    height: 30px;
     animation: spin 0.2s linear 0s 1;
+    border-radius: 9999px;
 }
 
 .start-marker {
-    color: green;
+    background: green;
 }
 
 .end-marker {
-    color: red;
+    background: red;
 }
 
 .hover-marker {
     animation: spin 0.1s linear 0s 1;
-    color: purple;
+    background: purple;
 }
 
 @keyframes spin {

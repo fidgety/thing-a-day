@@ -15,7 +15,7 @@ module.exports = React.createClass({
 
     getInitialState: function () {
         return {
-            picks: picksStore.getInitialState().picks
+            picks: picksStore.getInitialState()
         };
     },
     onPicksChange(picks) {
@@ -24,16 +24,27 @@ module.exports = React.createClass({
         });
     },
     render: function () {
-        var pickMarkers = this.state.picks.map((pick) => {
+        var pickMarkers = this.state.picks.picks.map((pick) => {
             var tooltipDiv = document.createElement('div');
             var goHereDiv = document.createElement('div');
+            var highlighted = false;
+            if (this.state.picks.highlighted) {
+                highlighted = pick.name === this.state.picks.highlighted.name;
+            }
             goHereDiv.innerHTML = 'go here';
             goHereDiv.onclick = function () {
                 actions.mapClicked(pick.latLng);
                 return false;
             };
             tooltipDiv.appendChild(goHereDiv);
-            return <Marker key={pick.name + this.props.map} latLng={pick.latLng} map={this.props.map} classNames="picks-marker start-picks-marker icon-pin" tooltopDiv={tooltipDiv}/>
+            var onclick = function (currentlyHighlighted) {
+                if (!currentlyHighlighted) {
+                    actions.pickHighlighted(pick.name);
+                } else {
+                    actions.pickUnhighlighted(pick.name);
+                }
+            };
+            return <Marker key={pick.name + this.props.map} latLng={pick.latLng} map={this.props.map} classPrefix="picks" tooltopDiv={tooltipDiv} highlighted={highlighted} onclick={onclick}/>
         });
         return <div>{pickMarkers}</div>;
     }
