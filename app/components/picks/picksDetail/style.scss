@@ -10,6 +10,13 @@
     width: 90%;
     height: 70%;
     color: white;
+    left: -400px;
+
+    &.picks-active {
+        transition: left 0.5s;
+        left: 0;
+    }
+
 
     .outer {
         padding: 10px;

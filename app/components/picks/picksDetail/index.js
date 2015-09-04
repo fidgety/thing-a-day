@@ -1,24 +1,31 @@
 require('./style.scss');
 
 var React = require('react');
-//var Reflux = require('reflux');
+var Reflux = require('reflux');
 
 //var actions = require('../../../actions/map');
 
-//var Picks = require('../../../stores/picks');
+var picksStore = require('../../../stores/picks');
 
 module.exports = React.createClass({
+    mixins: [
+        Reflux.listenTo(picksStore, 'onPicksChange')
+    ],
     getInitialState: function () {
-        return {};
+        return {
+            highlighted: undefined
+        };
     },
-    onElevationsChange: function (thing) {
+    onPicksChange: function (picksStore) {
         this.setState({
-            thing
+            highlighted: picksStore.highlighted
         });
     },
     render: function () {
+        var activeClass = this.state.highlighted ? 'picks-active' : '';
+
         return (
-            <div id="picks">
+            <div id="picks" className={activeClass}>
                 <div className="outer">
                     <ul className="inner">
                         <li>
