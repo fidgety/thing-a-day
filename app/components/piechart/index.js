@@ -66,8 +66,7 @@ module.exports = React.createClass({
             }
         ];
 
-        return <div>
-            <div id="piechart">
+        return <div id="piechart">
                 <div className="ascdesc desc icon-arrow-down2"><Ticker value={this.state.descending} animate="true" decimalPlaces="0"/>
                     <span className="m">m</span>
                 </div>
@@ -79,7 +78,6 @@ module.exports = React.createClass({
                     <span className="m">m</span>
                 </div>
             </div>
-        </div>
     }
 });
 

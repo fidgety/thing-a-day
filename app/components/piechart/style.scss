@@ -1,17 +1,18 @@
+@import "colours";
+@import "breakpoints";
+@import "respond";
+
 #piechart {
     //background: rgba(0,0,0,0.75);
     height: 100px;
-    width: 200px;
-    position: absolute;
-    right: 0;
-    z-index: 2;
+    width: 100%;
     color: white;
 
     .ascdesc {
         position: absolute;
         top: 40px;
-        font-size: 15px;
-        width: 50px;
+        font-size: 12px;
+        width: 40px;
         text-align: right;
     }
 
@@ -52,5 +53,22 @@
         margin: 5px 0 0 55px;
         width: 90px;
         height: 90px;
+    }
+}
+
+@include respond-min($x-small) {
+    #piechart {
+        .ascdesc {
+            font-size: 16px;
+            width: 60px;
+        }
+
+        .distance {
+            left: 100px;
+        }
+
+        canvas {
+            margin-left: 80px;
+        }
     }
 }

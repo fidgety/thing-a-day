@@ -1,14 +1,19 @@
 @import "colours";
+@import "breakpoints";
+@import "respond";
 
 #picks {
-    margin: 10px;
-    padding: 10px;
+    margin: 5%;
     position: absolute;
     background: rgba(0, 0, 0, 0.75);
     z-index: 2;
-    width: 200px;
+    width: 90%;
     height: 70%;
     color: white;
+
+    .outer {
+        padding: 10px;
+    }
 
     .inner {
         height: 100%;
@@ -39,5 +44,12 @@
 
     li img {
         width: 100%;
+    }
+}
+
+@include respond-min($xx-small) {
+    #picks {
+        width: 300px;
+        margin: 10px;
     }
 }

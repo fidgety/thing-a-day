@@ -1,3 +1,7 @@
+@import "colours";
+@import "breakpoints";
+@import "respond";
+
 #stats {
     z-index: 2;
     bottom: 0;
@@ -7,13 +11,25 @@
     background: rgba(0,0,0,0.75);
 
     .left {
-        width: 70%;
+        width: calc(100% - 200px);
         float: left;
     }
 
     .right {
-        width: 30%;
+        width: 200px;
         float: left;
+        position: relative;
     }
 }
 
+@include respond-min($x-small) {
+    #stats {
+        .left {
+            width: calc(100% - 250px);
+        }
+
+        .right {
+            width: 250px;
+        }
+    }
+}
