@@ -3,7 +3,7 @@ require('./reset.scss');
 require('./style.scss');
 require('./fonts/icon-font.scss');
 
-var Map = require('../Map');
+var Map = require('../map');
 var PicksDetail = require('../picks/picksDetail');
 var Stats = require('../stats');
 
