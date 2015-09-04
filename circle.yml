@@ -1,0 +1,9 @@
+machine:
+  timezone:
+    Europe/London
+deployment:
+  production:
+    branch: master
+    commands:
+      - "webpack"
+      - "surge --project ./public --domain veloptuous.surge.sh"
