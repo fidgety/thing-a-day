@@ -39,7 +39,7 @@
     "phantomjs": "^1.9.18",
     "proxy-loader": "0.0.10",
     "react": "^0.13.3",
-    "react-chartjs": "^0.6.0",
+    "react-chartjs": "fidgety/react-chartjs",
     "reflux": "^0.2.12",
     "sass-loader": "^2.0.0",
     "style-loader": "^0.12.3",

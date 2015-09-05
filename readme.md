@@ -72,6 +72,9 @@ So far...
 ###Day 21
 * Circle CI integration and ES Lint added to test
 
+###Day 22
+* Deployment to surge when circle ci passes tests
+
 
 
 
