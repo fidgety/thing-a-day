@@ -16,7 +16,7 @@ module.exports = React.createClass({
             routeStarted: false
         };
     },
-    onPicksChange: function (waypoints) {
+    onWaypointsChange: function (waypoints) {
         this.setState({
             routeStarted: waypoints.length !== 0
         });
@@ -25,7 +25,7 @@ module.exports = React.createClass({
         var activeClass = this.state.routeStarted ? 'undo-active' : '';
 
         return (
-            <div id="undo" className={activeClass}></div>
+            <div id="undo" className={activeClass} onClick={actions.undo}>undo</div>
         );
     }
 });

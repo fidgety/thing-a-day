@@ -6,6 +6,7 @@ require('./fonts/icon-font.scss');
 var Map = require('../map');
 var PicksDetail = require('../picks/picksDetail');
 var Stats = require('../stats');
+var Undo = require('../userPrompts/undo');
 
 var actions = require('../../actions/map');
 
@@ -16,7 +17,7 @@ var Main = React.createClass({
     componentDidMount: function () {},
     render: function () {
         return (
-            <div id="main"><PicksDetail/><div className="undo" onClick={actions.undo}>undo</div><Map/><Stats/></div>
+            <div id="main"><PicksDetail/><Undo/><Map/><Stats/></div>
         );
     }
 });
