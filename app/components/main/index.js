@@ -8,8 +8,6 @@ var PicksDetail = require('../picks/picksDetail');
 var Stats = require('../stats');
 var Undo = require('../userPrompts/undo');
 
-var actions = require('../../actions/map');
-
 var Main = React.createClass({
     getInitialState: function () {
         return {};
