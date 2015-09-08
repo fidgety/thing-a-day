@@ -26,6 +26,19 @@ module.exports = Reflux.createStore({
         descending: 0,
         flatish: 0
     },
+    toString() {
+        return this.store.legs.map((leg) => {
+            return leg.map((point) => {
+                return {
+                    elevation: point.elevation,
+                    location: {
+                        lat: point.location.lat(),
+                        lng: point.location.lng()
+                    }
+                }
+            })
+        })
+    },
     getInitialState() {
         return this.store;
     },

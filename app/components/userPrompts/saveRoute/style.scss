@@ -2,7 +2,7 @@
 @import "breakpoints";
 @import "respond";
 
-#undo {
+#save {
     line-height: 50px;
     color: white;
     font-size: 16px;
@@ -18,7 +18,7 @@
     float: right;
     margin-right: 10px;
 
-    &.undo-active {
+    &.save-active {
         transition: all 0.3s;
         opacity: 1;
         transform: perspective( 400px ) rotateY(0deg);

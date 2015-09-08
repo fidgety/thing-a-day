@@ -3,6 +3,7 @@ var mapMethods = require('../utils/googleMaps/directions');
 var routeMethods = require('../utils/googleMaps/route');
 var actions = require('../actions/map');
 var flattenArray = require('../utils/array/flatten');
+var polyline = require('../utils/googleMaps/polyline');
 
 module.exports = Reflux.createStore({
     listenables: actions,
@@ -19,6 +20,32 @@ module.exports = Reflux.createStore({
         }
         this._calcDistance();
         this.trigger(this.store);
+    },
+    onUpdateName(newName) {
+        this.store.name = newName;
+        this.trigger(this.store);
+    },
+    onSave() {
+        var elevations = require('./elevations').toString();
+        var route = new google.maps.Polyline();
+        var legs = this.store.legs.map((leg) => {
+            route = polyline.join(route, leg.polyline);
+            return polyline.encode(leg.polyline);
+        });
+
+        console.log('save to local storage', {
+            name: this.store.name,
+            elevations,
+            legs,
+            route: polyline.encode(route)
+        });
+
+        window.localStorage.setItem(this.store.name, {
+            name: this.store.name,
+            elevations,
+            legs,
+            route: polyline.encode(route)
+        });
     },
     onElevationHover(latLng) {
         this.store.elevationHover = latLng;
@@ -46,7 +73,8 @@ module.exports = Reflux.createStore({
         distance: 0,
         startingLatLng: undefined,
         endLatLng: undefined,
-        elevationHover: undefined
+        elevationHover: undefined,
+        name: ''
     },
     getInitialState() {
         return this.store;

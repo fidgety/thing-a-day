@@ -1,0 +1,11 @@
+@import "colours";
+@import "breakpoints";
+@import "respond";
+
+#prompts {
+    position: absolute;
+    right: 0;
+    z-index: 2;
+    margin: 10px;
+    margin-right: 0;
+}
