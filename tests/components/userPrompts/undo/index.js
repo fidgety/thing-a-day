@@ -19,7 +19,7 @@ function setUpComponent() {
     var componentUnderTest = TestUtils.renderIntoDocument(<Undo/>);
     return TestUtils.findRenderedComponentWithType(componentUnderTest, Undo).getDOMNode();
 }
-describe.only('undo component', function () {
+describe('undo component', function () {
     it('should not be visible when there are no waypoints', function () {
         var dom = setUpComponent();
 

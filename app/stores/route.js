@@ -28,7 +28,7 @@ module.exports = Reflux.createStore({
     onSave() {
         var elevations = require('./elevations').toString();
         var route = new google.maps.Polyline();
-        var legs = this.store.legs.map((leg) => {
+        var legs = this.store.legs.map(leg => {
             route = polyline.join(route, leg.polyline);
             return polyline.encode(leg.polyline);
         });
@@ -91,7 +91,7 @@ module.exports = Reflux.createStore({
         return this.store.startingLatLng;
     },
     _calcDistance() {
-        var route = flattenArray(this.store.legs.map(polyline => polyline.polyline.getPath().getArray()));
+        var route = flattenArray(this.store.legs.map(legPolyline => legPolyline.polyline.getPath().getArray()));
         this.store.distance = google.maps.geometry.spherical.computeLength(route);
     },
     _addLeg(newLatLngs) {
