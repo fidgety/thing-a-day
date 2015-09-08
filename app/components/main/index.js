@@ -9,10 +9,6 @@ var Stats = require('../stats');
 var UserPrompts = require('../userPrompts');
 
 var Main = React.createClass({
-    getInitialState: function () {
-        return {};
-    },
-    componentDidMount: function () {},
     render: function () {
         return (
             <div id="main"><PicksDetail/><UserPrompts/><Map/><Stats/></div>
