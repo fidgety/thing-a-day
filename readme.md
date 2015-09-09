@@ -75,6 +75,12 @@ So far...
 ###Day 22
 * Deployment to surge when circle ci passes tests
 
+###Day 23
+* Start saving routes - to local storage for now - what should be responsible for the save?
+
+###Day 24
+* Add react-router so we can have a build view and a completed route view
+
 
 
 
