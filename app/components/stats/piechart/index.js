@@ -4,10 +4,10 @@ var React = require('react');
 var Reflux = require('reflux');
 
 var Pie = require('react-chartjs').Pie;
-var Ticker = require('../ticker');
+var Ticker = require('../../ticker');
 
-var routeStore = require('../../stores/route');
-var elevationsStore = require('../../stores/elevations');
+var routeStore = require('../../../stores/route');
+var elevationsStore = require('../../../stores/elevations');
 
 
 var options = {

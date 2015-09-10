@@ -25,6 +25,15 @@ module.exports = Reflux.createStore({
         this.store.name = newName;
         this.trigger(this.store);
     },
+    onLoad(routeName) {
+        var route = JSON.parse(window.localStorage.getItem(routeName));
+        this._addLeg(polyline.decode(route.route));
+        this._calcDistance();
+
+        this.trigger(this.store);
+
+        require('./elevations').loadz(route.elevations);
+    },
     onSave() {
         var elevations = require('./elevations').toString();
         var route = new google.maps.Polyline();
@@ -40,12 +49,12 @@ module.exports = Reflux.createStore({
             route: polyline.encode(route)
         });
 
-        window.localStorage.setItem(this.store.name, {
+        window.localStorage.setItem(this.store.name, JSON.stringify({
             name: this.store.name,
             elevations,
             legs,
             route: polyline.encode(route)
-        });
+        }));
     },
     onElevationHover(latLng) {
         this.store.elevationHover = latLng;

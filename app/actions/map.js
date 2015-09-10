@@ -6,6 +6,7 @@ module.exports = Reflux.createActions([
     'routeUpdated',
     'undo',
     'save',
+    'load',
     'updateName',
     'elevationHover',
     'pickHighlighted',

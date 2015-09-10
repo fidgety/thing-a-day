@@ -2,8 +2,8 @@ require('./style.scss');
 
 var React = require('react');
 
-var ElevationChart = require('../elevationChart');
-var Piechart = require('../piechart');
+var ElevationChart = require('./elevationChart');
+var Piechart = require('./piechart');
 
 module.exports = React.createClass({
     render: function () {

@@ -2,10 +2,10 @@ require('./style.scss');
 
 var React = require('react');
 
-var Map = require('../../map');
-var PicksDetail = require('../../picks/picksDetail');
-var Stats = require('../../stats');
-var UserPrompts = require('../../userPrompts');
+var Map = require('../../map/index');
+var PicksDetail = require('../../picks/picksDetail/index');
+var Stats = require('../../stats/index');
+var UserPrompts = require('../../userPrompts/index');
 
 module.exports = React.createClass({
     render: function () {

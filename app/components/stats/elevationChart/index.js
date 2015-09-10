@@ -4,9 +4,9 @@ var React = require('react');
 var Reflux = require('reflux');
 
 var LineChart = require('react-chartjs').Line;
-var elevationsStore = require('../../stores/elevations');
+var elevationsStore = require('../../../stores/elevations');
 
-var actions = require('../../actions/map');
+var actions = require('../../../actions/map');
 
 module.exports = React.createClass({
     mixins: [Reflux.listenTo(elevationsStore, 'onElevationsChange')],

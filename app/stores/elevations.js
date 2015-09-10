@@ -6,6 +6,21 @@ var flattenArray = require('../utils/array/flatten');
 
 module.exports = Reflux.createStore({
     listenables: actions,
+    loadz(loadedElevations) {
+        loadedElevations = loadedElevations.map(leg => {
+            return leg.map(elevation => {
+                return {
+                    elevation: elevation.elevation,
+                    location: new google.maps.LatLng(elevation.location.lat, elevation.location.lng)
+                }
+            });
+        });
+
+        loadedElevations.forEach(leg => {
+            this._addLeg(leg);
+        });
+        this._updateStoreWithNewValues();
+    },
     onUndo() {
         this.store.legs.pop();
         this._updateStoreWithNewValues();

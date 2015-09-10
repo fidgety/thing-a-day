@@ -3,11 +3,12 @@ require('./reset.scss');
 require('./style.scss');
 require('./fonts/icon-font.scss');
 
-var Plan = require('./plan');
+var Plan = require('../pages/plan');
 
 var Router = require('react-router');
 var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
+var RouteOverview = require('../pages/route');
 
 var Main = React.createClass({
     render: function () {
@@ -17,17 +18,10 @@ var Main = React.createClass({
     }
 });
 
-var Hello = React.createClass({
-    render() {
-        return <div>hello {this.props.params.name}</div>
-    }
-});
-
-// declare our routes and their hierarchy
 var routes = (
     <Route handler={Main}>
         <Route path="/plan" handler={Plan}/>
-        <Route path="/route/:name" handler={Hello}/>
+        <Route path="/route/:name" handler={RouteOverview}/>
     </Route>
 );
 

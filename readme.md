@@ -80,6 +80,7 @@ So far...
 
 ###Day 24
 * Add react-router so we can have a build view and a completed route view
+* Created a simple express server too
 
 
 

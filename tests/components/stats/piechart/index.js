@@ -19,10 +19,10 @@ function setUpComponent() {
             });
         }
     });
-    var PieChartFactory = require('inject!../../../app/components/piechart');
+    var PieChartFactory = require('inject!../../../../app/components/stats/piechart');
     var PieChart = PieChartFactory({
-        '../../stores/route': fakeRouteStore,
-        '../../stores/elevations': fakeElevationsStore,
+        '../../../stores/route': fakeRouteStore,
+        '../../../stores/elevations': fakeElevationsStore,
         'react-chartjs': {
             Pie: new React.createClass({
                 render() {
