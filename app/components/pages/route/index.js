@@ -13,15 +13,16 @@ var routeOverview = require('../../../stores/routeOverview');
 module.exports = React.createClass({
     mixins: [Reflux.listenTo(routeOverview, 'onChange')],
     onChange: function (routeOverviewStore) {
-        this.setState({
-            elevations: routeOverviewStore.elevations,
-            positions: routeOverviewStore.positions
-        });
+        this.setState(routeOverviewStore);
     },
     getInitialState: function () {
         return {
             elevations: [1, 1],
-            positions: []
+            positions: [],
+            ascending: 0,
+            descending: 0,
+            flatish: 0,
+            distance: 0
         };
     },
     componentDidMount() {
@@ -32,7 +33,10 @@ module.exports = React.createClass({
             <div id="route">
                 <PicksDetail/>
                 <Map/>
-                <Stats elevations={this.state.elevations} positions={this.state.positions}/>
+                <Stats
+                    elevations={this.state.elevations}
+                    positions={this.state.positions}
+                />
             </div>
         );
     }

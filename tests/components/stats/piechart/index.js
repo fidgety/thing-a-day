@@ -1,28 +1,9 @@
 var React = require('react');
-var Reflux = require('reflux');
 var TestUtils = require('react/addons').addons.TestUtils;
 
-function setUpComponent() {
-    var fakeRouteStore = Reflux.createStore({
-        updateNumber: function () {
-            this.trigger({
-                distance: 92000
-            });
-        }
-    });
-
-    var fakeElevationsStore = Reflux.createStore({
-        updateNumber: function () {
-            this.trigger({
-                ascending: 10,
-                descending: 12.2
-            });
-        }
-    });
+function setUpComponent(distance, ascending, descending) {
     var PieChartFactory = require('inject!../../../../app/components/stats/piechart');
     var PieChart = PieChartFactory({
-        '../../../stores/route': fakeRouteStore,
-        '../../../stores/elevations': fakeElevationsStore,
         'react-chartjs': {
             Pie: new React.createClass({
                 render() {
@@ -32,32 +13,24 @@ function setUpComponent() {
         }
     });
 
-    var componentUnderTest = TestUtils.renderIntoDocument(<PieChart/>);
+    var componentUnderTest = TestUtils.renderIntoDocument(<PieChart ascending={ascending} descending={descending} distance={distance}/>);
     var dom = TestUtils.findRenderedComponentWithType(componentUnderTest, PieChart).getDOMNode();
 
-    fakeRouteStore.updateNumber();
-    fakeElevationsStore.updateNumber();
     return dom;
 }
 
 describe('stats component', function () {
-    it('should render as zero initially', function () {
-        var dom = setUpComponent();
-
-        dom.getElementsByTagName('span')[0].innerHTML.should.equal('0');
-    });
-
-    it('should update overall distance, converting to km when store is updated', function (done) {
-        var dom = setUpComponent();
+    it('should update overall distance', function (done) {
+        var dom = setUpComponent(92.0, 10, 12);
 
         setTimeout(() => {
-            dom.getElementsByTagName('span')[3].innerHTML.should.equal('92.0');
+            dom.getElementsByTagName('span')[3].innerHTML.should.equal('92');
             done();
         }, 1000);
     });
 
-    it('should update overall ascending when store is updated', function (done) {
-        var dom = setUpComponent();
+    it('should update overall ascending', function (done) {
+        var dom = setUpComponent(92.0, 10, 12);
 
         setTimeout(() => {
             dom.getElementsByClassName('desc')[0].getElementsByTagName('span')[0].innerHTML.should.equal('12');
@@ -65,8 +38,8 @@ describe('stats component', function () {
         }, 1000);
     });
 
-    it('should update overall descending when store is updated', function (done) {
-        var dom = setUpComponent();
+    it('should update overall descending', function (done) {
+        var dom = setUpComponent(92.0, 10, 12);
         setTimeout(() => {
             dom.getElementsByClassName('asc')[0].getElementsByTagName('span')[0].innerHTML.should.equal('10');
             done();

@@ -12,7 +12,12 @@ module.exports = React.createClass({
                 <ElevationChart elevations={this.props.elevations} positions={this.props.positions}/>
             </div>
             <div className="right">
-                <Piechart/>
+                <Piechart
+                    distance={this.props.distance}
+                    ascending={this.props.ascending}
+                    descending={this.props.descending}
+                    flatish={this.props.flatish}
+                />
             </div>
         </div>
     }

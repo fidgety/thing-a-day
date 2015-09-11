@@ -1,13 +1,9 @@
 require('./style.scss');
 
 var React = require('react');
-var Reflux = require('reflux');
 
 var Pie = require('react-chartjs').Pie;
 var Ticker = require('../../ticker');
-
-var routeStore = require('../../../stores/route');
-var elevationsStore = require('../../../stores/elevations');
 
 
 var options = {
@@ -19,47 +15,22 @@ var options = {
 };
 
 module.exports = React.createClass({
-    mixins: [
-        Reflux.listenTo(routeStore, 'onRouteChange'),
-        Reflux.listenTo(elevationsStore, 'onElevationsChange')
-    ],
-    getInitialState: function () {
-        return {
-            distance: 0,
-            ascending: 0,
-            descending: 0,
-            flatish: 0
-        };
-    },
-    onRouteChange(route) {
-        var distanceInKm = (route.distance / 1000).toFixed(1);
-        this.setState({
-            distance: distanceInKm
-        })
-    },
-    onElevationsChange(elevations) {
-        this.setState({
-            ascending: parseInt(elevations.ascending, 10),
-            descending: parseInt(elevations.descending, 10),
-            flatish: parseInt(elevations.flatish, 10)
-        });
-    },
     render: function () {
         var data = [
             {
-                value: this.state.ascending || 1,
+                value: this.props.ascending || 1,
                 color:'#FF6633',
                 highlight: '#FF5A5E',
                 label: 'ascending'
             },
             {
-                value: this.state.flatish || 0,
+                value: this.props.flatish || 0,
                 color: '#FEE71A',
                 highlight: '#FFC870',
                 label: 'flat (sort of)'
             },
             {
-                value: this.state.descending || 1,
+                value: this.props.descending || 1,
                 color: '#ABCA43',
                 highlight: '#5AD3D1',
                 label: 'descending'
@@ -67,14 +38,14 @@ module.exports = React.createClass({
         ];
 
         return <div id="piechart">
-                <div className="ascdesc desc icon-arrow-down2"><Ticker value={this.state.descending} animate="true" decimalPlaces="0"/>
+                <div className="ascdesc desc icon-arrow-down2"><Ticker value={this.props.descending} animate="true" decimalPlaces="0"/>
                     <span className="m">m</span>
                 </div>
-                <div className="distance"><Ticker value={this.state.distance} animate="true" decimalPlaces="1"/>
+                <div className="distance"><Ticker value={this.props.distance} animate="true" decimalPlaces="1"/>
                     <div className="km">km</div>
                 </div>
                 <Pie data={data} options={options}/>
-                <div className="ascdesc asc icon-arrow-up2"><Ticker value={this.state.ascending} animate="true" decimalPlaces="0"/>
+                <div className="ascdesc asc icon-arrow-up2"><Ticker value={this.props.ascending} animate="true" decimalPlaces="0"/>
                     <span className="m">m</span>
                 </div>
             </div>
