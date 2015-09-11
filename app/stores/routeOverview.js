@@ -12,7 +12,9 @@ module.exports = Reflux.createStore({
         this.store.route = new google.maps.Polyline({
             path: polyline.decode(route.route)
         });
-        this.store.distance = polyline.distance(route);
+
+        this.store.distance = polyline.distance(this.store.route.getPath());
+
         this.store.name = routeName;
         this._loadElevations(route.elevations);
 

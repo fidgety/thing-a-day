@@ -13,6 +13,7 @@ var routeOverview = require('../../../stores/routeOverview');
 module.exports = React.createClass({
     mixins: [Reflux.listenTo(routeOverview, 'onChange')],
     onChange: function (routeOverviewStore) {
+        routeOverviewStore.distance = (routeOverviewStore.distance / 1000).toFixed(1);
         this.setState(routeOverviewStore);
     },
     getInitialState: function () {
@@ -36,6 +37,11 @@ module.exports = React.createClass({
                 <Stats
                     elevations={this.state.elevations}
                     positions={this.state.positions}
+                    distance={this.state.distance}
+                    ascending={this.state.ascending}
+                    descending={this.state.descending}
+                    flatish={this.state.flatish}
+                />
                 />
             </div>
         );
