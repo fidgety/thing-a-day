@@ -18,7 +18,8 @@ module.exports = React.createClass({
         };
     },
     shouldComponentUpdate: function (nextProps) {
-        return this.state.route.getPath().getLength() !== nextProps.route.getPath().getLength();
+        return nextProps.route !== undefined
+            && this.state.route.getPath().getLength() !== nextProps.route.getPath().getLength();
     },
     componentDidMount() {
     },
@@ -27,20 +28,21 @@ module.exports = React.createClass({
         this.state.route2.setMap(null);
     },
     render: function () {
-        var newPath = this.props.route.getPath().getArray();
-        var route = this.state.route.getPath();
-        var route2 = this.state.route2.getPath();
-
         this.state.route2.setMap(this.props.map);
         this.state.route.setMap(this.props.map);
 
-        newPath.forEach((latLng, count) => {
-            setTimeout(function () {
-                route2.push(newPath[count]);
-                route.push(newPath[count]);
-            }, count);
-        });
+        if (this.props.route) {
+            var newPath = this.props.route.getPath().getArray();
+            var route = this.state.route.getPath();
+            var route2 = this.state.route2.getPath();
 
+            newPath.forEach((latLng, count) => {
+                //setTimeout(function () {
+                    route2.push(newPath[count]);
+                    route.push(newPath[count]);
+                //}, count);
+            });
+        }
         return null;
     }
 });

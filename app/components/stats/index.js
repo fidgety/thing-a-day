@@ -9,7 +9,7 @@ module.exports = React.createClass({
     render: function () {
         return <div id="stats">
             <div className="left">
-                <ElevationChart/>
+                <ElevationChart elevations={this.props.elevations} positions={this.props.positions}/>
             </div>
             <div className="right">
                 <Piechart/>

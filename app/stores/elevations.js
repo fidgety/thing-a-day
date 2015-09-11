@@ -6,21 +6,6 @@ var flattenArray = require('../utils/array/flatten');
 
 module.exports = Reflux.createStore({
     listenables: actions,
-    loadz(loadedElevations) {
-        loadedElevations = loadedElevations.map(leg => {
-            return leg.map(elevation => {
-                return {
-                    elevation: elevation.elevation,
-                    location: new google.maps.LatLng(elevation.location.lat, elevation.location.lng)
-                }
-            });
-        });
-
-        loadedElevations.forEach(leg => {
-            this._addLeg(leg);
-        });
-        this._updateStoreWithNewValues();
-    },
     onUndo() {
         this.store.legs.pop();
         this._updateStoreWithNewValues();
@@ -28,7 +13,7 @@ module.exports = Reflux.createStore({
     onRouteUpdated(latLngs) {
         var that = this;
 
-        elevations(routeUtils.makeSamplePoints(latLngs, undefined, 1000), function (results) {
+        elevations.getElevations(routeUtils.makeSamplePoints(latLngs, undefined, 1000), function (results) {
             that._addLeg(results);
             that._updateStoreWithNewValues();
         });
@@ -42,17 +27,15 @@ module.exports = Reflux.createStore({
         flatish: 0
     },
     toString() {
-        return this.store.legs.map((leg) => {
-            return leg.map((point) => {
-                return {
-                    elevation: point.elevation,
-                    location: {
-                        lat: point.location.lat(),
-                        lng: point.location.lng()
-                    }
+        return this.store.elevations.map((elevation, i) => {
+            return {
+                elevation: elevation,
+                location: {
+                    lat: this.store.positions[i].lat(),
+                    lng: this.store.positions[i].lng()
                 }
-            })
-        })
+            }
+        });
     },
     getInitialState() {
         return this.store;
@@ -78,26 +61,9 @@ module.exports = Reflux.createStore({
         });
     },
     _updateAscDesc() {
-        var store = this.store;
-        store.ascending = 0;
-        store.descending = 0;
-        store.flatish = 0;
-
-        if (store.elevations.length === 0) {
-            return;
-        }
-
-        store.elevations.reduce((prevValue, currentValue) => {
-            var difference = prevValue - currentValue;
-            var differenceAbs = Math.abs(difference);
-
-            if (differenceAbs < 10) {
-                store.flatish += differenceAbs;
-            }
-            else {
-                difference > 0 ? store.descending += differenceAbs : store.ascending += differenceAbs;
-            }
-            return currentValue;
-        });
+        var stats = elevations.calculateUpsAndDowns(this.store.elevations);
+        this.store.ascending = stats.ascending;
+        this.store.descending = stats.descending;
+        this.store.flatish = stats.flatish;
     }
 });

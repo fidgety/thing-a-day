@@ -39,6 +39,7 @@ function setUpComponent() {
     fakeElevationsStore.updateNumber();
     return dom;
 }
+
 describe('stats component', function () {
     it('should render as zero initially', function () {
         var dom = setUpComponent();

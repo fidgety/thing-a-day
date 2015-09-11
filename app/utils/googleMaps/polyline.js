@@ -1,5 +1,6 @@
 var encodePath = google.maps.geometry.encoding.encodePath;
 var decodePath = google.maps.geometry.encoding.decodePath;
+var calcDistance = google.maps.geometry.spherical.computeLength;
 
 module.exports = {
     join(polyline, polyline2) {
@@ -21,5 +22,8 @@ module.exports = {
     },
     decode(encodedPath) {
         return decodePath(encodedPath);
+    },
+    distance(polyline) {
+        return calcDistance(polyline);
     }
 };

@@ -1,28 +1,12 @@
 require('./style.scss');
 
 var React = require('react');
-var Reflux = require('reflux');
 
 var LineChart = require('react-chartjs').Line;
-var elevationsStore = require('../../../stores/elevations');
 
 var actions = require('../../../actions/map');
 
 module.exports = React.createClass({
-    mixins: [Reflux.listenTo(elevationsStore, 'onElevationsChange')],
-    getInitialState: function () {
-        return {
-            elevations: [1,1],
-            labels: [0,0],
-            positions: []
-        };
-    },
-    onElevationsChange: function (elevations) {
-        this.setState({
-            elevations: elevations.elevations,
-            positions: elevations.positions
-        });
-    },
     render: function () {
         var that = this;
         var ops = {
@@ -40,13 +24,13 @@ module.exports = React.createClass({
                 var text = tooltip.text;
                 var colonPos = text.indexOf(':');
                 var elevation = text.slice(colonPos + 1);
-                var posInArray = that.state.elevations.indexOf(parseFloat(elevation));
-                actions.elevationHover(that.state.positions[posInArray]);
+                var posInArray = that.props.elevations.indexOf(parseFloat(elevation));
+                actions.elevationHover(that.props.positions[posInArray]);
             }
         };
 
         var data = {
-            labels: this.state.elevations,
+            labels: this.props.elevations,
             datasets: [
                 {
                     fillColor: 'rgba(0,0,0,0)',
@@ -55,7 +39,7 @@ module.exports = React.createClass({
                     pointStrokeColor: '#fff',
                     pointHighlightFill: '#fff',
                     pointHighlightStroke: 'rgba(220,220,220,1)',
-                    data: this.state.elevations
+                    data: this.props.elevations
                 }
             ]
         };

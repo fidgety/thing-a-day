@@ -3,38 +3,26 @@ require('./style.scss');
 var React = require('react');
 var Reflux = require('reflux');
 
-var actions = require('../../actions/map');
-var waypointsStore = require('../../stores/waypoints');
-var routeStore = require('../../stores/route');
+var actions = require('../../../actions/map');
+var routeStore = require('../../../stores/route');
 
-var mainMapOptions = require('./../../utils/googleMaps/mainMapOptions');
-var Markers = require('../markers');
-//var Marker = require('../marker');
-var Legs = require('../legs');
-var Picks = require('../picks/picksMarkers');
+var mainMapOptions = require('../../../utils/googleMaps/mainMapOptions');
+var Markers = require('../../markers');
+var Legs = require('../../legs');
+var Picks = require('../../picks/picksMarkers');
 
 module.exports = React.createClass({
     mixins: [
-        Reflux.listenTo(waypointsStore, 'onWaypointsChange'),
         Reflux.listenTo(routeStore, 'onRouteChange')
     ],
     getInitialState: function () {
         return {
             map: undefined,
-            waypoints: [],
-            route: new google.maps.Polyline(),
             legs: []
         };
     },
-    onWaypointsChange(waypoints) {
-        this.setState({
-            waypoints
-        });
-        //this.state.map.panTo(this.state.waypoints[this.state.waypoints.length - 1].latLng);
-    },
     onRouteChange(route) {
         this.setState({
-            route: route.path,
             legs: route.legs
         });
     },
@@ -59,10 +47,6 @@ module.exports = React.createClass({
         });
     },
     render: function () {
-        //var that = this;
-        //var markers = this.state.waypoints.map(function (waypoint) {
-        //    return <Marker key={waypoint.key} latLng={waypoint.latLng} map={that.state.map}></Marker>
-        //});
         return (
             <div id="map">
                 <Legs legs={this.state.legs} map={this.state.map}/>
