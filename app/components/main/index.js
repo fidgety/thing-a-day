@@ -8,6 +8,7 @@ var Plan = require('../pages/plan');
 var Router = require('react-router');
 var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
+var Redirect = Router.Redirect;
 var RouteOverview = require('../pages/route');
 
 var Main = React.createClass({
@@ -20,8 +21,9 @@ var Main = React.createClass({
 
 var routes = (
     <Route handler={Main}>
-        <Route path="/plan" handler={Plan}/>
-        <Route path="/route/:name" handler={RouteOverview}/>
+        <Redirect from="/" to="plan" />
+        <Route name="plan" path="/plan" handler={Plan}/>
+        <Route name="overview" path="/route/:name" handler={RouteOverview}/>
     </Route>
 );
 
