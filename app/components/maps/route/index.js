@@ -46,7 +46,7 @@ module.exports = React.createClass({
     render: function () {
         return (
             <div id="map">
-                <Route route={this.state.route} map={this.state.map}/>
+                <Route route={this.state.route} map={this.state.map} fitToMap="true"/>
                 <Picks map={this.state.map}/>
                 <div id="map-canvas"></div>
             </div>);

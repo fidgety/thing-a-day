@@ -1,4 +1,5 @@
 var React = require('react');
+var polylineUtils = require('../../utils/googleMaps/polyline');
 
 module.exports = React.createClass({
     getInitialState: function () {
@@ -40,8 +41,12 @@ module.exports = React.createClass({
                 //setTimeout(function () {
                     route2.push(newPath[count]);
                     route.push(newPath[count]);
-                //}, count);
+                //}, count * 50);
             });
+            
+            if (this.props.fitToMap) {
+                this.props.map.fitBounds(polylineUtils.toBounds(this.state.route));
+            }
         }
         return null;
     }
