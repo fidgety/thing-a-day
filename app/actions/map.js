@@ -10,5 +10,6 @@ module.exports = Reflux.createActions([
     'updateName',
     'elevationHover',
     'pickHighlighted',
-    'pickUnhighlighted'
+    'pickUnhighlighted',
+    'measurementChanged'
 ]);

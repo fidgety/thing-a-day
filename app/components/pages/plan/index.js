@@ -18,7 +18,7 @@ module.exports = React.createClass({
         Reflux.listenTo(elevationsStore, 'onElevationsChange')
     ],
     onRouteChange(route) {
-        var distanceInKm = (route.distance / 1000).toFixed(1);
+        var distanceInKm = route.distance;
         this.setState({
             distance: distanceInKm
         })
@@ -36,7 +36,7 @@ module.exports = React.createClass({
         return {
             elevations: [1, 1],
             positions: [],
-            distance: 0,
+            distance: routeStore.getInitialState().distance,
             ascending: 0,
             descending: 0,
             flatish: 0

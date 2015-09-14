@@ -41,8 +41,8 @@ module.exports = React.createClass({
                 <div className="ascdesc desc icon-arrow-down2"><Ticker value={this.props.descending} animate="true" decimalPlaces="0"/>
                     <span className="m">m</span>
                 </div>
-                <div className="distance"><Ticker value={this.props.distance} animate="true" decimalPlaces="1"/>
-                    <div className="km">km</div>
+                <div className="distance"><Ticker value={this.props.distance.value} animate="true" decimalPlaces="1"/>
+                    <div className="km">{this.props.distance.unit}</div>
                 </div>
                 <Pie data={data} options={options}/>
                 <div className="ascdesc asc icon-arrow-up2"><Ticker value={this.props.ascending} animate="true" decimalPlaces="0"/>

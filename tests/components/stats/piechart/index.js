@@ -21,7 +21,9 @@ function setUpComponent(distance, ascending, descending) {
 
 describe('stats component', function () {
     it('should update overall distance', function (done) {
-        var dom = setUpComponent(92.0, 10, 12);
+        var dom = setUpComponent({
+            value: 92.0
+        }, 10, 12);
 
         setTimeout(() => {
             dom.getElementsByTagName('span')[3].innerHTML.should.equal('92');

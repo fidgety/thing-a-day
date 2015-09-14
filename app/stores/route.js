@@ -5,9 +5,26 @@ var actions = require('../actions/map');
 var flattenArray = require('../utils/array/flatten');
 var polyline = require('../utils/googleMaps/polyline');
 
+var optionsStore = require('./options');
+
+var _distanceMetrics = {
+    unit: optionsStore.getInitialState().distanceUnit,
+    converter: optionsStore.getInitialState().distanceConverter
+};
+
 module.exports = Reflux.createStore({
     listenables: actions,
-
+    init() {
+        this.listenTo(optionsStore, this.optionsUpdated);
+    },
+    optionsUpdated(newOptionsStoreValues) {
+        _distanceMetrics = {
+            unit: newOptionsStoreValues.distanceUnit,
+            converter: newOptionsStoreValues.distanceConverter
+        }
+        this._calcDistance();
+        this.trigger(this.store);
+    },
     onUndo() {
         if (this.store.legs.length === 0) {
             this.store.startingLatLng = undefined;
@@ -70,7 +87,10 @@ module.exports = Reflux.createStore({
     },
     store: {
         legs: [],
-        distance: 0,
+        distance: {
+            value: 0,
+            unit: _distanceMetrics.unit
+        },
         startingLatLng: undefined,
         endLatLng: undefined,
         elevationHover: undefined,
@@ -92,7 +112,11 @@ module.exports = Reflux.createStore({
     },
     _calcDistance() {
         var route = flattenArray(this.store.legs.map(legPolyline => legPolyline.polyline.getPath().getArray()));
-        this.store.distance = polyline.distance(route);
+
+        this.store.distance = {
+            value: (polyline.distance(route) / _distanceMetrics.converter).toFixed(1) || 0,
+            unit: _distanceMetrics.unit
+        };
     },
     _addLeg(newLatLngs) {
         this.store.legs.push({
