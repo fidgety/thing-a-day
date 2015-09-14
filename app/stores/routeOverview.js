@@ -3,9 +3,36 @@ var elevations = require('../utils/googleMaps/elevations');
 var actions = require('../actions/map');
 var polyline = require('../utils/googleMaps/polyline');
 
+var optionsStore = require('./options');
+
+var _elevationMetrics = {
+    unit: optionsStore.getInitialState().elevationUnit,
+    converter: optionsStore.getInitialState().elevationConverter
+};
+
+var _distanceMetrics = {
+    unit: optionsStore.getInitialState().distanceUnit,
+    converter: optionsStore.getInitialState().distanceConverter
+};
+
 module.exports = Reflux.createStore({
     listenables: actions,
-
+    init() {
+        this.listenTo(optionsStore, this.optionsUpdated);
+    },
+    optionsUpdated(newOptionsStoreValues) {
+        _elevationMetrics = {
+            unit: newOptionsStoreValues.elevationUnit,
+            converter: newOptionsStoreValues.elevationConverter
+        };
+        _distanceMetrics = {
+            unit: newOptionsStoreValues.distanceUnit,
+            converter: newOptionsStoreValues.distanceConverter
+        };
+        this._updateDistance();
+        this._updateElevationMerics();
+        this.trigger(this.store);
+    },
     onLoad(routeName) {
         var route = JSON.parse(window.localStorage.getItem(routeName));
 
@@ -13,12 +40,33 @@ module.exports = Reflux.createStore({
             path: polyline.decode(route.route)
         });
 
-        this.store.distance = polyline.distance(this.store.route.getPath());
+        this._updateDistance();
 
         this.store.name = routeName;
         this._loadElevations(route.elevations);
 
         this.trigger(this.store);
+    },
+    _updateDistance() {
+        this.store.distance = {
+            value: (polyline.distance(this.store.route.getPath()) / _distanceMetrics.converter).toFixed(1) || 0,
+            unit: _distanceMetrics.unit
+        };
+    },
+    _updateElevationMerics() {
+        var stats = elevations.calculateUpsAndDowns(this.store.elevations);
+        this.store.ascending = {
+            value: parseInt(stats.ascending / _elevationMetrics.converter, 10),
+            unit: _elevationMetrics.unit
+        };
+        this.store.descending = {
+            value: parseInt(stats.descending / _elevationMetrics.converter, 10),
+            unit: _elevationMetrics.unit
+        };
+        this.store.flatish = {
+            value: parseInt(stats.flatish / _elevationMetrics.converter, 10),
+            unit: _elevationMetrics.unit
+        };
     },
     _loadElevations(loadedElevations) {
         loadedElevations.forEach(item => {
@@ -26,23 +74,32 @@ module.exports = Reflux.createStore({
             this.store.locations.push(new google.maps.LatLng(item.location.lat, item.location.lng));
         });
 
-        var stats = elevations.calculateUpsAndDowns(this.store.elevations);
-        this.store.ascending = stats.ascending;
-        this.store.descending = stats.descending;
-        this.store.flatish = stats.flatish;
+        this._updateElevationMerics();
     },
     store: {
         route: undefined,
-        distance: 0,
+        distance: {
+            value: 0,
+            unit: _distanceMetrics.unit
+        },
         startingLatLng: undefined,
         endLatLng: undefined,
         elevationHover: undefined,
         elevations: [],
         locations: [],
         name: '',
-        ascending: 0,
-        descending: 0,
-        flatish: 0
+        ascending: {
+            value: 0,
+            unit: _elevationMetrics.unit
+        },
+        descending: {
+            value: 0,
+            unit: _elevationMetrics.unit
+        },
+        flatish: {
+            value: 0,
+            unit: _elevationMetrics.unit
+        }
     },
     getInitialState() {
         return this.store;

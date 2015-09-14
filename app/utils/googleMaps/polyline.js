@@ -30,7 +30,6 @@ module.exports = {
     toBounds(polyline) {
         if (polyline) {
             var bounds = new gBound();
-            console.log(polyline)
             polyline.getPath().getArray().forEach(latLng => bounds.extend(latLng));
 
             return bounds;

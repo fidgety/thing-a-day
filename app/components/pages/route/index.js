@@ -8,22 +8,23 @@ var PicksDetail = require('../../picks/picksDetail');
 var Stats = require('../../stats');
 var actions = require('../../../actions/map');
 
+var MetricOrImperial = require('../../userPrompts');
+
 var routeOverview = require('../../../stores/routeOverview');
 
 module.exports = React.createClass({
     mixins: [Reflux.listenTo(routeOverview, 'onChange')],
     onChange: function (routeOverviewStore) {
-        routeOverviewStore.distance = (routeOverviewStore.distance / 1000).toFixed(1);
         this.setState(routeOverviewStore);
     },
     getInitialState: function () {
         return {
             elevations: [1, 1],
             positions: [],
-            ascending: 0,
-            descending: 0,
-            flatish: 0,
-            distance: 0
+            distance: routeOverview.getInitialState().distance,
+            ascending: routeOverview.getInitialState().ascending,
+            descending: routeOverview.getInitialState().descending,
+            flatish: routeOverview.getInitialState().flatish
         };
     },
     componentDidMount() {
@@ -33,6 +34,7 @@ module.exports = React.createClass({
         return (
             <div id="route">
                 <PicksDetail/>
+                <MetricOrImperial/>
                 <Map/>
                 <Stats
                     elevations={this.state.elevations}
@@ -41,7 +43,6 @@ module.exports = React.createClass({
                     ascending={this.state.ascending}
                     descending={this.state.descending}
                     flatish={this.state.flatish}
-                />
                 />
             </div>
         );

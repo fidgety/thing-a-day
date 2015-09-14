@@ -21,7 +21,7 @@ module.exports = Reflux.createStore({
         _distanceMetrics = {
             unit: newOptionsStoreValues.distanceUnit,
             converter: newOptionsStoreValues.distanceConverter
-        }
+        };
         this._calcDistance();
         this.trigger(this.store);
     },
