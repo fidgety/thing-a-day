@@ -4,8 +4,26 @@ var actions = require('../actions/map');
 var routeUtils = require('../utils/googleMaps/route');
 var flattenArray = require('../utils/array/flatten');
 
+var optionsStore = require('./options');
+
+var _elevationMetrics = {
+    unit: optionsStore.getInitialState().elevationUnit,
+    converter: optionsStore.getInitialState().elevationConverter
+};
+
 module.exports = Reflux.createStore({
+    init() {
+        this.listenTo(optionsStore, this.optionsUpdated);
+    },
     listenables: actions,
+    optionsUpdated(newOptionsStoreValues) {
+        _elevationMetrics = {
+            unit: newOptionsStoreValues.elevationUnit,
+            converter: newOptionsStoreValues.elevationConverter
+        };
+        this._updateStoreWithNewValues();
+        this.trigger(this.store);
+    },
     onUndo() {
         this.store.legs.pop();
         this._updateStoreWithNewValues();
@@ -22,9 +40,18 @@ module.exports = Reflux.createStore({
         elevations: [],
         positions: [],
         legs: [],
-        ascending: 0,
-        descending: 0,
-        flatish: 0
+        ascending: {
+            value: 0,
+            unit: _elevationMetrics.unit
+        },
+        descending: {
+            value: 0,
+            unit: _elevationMetrics.unit
+        },
+        flatish: {
+            value: 0,
+            unit: _elevationMetrics.unit
+        }
     },
     toString() {
         return this.store.elevations.map((elevation, i) => {
@@ -62,8 +89,17 @@ module.exports = Reflux.createStore({
     },
     _updateAscDesc() {
         var stats = elevations.calculateUpsAndDowns(this.store.elevations);
-        this.store.ascending = stats.ascending;
-        this.store.descending = stats.descending;
-        this.store.flatish = stats.flatish;
+        this.store.ascending = {
+            value: parseInt(stats.ascending / _elevationMetrics.converter, 10),
+            unit: _elevationMetrics.unit
+        };
+        this.store.descending = {
+            value: parseInt(stats.descending / _elevationMetrics.converter, 10),
+            unit: _elevationMetrics.unit
+        };
+        this.store.flatish = {
+            value: parseInt(stats.flatish / _elevationMetrics.converter, 10),
+            unit: _elevationMetrics.unit
+        };
     }
 });

@@ -13,7 +13,7 @@ function setUpComponent(distance, ascending, descending) {
         }
     });
 
-    var componentUnderTest = TestUtils.renderIntoDocument(<PieChart ascending={ascending} descending={descending} distance={distance}/>);
+    var componentUnderTest = TestUtils.renderIntoDocument(<PieChart flatish={{value:0}} ascending={{value:ascending}} descending={{value:descending}} distance={{value:distance}}/>);
     var dom = TestUtils.findRenderedComponentWithType(componentUnderTest, PieChart).getDOMNode();
 
     return dom;
@@ -21,9 +21,7 @@ function setUpComponent(distance, ascending, descending) {
 
 describe('stats component', function () {
     it('should update overall distance', function (done) {
-        var dom = setUpComponent({
-            value: 92.0
-        }, 10, 12);
+        var dom = setUpComponent(92.0, 10, 12);
 
         setTimeout(() => {
             dom.getElementsByTagName('span')[3].innerHTML.should.equal('92');
