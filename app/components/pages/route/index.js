@@ -14,8 +14,8 @@ var routeOverviewStore = require('../../../stores/routeOverview');
 
 module.exports = React.createClass({
     mixins: [Reflux.listenTo(routeOverviewStore, 'onChange')],
-    onChange: function (routeOverviewStore) {
-        this.setState(routeOverviewStore);
+    onChange: function (newRouteOverviewStore) {
+        this.setState(newRouteOverviewStore);
     },
     getInitialState: function () {
         var routeOverviewStatus = routeOverviewStore.getState();

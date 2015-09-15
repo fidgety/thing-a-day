@@ -1,0 +1,16 @@
+@import "colours";
+@import "breakpoints";
+@import "respond";
+
+#help {
+    line-height: 50px;
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    height: 50px;
+    width: 500px;
+    background: rgba(0, 0, 0, 0.75);
+    float: right;
+    margin-right: 10px;
+}
