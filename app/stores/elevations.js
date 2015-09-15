@@ -11,22 +11,20 @@ var _elevationMetrics = {
     converter: optionsStore.getInitialState().elevationConverter
 };
 
+function makeMetric(value) {
+    return {
+        value: parseInt(value / _elevationMetrics.converter, 10),
+        unit: _elevationMetrics.unit
+    }
+}
+
 var _store = {
     elevations: [],
     positions: [],
     legs: [],
-    ascending: {
-        value: 0,
-        unit: _elevationMetrics.unit
-    },
-    descending: {
-        value: 0,
-        unit: _elevationMetrics.unit
-    },
-    flatish: {
-        value: 0,
-        unit: _elevationMetrics.unit
-    }
+    ascending: makeMetric(0),
+    descending: makeMetric(0),
+    flatish: makeMetric(0)
 };
 
 module.exports = Reflux.createStore({
@@ -86,17 +84,9 @@ module.exports = Reflux.createStore({
     },
     _updateAscDesc() {
         var stats = elevations.calculateUpsAndDowns(_store.elevations);
-        _store.ascending = {
-            value: parseInt(stats.ascending / _elevationMetrics.converter, 10),
-            unit: _elevationMetrics.unit
-        };
-        _store.descending = {
-            value: parseInt(stats.descending / _elevationMetrics.converter, 10),
-            unit: _elevationMetrics.unit
-        };
-        _store.flatish = {
-            value: parseInt(stats.flatish / _elevationMetrics.converter, 10),
-            unit: _elevationMetrics.unit
-        };
+
+        _store.ascending = makeMetric(stats.ascending);
+        _store.descending = makeMetric(stats.descending);
+        _store.flatish = makeMetric(stats.flatish);
     }
 });

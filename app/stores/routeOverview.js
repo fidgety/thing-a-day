@@ -17,27 +17,27 @@ var _distanceMetrics = {
 
 var _store = {
     route: undefined,
-        distance: {
+    distance: {
         value: 0,
-            unit: _distanceMetrics.unit
+        unit: _distanceMetrics.unit
     },
     startingLatLng: undefined,
-        endLatLng: undefined,
-        elevationHover: undefined,
-        elevations: [],
-        locations: [],
-        name: '',
-        ascending: {
+    endLatLng: undefined,
+    elevationHover: undefined,
+    elevations: [],
+    locations: [],
+    name: '',
+    ascending: {
         value: 0,
-            unit: _elevationMetrics.unit
+        unit: _elevationMetrics.unit
     },
     descending: {
         value: 0,
-            unit: _elevationMetrics.unit
+        unit: _elevationMetrics.unit
     },
     flatish: {
         value: 0,
-            unit: _elevationMetrics.unit
+        unit: _elevationMetrics.unit
     }
 };
 
@@ -74,10 +74,12 @@ module.exports = Reflux.createStore({
         this.trigger(_store);
     },
     _updateDistance() {
-        _store.distance = {
-            value: (polyline.distance(_store.route.getPath()) / _distanceMetrics.converter).toFixed(1) || 0,
-            unit: _distanceMetrics.unit
-        };
+        if (_store.route) {
+            _store.distance = {
+                value: (polyline.distance(_store.route.getPath()) / _distanceMetrics.converter).toFixed(1) || 0,
+                unit: _distanceMetrics.unit
+            };
+        }
     },
     _updateElevationMerics() {
         var stats = elevations.calculateUpsAndDowns(_store.elevations);

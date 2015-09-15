@@ -36,6 +36,7 @@ module.exports = React.createClass({
                                 <div className="distance">{pick.distance}</div>
                                 <div className="ascending">{pick.elevation}</div>
                             </div>
+                            {pick.description}
                         </li>
                     </ul>
                 </div>
