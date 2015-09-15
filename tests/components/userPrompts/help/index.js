@@ -27,9 +27,16 @@ describe('help component', function () {
         dom.innerText.should.equal('click anywhere to start a route');
     });
 
-    it('should prompt the user to save when there is a waypoint', function () {
+    it('should prompt the user to save when they have chosen three waypoints', function () {
         var dom = setUpComponent();
         fakeWaypointsStore.updateStore([1]);
+
+        dom.innerText.should.equal('now click somewhere else and let us find a route there');
+    });
+
+    it('should prompt the user to save when they have chosen three waypoints', function () {
+        var dom = setUpComponent();
+        fakeWaypointsStore.updateStore([1,1,1]);
 
         dom.innerText.should.equal('click save so you don\'t lose your progress');
     });

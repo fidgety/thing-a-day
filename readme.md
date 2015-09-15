@@ -82,6 +82,12 @@ So far...
 * Add react-router so we can have a build view and a completed route view
 * Created a simple express server too
 
+###Day 25
+* Much refactoring to allow the measurement units to be changed
+
+###Day 26
+* UX again
+
 
 
 
