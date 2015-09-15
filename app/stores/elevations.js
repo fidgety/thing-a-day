@@ -11,93 +11,90 @@ var _elevationMetrics = {
     converter: optionsStore.getInitialState().elevationConverter
 };
 
+var _store = {
+    elevations: [],
+    positions: [],
+    legs: [],
+    ascending: {
+        value: 0,
+        unit: _elevationMetrics.unit
+    },
+    descending: {
+        value: 0,
+        unit: _elevationMetrics.unit
+    },
+    flatish: {
+        value: 0,
+        unit: _elevationMetrics.unit
+    }
+};
+
 module.exports = Reflux.createStore({
+    listenables: actions,
     init() {
         this.listenTo(optionsStore, this.optionsUpdated);
     },
-    listenables: actions,
     optionsUpdated(newOptionsStoreValues) {
         _elevationMetrics = {
             unit: newOptionsStoreValues.elevationUnit,
             converter: newOptionsStoreValues.elevationConverter
         };
         this._updateStoreWithNewValues();
-        this.trigger(this.store);
     },
     onUndo() {
-        this.store.legs.pop();
+        _store.legs.pop();
         this._updateStoreWithNewValues();
     },
     onRouteUpdated(latLngs) {
-        var that = this;
-
-        elevations.getElevations(routeUtils.makeSamplePoints(latLngs, undefined, 1000), function (results) {
-            that._addLeg(results);
-            that._updateStoreWithNewValues();
+        elevations.getElevations(routeUtils.makeSamplePoints(latLngs, undefined, 1000), results => {
+            this._addLeg(results);
+            this._updateStoreWithNewValues();
         });
     },
-    store: {
-        elevations: [],
-        positions: [],
-        legs: [],
-        ascending: {
-            value: 0,
-            unit: _elevationMetrics.unit
-        },
-        descending: {
-            value: 0,
-            unit: _elevationMetrics.unit
-        },
-        flatish: {
-            value: 0,
-            unit: _elevationMetrics.unit
-        }
-    },
     toString() {
-        return this.store.elevations.map((elevation, i) => {
+        return _store.elevations.map((elevation, i) => {
             return {
                 elevation: elevation,
                 location: {
-                    lat: this.store.positions[i].lat(),
-                    lng: this.store.positions[i].lng()
+                    lat: _store.positions[i].lat(),
+                    lng: _store.positions[i].lng()
                 }
             }
         });
     },
-    getInitialState() {
-        return this.store;
+    getState() {
+        return _store;
     },
     _updateStoreWithNewValues() {
         this._updateElevations();
         this._updateAscDesc();
-        this.trigger(this.store);
+        this.trigger(_store);
     },
     _addLeg(newElevations) {
-        this.store.legs.push(newElevations);
+        _store.legs.push(newElevations);
     },
     _updateElevations() {
-        var store = this.store;
-        var allElevations = flattenArray(store.legs);
+        var allElevations = flattenArray(_store.legs);
 
-        store.elevations = [];
-        store.positions = [];
+        _store.elevations = [];
+        _store.positions = [];
 
         allElevations.forEach(elevation => {
-            store.elevations.push(elevation.elevation);
-            store.positions.push(elevation.location);
+            _store.elevations.push(elevation.elevation);
+            _store.positions.push(elevation.location);
         });
     },
     _updateAscDesc() {
-        var stats = elevations.calculateUpsAndDowns(this.store.elevations);
-        this.store.ascending = {
+        var stats = elevations.calculateUpsAndDowns(_store.elevations);
+        _store.ascending = {
             value: parseInt(stats.ascending / _elevationMetrics.converter, 10),
             unit: _elevationMetrics.unit
         };
-        this.store.descending = {
+        _store.descending = {
             value: parseInt(stats.descending / _elevationMetrics.converter, 10),
             unit: _elevationMetrics.unit
         };
-        this.store.flatish = {
+        _store.flatish = {
             value: parseInt(stats.flatish / _elevationMetrics.converter, 10),
             unit: _elevationMetrics.unit
         };

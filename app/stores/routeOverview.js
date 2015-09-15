@@ -15,6 +15,32 @@ var _distanceMetrics = {
     converter: optionsStore.getInitialState().distanceConverter
 };
 
+var _store = {
+    route: undefined,
+        distance: {
+        value: 0,
+            unit: _distanceMetrics.unit
+    },
+    startingLatLng: undefined,
+        endLatLng: undefined,
+        elevationHover: undefined,
+        elevations: [],
+        locations: [],
+        name: '',
+        ascending: {
+        value: 0,
+            unit: _elevationMetrics.unit
+    },
+    descending: {
+        value: 0,
+            unit: _elevationMetrics.unit
+    },
+    flatish: {
+        value: 0,
+            unit: _elevationMetrics.unit
+    }
+};
+
 module.exports = Reflux.createStore({
     listenables: actions,
     init() {
@@ -31,77 +57,52 @@ module.exports = Reflux.createStore({
         };
         this._updateDistance();
         this._updateElevationMerics();
-        this.trigger(this.store);
+        this.trigger(_store);
     },
     onLoad(routeName) {
         var route = JSON.parse(window.localStorage.getItem(routeName));
 
-        this.store.route = new google.maps.Polyline({
+        _store.route = new google.maps.Polyline({
             path: polyline.decode(route.route)
         });
 
         this._updateDistance();
 
-        this.store.name = routeName;
+        _store.name = routeName;
         this._loadElevations(route.elevations);
 
-        this.trigger(this.store);
+        this.trigger(_store);
     },
     _updateDistance() {
-        this.store.distance = {
-            value: (polyline.distance(this.store.route.getPath()) / _distanceMetrics.converter).toFixed(1) || 0,
+        _store.distance = {
+            value: (polyline.distance(_store.route.getPath()) / _distanceMetrics.converter).toFixed(1) || 0,
             unit: _distanceMetrics.unit
         };
     },
     _updateElevationMerics() {
-        var stats = elevations.calculateUpsAndDowns(this.store.elevations);
-        this.store.ascending = {
+        var stats = elevations.calculateUpsAndDowns(_store.elevations);
+        _store.ascending = {
             value: parseInt(stats.ascending / _elevationMetrics.converter, 10),
             unit: _elevationMetrics.unit
         };
-        this.store.descending = {
+        _store.descending = {
             value: parseInt(stats.descending / _elevationMetrics.converter, 10),
             unit: _elevationMetrics.unit
         };
-        this.store.flatish = {
+        _store.flatish = {
             value: parseInt(stats.flatish / _elevationMetrics.converter, 10),
             unit: _elevationMetrics.unit
         };
     },
     _loadElevations(loadedElevations) {
         loadedElevations.forEach(item => {
-            this.store.elevations.push(item.elevation);
-            this.store.locations.push(new google.maps.LatLng(item.location.lat, item.location.lng));
+            _store.elevations.push(item.elevation);
+            _store.locations.push(new google.maps.LatLng(item.location.lat, item.location.lng));
         });
 
         this._updateElevationMerics();
     },
-    store: {
-        route: undefined,
-        distance: {
-            value: 0,
-            unit: _distanceMetrics.unit
-        },
-        startingLatLng: undefined,
-        endLatLng: undefined,
-        elevationHover: undefined,
-        elevations: [],
-        locations: [],
-        name: '',
-        ascending: {
-            value: 0,
-            unit: _elevationMetrics.unit
-        },
-        descending: {
-            value: 0,
-            unit: _elevationMetrics.unit
-        },
-        flatish: {
-            value: 0,
-            unit: _elevationMetrics.unit
-        }
-    },
-    getInitialState() {
-        return this.store;
+    getState() {
+        return _store;
     }
 });

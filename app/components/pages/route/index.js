@@ -10,21 +10,23 @@ var actions = require('../../../actions/map');
 
 var MetricOrImperial = require('../../userPrompts');
 
-var routeOverview = require('../../../stores/routeOverview');
+var routeOverviewStore = require('../../../stores/routeOverview');
 
 module.exports = React.createClass({
-    mixins: [Reflux.listenTo(routeOverview, 'onChange')],
+    mixins: [Reflux.listenTo(routeOverviewStore, 'onChange')],
     onChange: function (routeOverviewStore) {
         this.setState(routeOverviewStore);
     },
     getInitialState: function () {
+        var routeOverviewStatus = routeOverviewStore.getState();
+
         return {
             elevations: [1, 1],
             positions: [],
-            distance: routeOverview.getInitialState().distance,
-            ascending: routeOverview.getInitialState().ascending,
-            descending: routeOverview.getInitialState().descending,
-            flatish: routeOverview.getInitialState().flatish
+            distance: routeOverviewStatus.distance,
+            ascending: routeOverviewStatus.ascending,
+            descending: routeOverviewStatus.descending,
+            flatish: routeOverviewStatus.flatish
         };
     },
     componentDidMount() {
