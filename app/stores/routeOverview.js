@@ -6,13 +6,13 @@ var polyline = require('../utils/googleMaps/polyline');
 var optionsStore = require('./options');
 
 var _elevationMetrics = {
-    unit: optionsStore.getInitialState().elevationUnit,
-    converter: optionsStore.getInitialState().elevationConverter
+    unit: optionsStore.getState().elevationUnit,
+    converter: optionsStore.getState().elevationConverter
 };
 
 var _distanceMetrics = {
-    unit: optionsStore.getInitialState().distanceUnit,
-    converter: optionsStore.getInitialState().distanceConverter
+    unit: optionsStore.getState().distanceUnit,
+    converter: optionsStore.getState().distanceConverter
 };
 
 var _store = {

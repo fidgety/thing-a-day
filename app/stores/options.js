@@ -23,7 +23,7 @@ module.exports = Reflux.createStore({
         this.store.elevationUnit = metric ? 'm' : 'feet';
         this.trigger(this.store);
     },
-    getInitialState() {
+    getState() {
         return this.store;
     }
 });

@@ -7,8 +7,8 @@ var flattenArray = require('../utils/array/flatten');
 var optionsStore = require('./options');
 
 var _elevationMetrics = {
-    unit: optionsStore.getInitialState().elevationUnit,
-    converter: optionsStore.getInitialState().elevationConverter
+    unit: optionsStore.getState().elevationUnit,
+    converter: optionsStore.getState().elevationConverter
 };
 
 function makeMetric(value) {

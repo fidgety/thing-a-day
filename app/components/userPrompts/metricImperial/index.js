@@ -13,7 +13,7 @@ module.exports = React.createClass({
     ],
     getInitialState: function () {
         return {
-            metric: optionsStore.getInitialState().metric
+            metric: optionsStore.getState().metric
         };
     },
     onOptionsChange: function (newOptionsStoreValues) {
