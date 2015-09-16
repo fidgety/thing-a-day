@@ -12,6 +12,18 @@ var _distanceMetrics = {
     converter: optionsStore.getState().distanceConverter
 };
 
+var _store = {
+    legs: [],
+    distance: {
+        value: 0,
+        unit: _distanceMetrics.unit
+    },
+    startingLatLng: undefined,
+    endLatLng: undefined,
+    elevationHover: undefined,
+    name: ''
+};
+
 module.exports = Reflux.createStore({
     listenables: actions,
     init() {
@@ -23,50 +35,50 @@ module.exports = Reflux.createStore({
             converter: newOptionsStoreValues.distanceConverter
         };
         this._calcDistance();
-        this.trigger(this.store);
+        this.trigger(_store);
     },
     onUndo() {
-        if (this.store.legs.length === 0) {
-            this.store.startingLatLng = undefined;
+        if (_store.legs.length === 0) {
+            _store.startingLatLng = undefined;
         }
-        this.store.legs.pop();
-        this.store.endLatLng = this._endOfRoute();
+        _store.legs.pop();
+        _store.endLatLng = this._endOfRoute();
 
-        if (this.store.legs.length === 0) {
-            this.store.endLatLng = undefined;
+        if (_store.legs.length === 0) {
+            _store.endLatLng = undefined;
         }
         this._calcDistance();
-        this.trigger(this.store);
+        this.trigger(_store);
     },
     onUpdateName(newName) {
-        this.store.name = newName;
-        this.trigger(this.store);
+        _store.name = newName;
+        this.trigger(_store);
     },
     onSave() {
         var elevations = require('./elevations').toString();
         var route = new google.maps.Polyline();
-        var legs = this.store.legs.map(leg => {
+        var legs = _store.legs.map(leg => {
             route = polyline.join(route, leg.polyline);
             return polyline.encode(leg.polyline);
         });
 
         console.log('save to local storage', {
-            name: this.store.name,
+            name: _store.name,
             elevations,
             legs,
             route: polyline.encode(route)
         });
 
-        window.localStorage.setItem(this.store.name, JSON.stringify({
-            name: this.store.name,
+        window.localStorage.setItem(_store.name, JSON.stringify({
+            name: _store.name,
             elevations,
             legs,
             route: polyline.encode(route)
         }));
     },
     onElevationHover(latLng) {
-        this.store.elevationHover = latLng;
-        this.trigger(this.store);
+        _store.elevationHover = latLng;
+        this.trigger(_store);
     },
     onNewWaypoint(latLng) {
         var that = this;
@@ -80,46 +92,35 @@ module.exports = Reflux.createStore({
                 that.trigger(that.store);
             })
         } else {
-            this.store.startingLatLng = latLng;
+            _store.startingLatLng = latLng;
             that.trigger(that.store);
         }
 
     },
-    store: {
-        legs: [],
-        distance: {
-            value: 0,
-            unit: _distanceMetrics.unit
-        },
-        startingLatLng: undefined,
-        endLatLng: undefined,
-        elevationHover: undefined,
-        name: ''
-    },
     getInitialState() {
-        return this.store;
+        return _store;
     },
     _routeStarted() {
-        return this.store.startingLatLng;
+        return _store.startingLatLng;
     },
     _endOfRoute() {
-        if (this.store.legs.length) {
-            var path = this.store.legs[this.store.legs.length - 1].polyline.getPath();
+        if (_store.legs.length) {
+            var path = _store.legs[_store.legs.length - 1].polyline.getPath();
             return path.getAt(path.getLength() - 1)
         }
 
-        return this.store.startingLatLng;
+        return _store.startingLatLng;
     },
     _calcDistance() {
-        var route = flattenArray(this.store.legs.map(legPolyline => legPolyline.polyline.getPath().getArray()));
+        var route = flattenArray(_store.legs.map(legPolyline => legPolyline.polyline.getPath().getArray()));
 
-        this.store.distance = {
+        _store.distance = {
             value: (polyline.distance(route) / _distanceMetrics.converter).toFixed(1) || 0,
             unit: _distanceMetrics.unit
         };
     },
     _addLeg(newLatLngs) {
-        this.store.legs.push({
+        _store.legs.push({
             polyline: new google.maps.Polyline({
                 path: newLatLngs
             })
