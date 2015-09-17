@@ -81,19 +81,18 @@ module.exports = Reflux.createStore({
         this.trigger(_store);
     },
     onNewWaypoint(latLng) {
-        var that = this;
         if (this._routeStarted()) {
-            mapMethods.getDirections(this._endOfRoute(), latLng, function (route) {
+            mapMethods.getDirections(this._endOfRoute(), latLng, (route) => {
                 var newRouteLatLngs = routeMethods.routeToLatLngs(route);
                 actions.routeUpdated(newRouteLatLngs);
-                that._addLeg(newRouteLatLngs);
-                that.store.endLatLng = that._endOfRoute();
-                that._calcDistance();
-                that.trigger(that.store);
+                this._addLeg(newRouteLatLngs);
+                _store.endLatLng = this._endOfRoute();
+                this._calcDistance();
+                this.trigger(_store);
             })
         } else {
             _store.startingLatLng = latLng;
-            that.trigger(that.store);
+            this.trigger(_store);
         }
 
     },
