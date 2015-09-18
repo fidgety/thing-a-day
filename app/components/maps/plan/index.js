@@ -34,7 +34,7 @@ module.exports = React.createClass({
             map: map
         });
 
-var timer;
+        var timer;
 
         google.maps.event.addListenerOnce(map, 'tilesloaded', function () {
             google.maps.event.addListener(map, 'dragend', function () {
@@ -49,7 +49,7 @@ var timer;
                 }
             });
 
-            google.maps.event.addListener(map, 'dblclick', function (e) {
+            google.maps.event.addListener(map, 'dblclick', function () {
                 clearTimeout(timer);
                 timer = undefined;
             });
