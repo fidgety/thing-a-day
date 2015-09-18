@@ -34,12 +34,24 @@ module.exports = React.createClass({
             map: map
         });
 
+var timer;
+
         google.maps.event.addListenerOnce(map, 'tilesloaded', function () {
             google.maps.event.addListener(map, 'dragend', function () {
             });
 
             google.maps.event.addListener(map, 'click', function (e) {
-                actions.mapClicked(e.latLng);
+                if (!timer) {
+                    timer = setTimeout(function () {
+                        actions.mapClicked(e.latLng);
+                        timer = undefined;
+                    }, 200);
+                }
+            });
+
+            google.maps.event.addListener(map, 'dblclick', function (e) {
+                clearTimeout(timer);
+                timer = undefined;
             });
 
             google.maps.event.addListener(map, 'zoom_changed', function () {

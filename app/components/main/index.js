@@ -10,6 +10,7 @@ var Route = Router.Route;
 var RouteHandler = Router.RouteHandler;
 var Redirect = Router.Redirect;
 var RouteOverview = require('../pages/route');
+var Splash = require('../pages/splash');
 
 var Main = React.createClass({
     render: function () {
@@ -22,6 +23,7 @@ var Main = React.createClass({
 var routes = (
     <Route handler={Main}>
         <Redirect from="/" to="plan" />
+        <Route name="splash" path="/splash" handler={Splash}/>
         <Route name="plan" path="/plan" handler={Plan}/>
         <Route name="overview" path="/route/:name" handler={RouteOverview}/>
     </Route>
