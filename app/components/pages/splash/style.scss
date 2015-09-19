@@ -1,15 +1,39 @@
-#splash {
-    height: 55px;
+@import "colours";
+@import "breakpoints";
+@import "respond";
+
+#header {
+    position: absolute;
+    height: $headerHeight;
     width: 100%;
-    padding-top: 12px;
-    background: black;
+    background: rgba(0,0,0,0.8);
+    z-index: 1;
 
     .logo {
         width: 150px;
-        margin: 0 auto;
+        margin: 12px auto;
+
+        #shape {
+            fill: white;
+        }
     }
 
-    #shape {
-        fill: white;
+
+    .metric-imperial {
+        position: absolute;
+        right: 15px;
+        top: 25px;
+        color: silver;
+        font-weight: 300;
+        cursor: pointer;
     }
+}
+
+#splash {
+    width: 100%;
+    height: 100%;
+}
+
+.map-holder {
+    height: 100%;
 }

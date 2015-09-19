@@ -34,6 +34,7 @@ module.exports = React.createClass({
             goHereDiv.innerHTML = 'go here';
             goHereDiv.onclick = function () {
                 actions.mapClicked(pick.latLng);
+                actions.pickUnhighlighted(pick.name);
                 return false;
             };
             tooltipDiv.appendChild(goHereDiv);

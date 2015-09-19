@@ -23,6 +23,17 @@ module.exports = React.createClass({
             highlightedItem: updatedPicksStore.highlighted || this.state.highlightedItem
         });
     },
+    componentDidUpdate() {
+        this._setHeightOfDescription();
+    },
+    componentDidMount() {
+        this._setHeightOfDescription();
+    },
+    _setHeightOfDescription() {
+        var descriptionTop = document.querySelector('#picks .description').getBoundingClientRect().top;
+        var picksHeight = document.querySelector('#picks').getBoundingClientRect().height;
+        document.querySelector('#picks .description').setAttribute('style','height:' + (picksHeight - descriptionTop + 22) + 'px');
+    },
     render: function () {
         var activeClass = this.state.highlighted ? 'picks-active' : 'picks-inactive';
         var pick = this.state.highlightedItem;
@@ -32,6 +43,7 @@ module.exports = React.createClass({
 
         var add = function () {
             actions.mapClicked(pick.latLng);
+            close();
         };
         
         return (
