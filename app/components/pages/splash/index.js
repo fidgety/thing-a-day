@@ -6,9 +6,18 @@ var PicksDetail = require('../../picks/picksDetail');
 
 module.exports = React.createClass({
     getInitialState: function () {
-        return {};
+        return {
+            showGrowler: true
+        };
     },
     render: function () {
+        var growlerCSS = this.state.showGrowler ? '' : 'hidden';
+        var hideGrowler = function () {
+            this.setState({
+                showGrowler: false
+            });
+        }.bind(this);
+
         return (
             <div id="splash">
                 <div id="header">
@@ -30,6 +39,10 @@ module.exports = React.createClass({
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M227.5 50.2c2.9-6.21 5.38-11.65 7.97-17.04 1.31-2.72 3.29-3.51 5.92-2.64 2.4 0.79 3.47 2.37 2.58 5.35 -1.34 4.51-3.18 8.88-4.89 13.28 -0.18 0.47-0.95 0.98-1.46 1C234.39 50.24 231.17 50.2 227.5 50.2z"/>
                         </svg>
                     </div>
+                </div>
+                <div id="growler" className={growlerCSS} onClick={hideGrowler}>
+                    Click anywhere on the map to start a route
+                    <div className="dismiss">dismiss</div>
                 </div>
                 <PicksDetail/>
                 <div className="map-holder">
