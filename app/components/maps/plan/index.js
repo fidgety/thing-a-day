@@ -11,6 +11,8 @@ var Markers = require('../../markers');
 var Legs = require('../../legs');
 var Picks = require('../../picks/picksMarkers');
 
+var _lookupInProgress = false;
+
 module.exports = React.createClass({
     mixins: [
         Reflux.listenTo(routeStore, 'onRouteChange')
@@ -22,6 +24,7 @@ module.exports = React.createClass({
         };
     },
     onRouteChange(route) {
+        _lookupInProgress = false;
         this.setState({
             legs: route.legs
         });
@@ -41,8 +44,9 @@ module.exports = React.createClass({
             });
 
             google.maps.event.addListener(map, 'click', function (e) {
-                if (!timer) {
+                if (!timer && !_lookupInProgress) {
                     timer = setTimeout(function () {
+                        _lookupInProgress = true;
                         actions.mapClicked(e.latLng);
                         timer = undefined;
                     }, 200);
