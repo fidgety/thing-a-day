@@ -7,7 +7,7 @@
     height: $headerHeight;
     width: 100%;
     background: rgba(0,0,0,0.8);
-    z-index: 1;
+    z-index: $z-index-header;
 
     .logo {
         width: 150px;
@@ -28,7 +28,7 @@
     }
 }
 #splash {
-    .button {
+    .main-controls {
         font-size: 0.8em;
         text-transform: uppercase;
         cursor: pointer;
@@ -40,7 +40,7 @@
         position: absolute;
         color: black;
         right: 10px;
-        z-index: 1;
+        z-index: $z-index-mainControls;
         text-align: center;
         top: $headerHeight + 10px;
         font-weight: 400;
@@ -55,7 +55,7 @@
         top: $headerHeight;
         width: calc(100% - 60px);
         background: rgba(46, 204, 113, 0.9);
-        z-index: 2;
+        z-index: $z-index-growler;
         left: 0;
         transition: all 0.8s;
         opacity: 1;

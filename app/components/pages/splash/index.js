@@ -87,8 +87,8 @@ module.exports = React.createClass({
                     Click anywhere on the map to start a route
                     <div className="dismiss">dismiss</div>
                 </div>
-                <div className="button save">save</div>
-                <div className="button undo">undo</div>
+                <div className="main-controls save">save</div>
+                <div className="main-controls undo">undo</div>
                 <PicksDetail/>
                 <div className="map-holder">
                     <Map/>

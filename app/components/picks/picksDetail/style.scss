@@ -6,7 +6,7 @@
     top: 67px;
     position: absolute;
     background: rgba(0, 0, 0, 0.75);
-    z-index: 10;
+    z-index: $z-index-modal;
     width: 100%;
     height: 100%;
     color: white;
