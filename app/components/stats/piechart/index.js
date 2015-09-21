@@ -9,7 +9,7 @@ var Ticker = require('../../ticker');
 var options = {
     //showTooltips: false,
     segmentShowStroke: false,
-    percentageInnerCutout: 90,
+    percentageInnerCutout: 70,
     animationEasing: 'easeOutQuart',
     animationSteps: 40
 };
@@ -19,19 +19,19 @@ module.exports = React.createClass({
         var data = [
             {
                 value: this.props.ascending.value || 1,
-                color:'#FF6633',
+                color:'#FF6339',
                 highlight: '#FF5A5E',
                 label: 'ascending'
             },
             {
-                value: this.props.flatish.value || 0,
-                color: '#FEE71A',
+                value: this.props.flatish.value || 1,
+                color: '#ffd339',
                 highlight: '#FFC870',
                 label: 'flat (sort of)'
             },
             {
                 value: this.props.descending.value || 1,
-                color: '#ABCA43',
+                color: '#2ecc71',
                 highlight: '#5AD3D1',
                 label: 'descending'
             }
