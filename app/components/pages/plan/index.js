@@ -1,19 +1,22 @@
 require('./style.scss');
 
 var React = require('react');
+var Map = require('../../maps/plan');
+var PicksDetail = require('../../picks/picksDetail');
 var Reflux = require('reflux');
+var optionsStore = require('../../../stores/options');
+var Header = require('../../header');
+var Growler = require('../../growler');
+var SaveRoute = require('../../userPrompts/saveRoute');
+var Undo = require('../../userPrompts/undo');
 
 var elevationsStore = require('../../../stores/elevations');
 var routeStore = require('../../../stores/route');
-
-
-var Map = require('../../maps/plan');
-var PicksDetail = require('../../picks/picksDetail');
 var Stats = require('../../stats');
-var UserPrompts = require('../../userPrompts');
 
 module.exports = React.createClass({
     mixins: [
+        Reflux.listenTo(optionsStore, 'onOptionsChange'),
         Reflux.listenTo(routeStore, 'onRouteChange'),
         Reflux.listenTo(elevationsStore, 'onElevationsChange')
     ],
@@ -33,6 +36,8 @@ module.exports = React.createClass({
     },
     getInitialState: function () {
         return {
+            showGrowler: true,
+            metric: true,
             elevations: [1, 1],
             positions: [],
             distance: routeStore.getInitialState().distance,
@@ -41,11 +46,19 @@ module.exports = React.createClass({
             flatish: elevationsStore.getState().flatish
         };
     },
+    onOptionsChange(newOptions) {
+        this.setState({
+            metric: newOptions.metric
+        })
+    },
     render: function () {
         return (
-            <div id="plan">
+            <div id="splash">
+                <Header/>
+                <Growler/>
+                <SaveRoute/>
+                <Undo/>
                 <PicksDetail/>
-                <UserPrompts/>
                 <Map/>
                 <Stats
                     elevations={this.state.elevations}

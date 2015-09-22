@@ -8,7 +8,7 @@ var PicksDetail = require('../../picks/picksDetail');
 var Stats = require('../../stats');
 var actions = require('../../../actions/map');
 
-var MetricOrImperial = require('../../userPrompts');
+var Header = require('../../header');
 
 var routeOverviewStore = require('../../../stores/routeOverview');
 
@@ -35,8 +35,8 @@ module.exports = React.createClass({
     render: function () {
         return (
             <div id="route">
+                <Header/>
                 <PicksDetail/>
-                <MetricOrImperial/>
                 <Map/>
                 <Stats
                     elevations={this.state.elevations}
