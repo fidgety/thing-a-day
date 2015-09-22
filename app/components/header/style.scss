@@ -1,0 +1,29 @@
+@import "colours";
+@import "breakpoints";
+@import "respond";
+
+#header {
+    position: absolute;
+    height: $headerHeight;
+    width: 100%;
+    background: rgba(0,0,0,0.8);
+    z-index: $z-index-header;
+
+    .logo {
+        width: 150px;
+        margin: 12px auto;
+
+        #shape {
+            fill: white;
+        }
+    }
+
+    .metric-imperial {
+        position: absolute;
+        right: 15px;
+        top: 25px;
+        color: silver;
+        font-weight: 300;
+        cursor: pointer;
+    }
+}

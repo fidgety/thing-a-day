@@ -3,20 +3,25 @@
 @import "respond";
 
 #undo {
-    line-height: 50px;
-    color: white;
-    font-size: 16px;
-    text-align: center;
+    font-size: 0.8em;
+    text-transform: uppercase;
     cursor: pointer;
-    height: 50px;
-    width: 50px;
-    background: rgba(0, 0, 0, 0.75);
+    border-radius: 9999px;
+    width: 60px;
+    height: 60px;
+    background: rgba(46, 204, 113, 0.9);
+    line-height: 60px;
+    position: absolute;
+    color: black;
+    z-index: $z-index-mainControls;
+    text-align: center;
+    top: $headerHeight + 10px;
+    right: 80px;
+    font-weight: 400;
     opacity: 0;
     transition: all 0.3s;
     transform: perspective( 400px ) rotateY(90deg);
     transform-style: preserve-3d;
-    float: right;
-    margin-right: 10px;
 
     &.undo-active {
         transition: all 0.3s;

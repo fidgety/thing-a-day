@@ -28,6 +28,28 @@
     }
 }
 #splash {
+    .main-controls {
+        font-size: 0.8em;
+        text-transform: uppercase;
+        cursor: pointer;
+        border-radius: 9999px;
+        width: 60px;
+        height: 60px;
+        background: rgba(46, 204, 113, 0.9);
+        line-height: 60px;
+        position: absolute;
+        color: black;
+        right: 10px;
+        z-index: $z-index-mainControls;
+        text-align: center;
+        top: $headerHeight + 10px;
+        font-weight: 400;
+    }
+
+    .undo {
+        right: 80px;
+    }
+
     #growler {
         position: absolute;
         top: $headerHeight;

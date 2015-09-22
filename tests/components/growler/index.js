@@ -11,9 +11,9 @@ function setUpComponent() {
         }
     });
 
-    var undoFactory = require('inject!../../../../app/components/userPrompts/help');
+    var undoFactory = require('inject!../../../app/components/growler');
     var Help = undoFactory({
-        '../../../stores/waypoints': fakeWaypointsStore
+        '../../stores/waypoints': fakeWaypointsStore
     });
 
     var componentUnderTest = TestUtils.renderIntoDocument(<Help/>);
@@ -24,21 +24,14 @@ describe('help component', function () {
     it('should let the user know what to do when there are no waypoints', function () {
         var dom = setUpComponent();
 
-        dom.innerText.should.equal('click anywhere to start a route');
+        dom.innerText.should.contain('Click anywhere on the map to start a route');
     });
 
     it('should prompt the user to save when they have chosen three waypoints', function () {
         var dom = setUpComponent();
         fakeWaypointsStore.updateStore([1]);
 
-        dom.innerText.should.equal('now click somewhere else and let us find a route there');
-    });
-
-    it('should prompt the user to save when they have chosen three waypoints', function () {
-        var dom = setUpComponent();
-        fakeWaypointsStore.updateStore([1,1,1]);
-
-        dom.innerText.should.equal('click save so you don\'t lose your progress');
+        dom.innerText.should.contain('Now click somewhere else and let us find a route there');
     });
 
 });
