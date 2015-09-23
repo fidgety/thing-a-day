@@ -9,7 +9,7 @@ var routeStore = require('../../../stores/route');
 var mainMapOptions = require('../../../utils/googleMaps/mainMapOptions');
 var Markers = require('../../markers');
 var Legs = require('../../legs');
-var Picks = require('../../picks/picksMarkers');
+var Picks = require('../../picks/picksMap');
 
 var _lookupInProgress = false;
 

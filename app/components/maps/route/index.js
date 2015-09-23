@@ -7,7 +7,7 @@ var routeOverview = require('../../../stores/routeOverview');
 var Route = require('../../route');
 
 var mainMapOptions = require('../../../utils/googleMaps/mainMapOptions');
-var Picks = require('../../picks/picksMarkers');
+var Picks = require('../../picks/picksMap');
 
 module.exports = React.createClass({
     mixins: [

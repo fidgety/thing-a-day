@@ -52,8 +52,8 @@ module.exports = React.createClass({
                     <div className="hero">
                         <img src={pick.img}/>
                         <div className="inner">
-                            <div className="title">Cutlery Factory</div>
-                            <div className="type">café</div>
+                            <div className="title">{pick.name}</div>
+                            <div className="type">{pick.type}</div>
                             <div className="stats">
                                 <div className="elevation"><span className="number">£££</span><span className="unit">price</span></div>
                                 <div className="distance"><span className="number">****</span><span className="unit">quality</span></div>
@@ -64,10 +64,7 @@ module.exports = React.createClass({
                     </div>
 
                     <div className="description">
-                    David Mellor was an industrial designer, you may not have heard of him but if you visit this beautiful complex
-                    you'll see many examples of everyday objects he crafted. He built this complex to make high end cutlery, which
-                    they still do to this day. The cafe has ample seating inside and out and is a wonderful little oasis of culture.
-                    There is a good selection of cakes and food, and the staff couldn't be nicer.
+                    {pick.description}
                     </div>
                 </div>
 

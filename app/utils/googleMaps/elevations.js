@@ -9,7 +9,7 @@ module.exports = {
                 return callback(results);
             }
 
-            alert('bad response from elevations service', samplePoints, results, status);
+            //alert('bad response from elevations service', samplePoints, results, status);
             console.log('bad response from elevations service', samplePoints, results, status);
         });
     },

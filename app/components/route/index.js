@@ -19,6 +19,12 @@ module.exports = React.createClass({
         };
     },
     shouldComponentUpdate: function (nextProps) {
+        this.state.route.setMap(nextProps.map);
+        this.state.route2.setMap(nextProps.map);
+
+        this.state.route.setOptions({strokeColor:nextProps.strokeColour || '#FF6633'});
+        this.state.route2.setOptions({strokeColor:nextProps.backgroundStrokeColour || 'rgba(0,0,0,0.3)'});
+
         return nextProps.route !== undefined
             && this.state.route.getPath().getLength() !== nextProps.route.getPath().getLength();
     },
@@ -29,9 +35,6 @@ module.exports = React.createClass({
         this.state.route2.setMap(null);
     },
     render: function () {
-        this.state.route2.setMap(this.props.map);
-        this.state.route.setMap(this.props.map);
-
         if (this.props.route) {
             var newPath = this.props.route.getPath().getArray();
             var route = this.state.route.getPath();
