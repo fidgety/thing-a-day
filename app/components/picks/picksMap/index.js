@@ -49,6 +49,10 @@ module.exports = React.createClass({
                 }
             };
 
+            var polyOnClick = function () {
+                actions.pickHighlighted(pick.name);
+            };
+
             var highlighted = this.state.picks.highlighted && pick.name === this.state.picks.highlighted.name;
             var tooltipDiv = this._makeToolTip(pick);
 
@@ -56,8 +60,7 @@ module.exports = React.createClass({
                 var polyline = new google.maps.Polyline({
                     path: polylineUtils.decode(pick.route)
                 });
-                console.log(polyline)
-                return <Route key={pick.name} route={polyline} map={this.props.map} strokeColour="#CC2029"/>;
+                return <Route key={pick.name} route={polyline} map={this.props.map} strokeColour="#CC2029" onClick={polyOnClick}/>;
             }
 
             return <Marker key={pick.name + this.props.map} latLng={pick.latLng} map={this.props.map} classPrefix="picks" tooltopDiv={tooltipDiv} highlighted={highlighted} onclick={onclick}/>
