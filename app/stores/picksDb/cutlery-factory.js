@@ -5,7 +5,7 @@ module.exports = {
         'food',
         'drink'
     ],
-    'latLng': new google.maps.LatLng(53.320646, -1.750674),
+    'latLng': new google.maps.LatLng(53.324567845922545, -1.6521763801574707),
     'img': [
         '/images/gliding-club.jpg'
     ],

@@ -57,10 +57,15 @@ module.exports = React.createClass({
             var tooltipDiv = this._makeToolTip(pick);
 
             if (pick.type === 'climb') {
+                var decodedRoute = polylineUtils.decode(pick.route);
+                var routeMiddle = decodedRoute[Math.abs(decodedRoute.length / 2)];
                 var polyline = new google.maps.Polyline({
-                    path: polylineUtils.decode(pick.route)
+                    path: decodedRoute
                 });
-                return <Route key={pick.name} route={polyline} map={this.props.map} strokeColour="#CC2029" onClick={polyOnClick}/>;
+                return  <div key={'route-holder' + pick.name}>
+                            <Route key={pick.name} route={polyline} map={this.props.map} strokeColour="#CC2029" onClick={polyOnClick}/>
+                            <Marker key={pick.name + 'start' + this.props.map} latLng={routeMiddle} map={this.props.map} classPrefix="picks" tooltopDiv={tooltipDiv} highlighted={highlighted} onclick={onclick}/>
+                        </div>;
             }
 
             return <Marker key={pick.name + this.props.map} latLng={pick.latLng} map={this.props.map} classPrefix="picks" tooltopDiv={tooltipDiv} highlighted={highlighted} onclick={onclick}/>

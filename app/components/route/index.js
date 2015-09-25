@@ -28,6 +28,9 @@ module.exports = React.createClass({
         google.maps.event.addListener(this.state.route, 'click', (e) => {
             this.props.onClick(e);
         });
+        google.maps.event.addListener(this.state.route2, 'click', (e) => {
+            this.props.onClick(e);
+        });
 
         return nextProps.route !== undefined
             && this.state.route.getPath().getLength() !== nextProps.route.getPath().getLength();
