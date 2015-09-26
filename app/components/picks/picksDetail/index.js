@@ -42,6 +42,10 @@ module.exports = React.createClass({
         };
 
         var add = function () {
+            if (pick.type = 'climb') {
+                actions.routeSelected(pick.route);
+                return close();
+            }
             actions.mapClicked(pick.latLng);
             close();
         };

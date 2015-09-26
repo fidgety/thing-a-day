@@ -62,12 +62,12 @@ module.exports = Reflux.createStore({
             return polyline.encode(leg.polyline);
         });
 
-        console.log('save to local storage', {
-            name: _store.name,
-            elevations,
-            legs,
-            route: polyline.encode(route)
-        });
+        //console.log('save to local storage', {
+        //    name: _store.name,
+        //    elevations,
+        //    legs,
+        //    route: polyline.encode(route)
+        //});
 
         window.localStorage.setItem(_store.name, JSON.stringify({
             name: _store.name,
