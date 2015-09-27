@@ -10,6 +10,7 @@ var mainMapOptions = require('../../../utils/googleMaps/mainMapOptions');
 var Markers = require('../../markers');
 var Legs = require('../../legs');
 var Picks = require('../../picks/picksMap');
+var UserLocation = require('../../userLocation');
 
 var _lookupInProgress = false;
 
@@ -69,6 +70,7 @@ module.exports = React.createClass({
                 <Legs legs={this.state.legs} map={this.state.map}/>
                 <Markers map={this.state.map}/>
                 <Picks map={this.state.map}/>
+                <UserLocation map={this.state.map}/>
                 <div id="map-canvas"></div>
             </div>);
     }

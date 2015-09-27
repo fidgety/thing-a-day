@@ -12,5 +12,6 @@ module.exports = Reflux.createActions([
     'pickHighlighted',
     'pickUnhighlighted',
     'measurementChanged',
-    'routeSelected'
+    'routeSelected',
+    'userLocationChanged'
 ]);
