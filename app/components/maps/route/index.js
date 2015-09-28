@@ -8,6 +8,7 @@ var Route = require('../../route');
 
 var mainMapOptions = require('../../../utils/googleMaps/mainMapOptions');
 var Picks = require('../../picks/picksMap');
+var UserLocation = require('../../userLocation');
 
 module.exports = React.createClass({
     mixins: [
@@ -48,6 +49,7 @@ module.exports = React.createClass({
             <div id="map">
                 <Route route={this.state.route} map={this.state.map} fitToMap="true"/>
                 <Picks map={this.state.map}/>
+                <UserLocation map={this.state.map}/>
                 <div id="map-canvas"></div>
             </div>);
     }
