@@ -20,6 +20,12 @@ module.exports = Reflux.createStore({
         });
     },
     store: [],
+    getLatest() {
+        if (this.store.length === 0) {
+            return;
+        }
+        return this.store[this.store.length - 1];
+    },
     getInitialState() {
         return this.store;
     }

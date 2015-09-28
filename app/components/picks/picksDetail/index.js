@@ -4,6 +4,7 @@ var React = require('react');
 var Reflux = require('reflux');
 
 var actions = require('../../../actions/map');
+var picksActions = require('../../../actions/picks');
 
 var picksStore = require('../../../stores/picks');
 
@@ -42,8 +43,8 @@ module.exports = React.createClass({
         };
 
         var add = function () {
-            if (pick.type = 'climb') {
-                actions.routeSelected(pick.route);
+            if (pick.type === 'climb') {
+                picksActions.routeSelected(pick.route);
                 return close();
             }
             actions.mapClicked(pick.latLng);

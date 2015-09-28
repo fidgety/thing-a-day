@@ -80,15 +80,18 @@ module.exports = Reflux.createStore({
         _store.elevationHover = latLng;
         this.trigger(_store);
     },
+    onNewLeg(latLngs) {
+        actions.routeUpdated(latLngs);
+        this._addLeg(latLngs);
+        _store.endLatLng = this._endOfRoute();
+        this._calcDistance();
+        this.trigger(_store);
+    },
     onNewWaypoint(latLng) {
         if (this._routeStarted()) {
             mapMethods.getDirections(this._endOfRoute(), latLng, (route) => {
                 var newRouteLatLngs = routeMethods.routeToLatLngs(route);
-                actions.routeUpdated(newRouteLatLngs);
-                this._addLeg(newRouteLatLngs);
-                _store.endLatLng = this._endOfRoute();
-                this._calcDistance();
-                this.trigger(_store);
+                actions.newLeg(newRouteLatLngs);
             })
         } else {
             _store.startingLatLng = latLng;

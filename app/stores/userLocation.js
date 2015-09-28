@@ -19,11 +19,12 @@ var store = Reflux.createStore({
 
 
 function startGeoLocation() {
-    if ("geolocation" in navigator) {
+    if ('geolocation' in navigator) {
         watchID = navigator.geolocation.watchPosition(function(position) {
             var location = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
             actions.userLocationChanged(location)
         });
+        return watchID;
     }
 }
 
