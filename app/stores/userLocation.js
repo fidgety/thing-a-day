@@ -8,7 +8,6 @@ var _store = undefined;
 var store = Reflux.createStore({
     listenables: actions,
     onUserLocationChanged(newLocation) {
-        console.log(newLocation.toString());
         _store = newLocation;
         this.trigger(_store);
     },

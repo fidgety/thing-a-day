@@ -2,7 +2,7 @@
 @import "breakpoints";
 @import "respond";
 
-#save {
+@mixin button() {
     font-size: 0.8em;
     text-transform: uppercase;
     cursor: pointer;
@@ -13,21 +13,89 @@
     line-height: 60px;
     position: absolute;
     color: black;
-    right: 10px;
     z-index: $z-index-mainControls;
     text-align: center;
-    top: $headerHeight + 10px;
     font-weight: 400;
-    opacity: 0;
-    transition: all 0.3s;
-    transform: perspective( 400px ) rotateY(90deg);
-    transform-style: preserve-3d;
+}
 
+#save {
+    position: relative;
 
-    &.save-active {
+    .save-button {
+        @include button();
+        right: 10px;
+        top: $headerHeight + 10px;
+        opacity: 0;
         transition: all 0.3s;
-        opacity: 1;
-        transform: perspective( 400px ) rotateY(0deg);
+        transform: perspective(400px) rotateY(90deg);
         transform-style: preserve-3d;
+        span {
+            font-weight: 400;
+        }
+
+        &.save-active {
+            transition: all 0.3s;
+            opacity: 1;
+            transform: perspective(400px) rotateY(0deg);
+            transform-style: preserve-3d;
+        }
+    }
+
+    .saveDialog {
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.8);
+        width: 0px;
+        right: 0px;
+        top: 150px;
+        padding-bottom: 80px;
+        overflow: hidden;
+        opacity: 0;
+        z-index: $z-index-mainControls;
+    }
+
+    .saveDialog-show {
+        transition: opacity .5s;
+        opacity: 1;
+        width: 400px;
+        right: 20px;
+    }
+
+    input {
+        display: block;
+        margin: 5%;
+        border: 0;
+        width: 84%;
+        font-size: 20px;
+        line-height: 36px;
+        padding: 0 3%;
+        font-family: 'Lato', san-serif;
+        font-weight: 300;
+    }
+
+    textarea {
+        display: block;
+        width: 84%;
+        margin: 5%;
+        padding: 3%;
+        font-size: 16px;
+        line-height: 20px;
+        height: 100px;
+        font-family: 'Lato', san-serif;
+        font-weight: 300;
+    }
+
+    .save {
+        @include button();
+        position: absolute;
+        right: 20px;
+        bottom: 20px;
+    }
+
+    .cancel {
+        @include button();
+        background: red;
+        position: absolute;
+        right: 90px;
+        bottom: 20px;
     }
 }

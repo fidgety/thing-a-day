@@ -30,22 +30,34 @@ module.exports = React.createClass({
         });
     },
     render: function () {
-        var activeClass = this.state.routeStarted ? 'save-active' : '';
-        var that = this;
-        var showNameOrSave = function () {
-            if (that.state.name !== '') {
-                actions.save();
-            } else {
-                var name = window.prompt('choose a name for the route');
-                if (name) {
-                    actions.updateName(name);
-                    actions.save();
-                }
-            }
+        var activeClass = this.state.routeStarted ? 'save-button save-active' : 'save-button';
+
+        var toggleDialog = function (e) {
+            document.getElementsByClassName('saveDialog')[0].classList.toggle('saveDialog-show');
+            e && e.stopPropagation();
+        };
+
+        var save = function () {
+            var name = document.getElementsByName('save-name')[0].value;
+            var description = document.getElementsByName('save-description')[0].value;
+            actions.updateRouteDetails({
+                name,
+                description
+            });
+            actions.save();
+            toggleDialog();
         };
 
         return (
-            <div id="save" className={activeClass} onClick={showNameOrSave}>save</div>
+            <div id="save">
+                <div className={activeClass} onClick={toggleDialog}>save</div>
+                <div className="saveDialog">
+                    <input className="name" name="save-name" type="text" userprompt="name"/>
+                    <textarea name="save-description" defaultValue="description"></textarea>
+                    <div className="save" onClick={save}>save</div>
+                    <div className="cancel" onClick={toggleDialog}>cancel</div>
+                </div>
+            </div>
         );
     }
 });

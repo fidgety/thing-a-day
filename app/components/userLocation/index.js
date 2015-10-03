@@ -24,6 +24,10 @@ module.exports = React.createClass({
     componentWillUnmount: function () {
         this.state.marker.setMap(null);
     },
+    shouldComponentUpdate(nextProps, nextState) {
+        return nextProps.map !== this.props.map || nextState.location !== this.state.location;
+
+    },
     render: function () {
         if (!this.state.location) {
             return null

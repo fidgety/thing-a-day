@@ -50,8 +50,9 @@ module.exports = Reflux.createStore({
         this._calcDistance();
         this.trigger(_store);
     },
-    onUpdateName(newName) {
-        _store.name = newName;
+    onUpdateRouteDetails(newDetails) {
+        _store.name = newDetails.name;
+        _store.description = newDetails.description;
         this.trigger(_store);
     },
     onSave() {
