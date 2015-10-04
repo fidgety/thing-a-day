@@ -5,6 +5,7 @@ var Reflux = require('reflux');
 
 var actions = require('../../../actions/map');
 var picksStore = require('../../../stores/picks');
+var picksActions = require('../../../actions/picks');
 
 var Marker = require('../../marker');
 var Route = require('../../route');
@@ -32,8 +33,7 @@ module.exports = React.createClass({
 
         goHereDiv.innerHTML = 'go here';
         goHereDiv.onclick = function () {
-            actions.mapClicked(pick.latLng);
-            actions.pickUnhighlighted(pick.name);
+            picksActions.pickSelected(pick);
             return false;
         };
         tooltipDiv.appendChild(goHereDiv);
@@ -63,7 +63,7 @@ module.exports = React.createClass({
                     path: decodedRoute
                 });
                 return  <div key={'route-holder' + pick.name}>
-                            <Route key={pick.name} route={polyline} map={this.props.map} strokeColour="#CC2029" onClick={polyOnClick}/>
+                            <Route key={pick.name} route={polyline} map={this.props.map} strokeWeight="8" strokeColour="#CC2029" onClick={polyOnClick}/>
                             <Marker key={pick.name + 'start' + this.props.map} latLng={routeMiddle} map={this.props.map} classPrefix="picks" tooltopDiv={tooltipDiv} highlighted={highlighted} onclick={onclick}/>
                         </div>;
             }

@@ -25,6 +25,9 @@ module.exports = React.createClass({
         this.state.route.setOptions({strokeColor:nextProps.strokeColour || '#FF6633'});
         this.state.route2.setOptions({strokeColor:nextProps.backgroundStrokeColour || 'rgba(0,0,0,0.3)'});
 
+        this.state.route.setOptions({strokeWeight:nextProps.strokeWeight || 4});
+        this.state.route2.setOptions({strokeWeight:nextProps.backgroundStrokeWeight || 12});
+
         google.maps.event.addListener(this.state.route, 'click', (e) => {
             this.props.onClick(e);
         });

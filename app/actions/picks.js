@@ -7,10 +7,10 @@ var latLngUtils = require('../utils/googleMaps/latLng');
 var waypointsStore = require('../stores/waypoints');
 
 var picksActions = Reflux.createActions({
-    routeSelected: true
+    pickSelected: true
 });
 
-picksActions.routeSelected.listen((route) => {
+function addRoute(route) {
     var latestUserWaypoint = waypointsStore.getLatest();
     var latLngs = polylineUtils.decode(route);
 
@@ -29,6 +29,15 @@ picksActions.routeSelected.listen((route) => {
             actions.newLeg(newRouteLatLngs.concat(latLngs));
         });
     }
+}
+
+picksActions.pickSelected.listen((pick) => {
+    if (pick.type === 'climb') {
+        addRoute(pick.route);
+    } else {
+        actions.mapClicked(pick.latLng);
+    }
+    actions.pickUnhighlighted(pick.name);
 });
 
 module.exports = picksActions;

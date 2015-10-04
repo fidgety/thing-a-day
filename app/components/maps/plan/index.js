@@ -45,7 +45,6 @@ module.exports = React.createClass({
             });
 
             google.maps.event.addListener(map, 'click', function (e) {
-                //console.log(e.latLng.toString())
                 if (!timer && !_lookupInProgress) {
                     timer = setTimeout(function () {
                         _lookupInProgress = true;
