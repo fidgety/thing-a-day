@@ -40,7 +40,7 @@ module.exports = React.createClass({
             metric: true,
             elevations: [1, 1],
             positions: [],
-            distance: routeStore.getInitialState().distance,
+            distance: routeStore.getState().distance,
             ascending: elevationsStore.getState().ascending,
             descending: elevationsStore.getState().descending,
             flatish: elevationsStore.getState().flatish

@@ -4,14 +4,14 @@ var polylineUtils = require('../utils/googleMaps/polyline');
 var directionsUtils = require('../utils/googleMaps/directions');
 var routeUtils = require('../utils/googleMaps/route');
 var latLngUtils = require('../utils/googleMaps/latLng');
-var waypointsStore = require('../stores/waypoints');
+var routeStore = require('../stores/route');
 
 var picksActions = Reflux.createActions({
     pickSelected: true
 });
 
 function addRoute(route) {
-    var latestUserWaypoint = waypointsStore.getLatest();
+    var latestUserWaypoint = routeStore.getState().endLatLng;
     var latLngs = polylineUtils.decode(route);
 
     var start = latLngs[0];

@@ -1,6 +1,7 @@
 var Reflux = require('reflux');
+var directionsMethods = require('../utils/googleMaps/directions');
 
-module.exports = Reflux.createActions([
+var mapActions = Reflux.createActions([
     'mapClicked',
     'newWaypoint',
     'routeUpdated',
@@ -15,3 +16,11 @@ module.exports = Reflux.createActions([
     'userLocationChanged',
     'newLeg'
 ]);
+
+mapActions.mapClicked.listen(latLng => {
+    directionsMethods.snapToRoute(latLng, newLatLng => {
+        mapActions.newWaypoint(newLatLng);
+    });
+});
+
+module.exports = mapActions;

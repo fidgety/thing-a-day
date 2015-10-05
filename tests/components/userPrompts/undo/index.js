@@ -2,10 +2,10 @@ var React = require('react');
 var Reflux = require('reflux');
 var TestUtils = require('react/addons').addons.TestUtils;
 
-var fakeWaypointsStore;
+var fakeRouteStore;
 
 function setUpComponent() {
-    fakeWaypointsStore = Reflux.createStore({
+    fakeRouteStore = Reflux.createStore({
         updateStore: function (newVal) {
             this.trigger(newVal);
         }
@@ -13,7 +13,7 @@ function setUpComponent() {
 
     var undoFactory = require('inject!../../../../app/components/userPrompts/undo');
     var Undo = undoFactory({
-        '../../../stores/waypoints': fakeWaypointsStore
+        '../../../stores/route': fakeRouteStore
     });
 
     var componentUnderTest = TestUtils.renderIntoDocument(<Undo/>);
@@ -30,7 +30,9 @@ describe('undo component', function () {
     it('should be visible when there is a waypoint', function () {
         var dom = setUpComponent();
 
-        fakeWaypointsStore.updateStore([1]);
+        fakeRouteStore.updateStore({
+            startingLatLng: 'something'
+        });
 
         dom.className.should.contain('undo-active');
     });
@@ -38,10 +40,14 @@ describe('undo component', function () {
     it('should be not visible when waypoints is back to zero', function () {
         var dom = setUpComponent();
 
-        fakeWaypointsStore.updateStore([1]);
+        fakeRouteStore.updateStore({
+            startingLatLng: 'something'
+        });
         dom.className.should.contain('undo-active');
 
-        fakeWaypointsStore.updateStore([]);
+        fakeRouteStore.updateStore({
+            startingLatLng: undefined
+        });
         dom.className.should.not.contain('undo-active');
     });
 });

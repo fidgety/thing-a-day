@@ -5,23 +5,23 @@ var Reflux = require('reflux');
 
 var actions = require('../../../actions/map');
 
-var waypointsStore = require('../../../stores/waypoints');
+var routeStore = require('../../../stores/route');
 
 module.exports = React.createClass({
     mixins: [
-        Reflux.listenTo(waypointsStore, 'onWaypointsChange')
+        Reflux.listenTo(routeStore, 'onRouteChange')
     ],
-    getInitialState: function () {
+    getInitialState() {
         return {
             routeStarted: false
-        };
+        }
     },
-    onWaypointsChange: function (waypoints) {
+    onRouteChange(route) {
         this.setState({
-            routeStarted: waypoints.length !== 0
+            routeStarted: route.startingLatLng
         });
     },
-    render: function () {
+    render() {
         var activeClass = this.state.routeStarted ? 'undo-active' : '';
 
         return (

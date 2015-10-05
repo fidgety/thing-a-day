@@ -2,11 +2,11 @@ require('./style.scss');
 
 var React = require('react');
 var Reflux = require('reflux');
-var waypointsStore = require('../../stores/waypoints');
+var routeStore = require('../../stores/route');
 
 module.exports = React.createClass({
     mixins: [
-        Reflux.listenTo(waypointsStore, 'onWaypointsChange')
+        Reflux.listenTo(routeStore, 'onRouteStoreChange')
     ],
     getInitialState() {
         return {
@@ -15,11 +15,11 @@ module.exports = React.createClass({
             showGrowler: true
         };
     },
-    onWaypointsChange(waypoints) {
+    onRouteStoreChange(route) {
         this.setState({
-            routeStarted: waypoints.length !== 0,
-            amountOfWaypoints: waypoints.length,
-            showGrowler: waypoints.length > 1 ? false : this.state.showGrowler
+            routeStarted: route.startLatLng !== undefined,
+            amountOfWaypoints: route.legs.length,
+            showGrowler: route.legs.length > 1 ? false : this.state.showGrowler
         });
     },
     render() {

@@ -21,7 +21,8 @@ var _store = {
     startingLatLng: undefined,
     endLatLng: undefined,
     elevationHover: undefined,
-    name: ''
+    name: '',
+    description: ''
 };
 
 module.exports = Reflux.createStore({
@@ -100,7 +101,7 @@ module.exports = Reflux.createStore({
         }
 
     },
-    getInitialState() {
+    getState() {
         return _store;
     },
     _routeStarted() {
