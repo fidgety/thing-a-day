@@ -97,6 +97,7 @@ module.exports = Reflux.createStore({
             })
         } else {
             _store.startingLatLng = latLng;
+            this._setStartAndEnd();
             this.trigger(_store);
         }
 
@@ -105,6 +106,9 @@ module.exports = Reflux.createStore({
         return _store;
     },
     _routeStarted() {
+        return this._startOfRoute() !== undefined;
+    },
+    _startOfRoute() {
         return _store.startingLatLng;
     },
     _endOfRoute() {
@@ -123,11 +127,17 @@ module.exports = Reflux.createStore({
             unit: _distanceMetrics.unit
         };
     },
+    _setStartAndEnd() {
+        _store.startingLatLng = this._startOfRoute();
+        _store.endLatLng = this._endOfRoute();
+    },
     _addLeg(newLatLngs) {
         _store.legs.push({
             polyline: new google.maps.Polyline({
                 path: newLatLngs
             })
         });
+        _store.startingLatLng = _store.startingLatLng || newLatLngs[0];
+        this._setStartAndEnd();
     }
 });

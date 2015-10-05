@@ -20,11 +20,11 @@ function addRoute(route) {
     if (!latestUserWaypoint) {
         actions.newLeg(latLngs);
     } else {
-        var nearest = latLngUtils.nearest(latestUserWaypoint.latLng, start, end);
+        var nearest = latLngUtils.nearest(latestUserWaypoint, start, end);
         if (nearest !== start) {
             latLngs.reverse();
         }
-        directionsUtils.getDirections(latestUserWaypoint.latLng, nearest, (newRoute) => {
+        directionsUtils.getDirections(latestUserWaypoint, nearest, (newRoute) => {
             var newRouteLatLngs = routeUtils.routeToLatLngs(newRoute);
             actions.newLeg(newRouteLatLngs.concat(latLngs));
         });
