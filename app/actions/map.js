@@ -6,7 +6,6 @@ var mapActions = Reflux.createActions([
     'newWaypoint',
     'routeUpdated',
     'undo',
-    'save',
     'load',
     'updateRouteDetails',
     'elevationHover',
