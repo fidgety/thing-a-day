@@ -10,7 +10,8 @@ var picksActions = Reflux.createActions({
     pickSelected: true
 });
 
-function addRoute(route) {
+function addRoute(pick) {
+    var route = pick.route;
     var latestUserWaypoint = routeStore.getState().endLatLng;
     var latLngs = polylineUtils.decode(route);
 
@@ -26,16 +27,16 @@ function addRoute(route) {
         }
         directionsUtils.getDirections(latestUserWaypoint, nearest, (newRoute) => {
             var newRouteLatLngs = routeUtils.routeToLatLngs(newRoute);
-            actions.newLeg(newRouteLatLngs.concat(latLngs));
+            actions.newLeg(newRouteLatLngs.concat(latLngs), pick);
         });
     }
 }
 
 picksActions.pickSelected.listen((pick) => {
     if (pick.type === 'climb') {
-        addRoute(pick.route);
+        addRoute(pick);
     } else {
-        actions.mapClicked(pick.latLng);
+        actions.mapClicked(pick.latLng, pick);
     }
     actions.pickUnhighlighted(pick.name);
 });

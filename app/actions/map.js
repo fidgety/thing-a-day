@@ -17,9 +17,9 @@ var mapActions = Reflux.createActions([
     'newLeg'
 ]);
 
-mapActions.mapClicked.listen(latLng => {
+mapActions.mapClicked.listen((latLng, pick) => {
     directionsMethods.snapToRoute(latLng, newLatLng => {
-        mapActions.newWaypoint(newLatLng);
+        mapActions.newWaypoint(newLatLng, pick);
     });
 });
 

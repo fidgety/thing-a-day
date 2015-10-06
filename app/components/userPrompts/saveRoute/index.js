@@ -4,6 +4,7 @@ var React = require('react');
 var Reflux = require('reflux');
 
 var actions = require('../../../actions/map');
+var saveAction = require('../../../actions/save');
 
 var routeStore = require('../../../stores/route');
 
@@ -38,7 +39,7 @@ module.exports = React.createClass({
                 name,
                 description
             });
-            actions.save();
+            saveAction.save();
             toggleDialog();
         };
 

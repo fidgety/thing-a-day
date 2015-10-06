@@ -39,15 +39,9 @@ module.exports = Reflux.createStore({
         this.trigger(_store);
     },
     onUndo() {
-        if (_store.legs.length === 0) {
-            _store.startingLatLng = undefined;
-        }
         _store.legs.pop();
-        _store.endLatLng = this._endOfRoute();
+        this._setStartAndEnd();
 
-        if (_store.legs.length === 0) {
-            _store.endLatLng = undefined;
-        }
         this._calcDistance();
         this.trigger(_store);
     },
@@ -56,48 +50,25 @@ module.exports = Reflux.createStore({
         _store.description = newDetails.description;
         this.trigger(_store);
     },
-    onSave() {
-        var elevations = require('./elevations').toString();
-        var route = new google.maps.Polyline();
-        var legs = _store.legs.map(leg => {
-            route = polyline.join(route, leg.polyline);
-            return polyline.encode(leg.polyline);
-        });
-
-        //console.log('save to local storage', {
-        //    name: _store.name,
-        //    elevations,
-        //    legs,
-        //    route: polyline.encode(route)
-        //});
-
-        window.localStorage.setItem(_store.name, JSON.stringify({
-            name: _store.name,
-            elevations,
-            legs,
-            route: polyline.encode(route)
-        }));
-    },
     onElevationHover(latLng) {
         _store.elevationHover = latLng;
         this.trigger(_store);
     },
-    onNewLeg(latLngs) {
+    onNewLeg(latLngs, pick) {
         actions.routeUpdated(latLngs);
-        this._addLeg(latLngs);
+        this._addLeg(latLngs, pick);
         _store.endLatLng = this._endOfRoute();
         this._calcDistance();
         this.trigger(_store);
     },
-    onNewWaypoint(latLng) {
+    onNewWaypoint(latLng, pick) {
         if (this._routeStarted()) {
             mapMethods.getDirections(this._endOfRoute(), latLng, (route) => {
                 var newRouteLatLngs = routeMethods.routeToLatLngs(route);
-                actions.newLeg(newRouteLatLngs);
+                actions.newLeg(newRouteLatLngs, pick);
             })
         } else {
-            _store.startingLatLng = latLng;
-            this._setStartAndEnd();
+            this._addLeg([latLng], pick);
             this.trigger(_store);
         }
 
@@ -109,12 +80,17 @@ module.exports = Reflux.createStore({
         return this._startOfRoute() !== undefined;
     },
     _startOfRoute() {
-        return _store.startingLatLng;
+        if (_store.legs.length) {
+            var path = _store.legs[0].polyline.getPath();
+            return path.getAt(0);
+        }
+
+        return undefined;
     },
     _endOfRoute() {
         if (_store.legs.length) {
             var path = _store.legs[_store.legs.length - 1].polyline.getPath();
-            return path.getAt(path.getLength() - 1)
+            return path.getAt(path.getLength() - 1);
         }
 
         return _store.startingLatLng;
@@ -131,12 +107,14 @@ module.exports = Reflux.createStore({
         _store.startingLatLng = this._startOfRoute();
         _store.endLatLng = this._endOfRoute();
     },
-    _addLeg(newLatLngs) {
+    _addLeg(newLatLngs, pick) {
         _store.legs.push({
             polyline: new google.maps.Polyline({
                 path: newLatLngs
-            })
+            }),
+            pick
         });
+        console.log(_store.legs)
         _store.startingLatLng = _store.startingLatLng || newLatLngs[0];
         this._setStartAndEnd();
     }
