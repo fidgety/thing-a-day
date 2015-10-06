@@ -1,11 +1,11 @@
 var Reflux = require('reflux');
 var polyline = require('../utils/googleMaps/polyline');
 
-var mapActions = Reflux.createActions([
+var saveActions = Reflux.createActions([
     'save'
 ]);
 
-mapActions.save.listen(() => {
+saveActions.save.listen(() => {
     var elevations = require('../stores/elevations').toString();
     var routeStore = require('../stores/route').getState();
     var route = new google.maps.Polyline();
@@ -30,4 +30,4 @@ mapActions.save.listen(() => {
     }));
 });
 
-module.exports = mapActions;
+module.exports = saveActions;
