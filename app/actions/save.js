@@ -14,6 +14,12 @@ saveActions.save.listen(() => {
         return polyline.encode(leg.polyline);
     });
 
+    var picks = routeStore.legs.reduce((picks, leg) => {
+        if (leg.pick) {
+            picks.push(leg.pick.name);
+        }
+    }, []);
+
     //console.log('save to local storage', {
     //    name: _store.name,
     //    elevations,
@@ -26,7 +32,8 @@ saveActions.save.listen(() => {
         description: routeStore.description,
         elevations,
         legs,
-        route: polyline.encode(route)
+        route: polyline.encode(route),
+        picks: picks.join(',')
     }));
 });
 
