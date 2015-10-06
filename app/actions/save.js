@@ -20,13 +20,6 @@ saveActions.save.listen(() => {
         }
     }, []);
 
-    //console.log('save to local storage', {
-    //    name: _store.name,
-    //    elevations,
-    //    legs,
-    //    route: polyline.encode(route)
-    //});
-
     window.localStorage.setItem(routeStore.name, JSON.stringify({
         name: routeStore.name,
         description: routeStore.description,
