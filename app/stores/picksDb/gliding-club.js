@@ -10,7 +10,8 @@ module.exports = {
     'start': new google.maps.LatLng(53.320646, -1.650674),
     'end': new google.maps.LatLng(53.320646, -1.650674),
     'img': [
-        '/images/gliding-club2.jpg'
+        '/images/gliding-club2.jpg',
+        '/images/gliding-club1.jpg'
     ],
     'stats': {
         'distance': 7142,

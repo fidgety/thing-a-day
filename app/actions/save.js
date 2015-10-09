@@ -14,15 +14,22 @@ saveActions.save.listen(() => {
         return polyline.encode(leg.polyline);
     });
 
-    var picks = routeStore.legs.reduce((picks, leg) => {
+    var picks = routeStore.legs.reduce((foundPicks, leg) => {
         if (leg.pick) {
-            picks.push(leg.pick.name);
+            foundPicks.push(leg.pick.name);
         }
+        return foundPicks;
     }, []);
 
     window.localStorage.setItem(routeStore.name, JSON.stringify({
         name: routeStore.name,
         description: routeStore.description,
+        start: routeStore.startingLatLng.toString(),
+        end: routeStore.endLatLng.toString(),
+        stats: {
+            distance: routeStore.distance.value,
+            elevation: elevations.ascending
+        },
         elevations,
         legs,
         route: polyline.encode(route),

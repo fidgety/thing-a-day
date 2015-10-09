@@ -7,7 +7,8 @@ module.exports = {
     ],
     'latLng': new google.maps.LatLng(53.324567845922545, -1.6521763801574707),
     'img': [
-        '/images/gliding-club.jpg'
+        '/images/cutlery-factory-1.jpg',
+        '/images/cutlery-factory-2.jpg'
     ],
     'stats': {
         'cost': 3,

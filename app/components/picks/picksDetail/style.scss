@@ -89,6 +89,26 @@
         transition: all 0.15s ease-in-out;
     }
 
+    &.café {
+        .button {
+            background: $café;
+        }
+
+        .description {
+            border-color: $café;
+        }
+    }
+
+    &.view {
+        .button {
+            background: $view;
+        }
+
+        .description {
+            border-color: $view;
+        }
+    }
+
     .button:hover {
         transition: all 0.15s ease-in-out;
         height: 40px;

@@ -36,8 +36,9 @@ module.exports = React.createClass({
         document.querySelector('#picks .description').setAttribute('style','height:' + (picksHeight - descriptionTop + 22) + 'px');
     },
     render: function () {
-        var activeClass = this.state.highlighted ? 'picks-active' : 'picks-inactive';
         var pick = this.state.highlightedItem;
+        var activeClass = this.state.highlighted ? 'picks-active' : 'picks-inactive';
+        activeClass += ' ' + pick.type;
         var close = function () {
             actions.pickUnhighlighted(pick.name);
         };
@@ -45,12 +46,16 @@ module.exports = React.createClass({
         var add = function () {
             picksActions.pickSelected(pick);
         };
+
+        if (!pick.img) {
+            pick.img = [];
+        }
         
         return (
             <div id="picks" className={activeClass}>
                 <div className="outer">
                     <div className="hero">
-                        <img src={pick.img}/>
+                        <img src={pick.img[0]}/>
                         <div className="inner">
                             <div className="title">{pick.name}</div>
                             <div className="type">{pick.type}</div>

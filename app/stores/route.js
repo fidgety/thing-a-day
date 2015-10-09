@@ -114,8 +114,7 @@ module.exports = Reflux.createStore({
             }),
             pick
         });
-        console.log(_store.legs)
-        _store.startingLatLng = _store.startingLatLng || newLatLngs[0];
+
         this._setStartAndEnd();
     }
 });

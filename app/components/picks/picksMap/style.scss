@@ -1,4 +1,8 @@
-.picks-marker {
+@import "colours";
+@import "breakpoints";
+@import "respond";
+
+.climb-marker, .café-marker, .view-marker {
     position: absolute;
     font-size: 30px;
     width: 20px;
@@ -6,26 +10,39 @@
     animation: spin 0.2s linear 0s 1;
     transition: all 0.3s;
     cursor: pointer;
-    background-image: url('../../../../public/images/pins/cafe.png');
     background-position: center bottom;
     background-repeat: no-repeat;
     background-size: 100% auto;
+
+    &-highlighted {
+        width: 30px;
+        height: 40px;
+        margin-left: -5px;
+        margin-top: -10px;
+        transform: perspective(400px) rotateY(180deg);
+        transform-style: preserve-3d;
+        transition: all 0.3s;
+    }
 }
 
-.picks-marker.picks-marker-highlighted {
-    width: 30px;
-    height: 40px;
-    margin-left: -5px;
-    margin-top: -10px;
-    transform: perspective( 400px ) rotateY(180deg);
-    transform-style: preserve-3d;
-    transition: all 0.3s;
+.climb-marker {
+    background-image: url('../../../../public/images/pins/climb.png');
 }
 
-.picks-tooltip {
+.café-marker {
+    background-image: url('../../../../public/images/pins/cafe.png');
+}
+
+.view-marker {
+    background-image: url('../../../../public/images/pins/view.png');
+}
+
+.climb-tooltip, .café-tooltip, .view-tooltip {
     position: absolute;
 
     .picks-add, .picks-close {
+        //box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.4);
+        color: white;
         top: -25px;
         left: -10px;
         position: absolute;
@@ -43,52 +60,61 @@
     .picks-close {
 
     }
-}
 
-.picks-tooltip-highlighted {
-    .picks-add, .picks-close {
-        top: -70px;
-        left: -35px;
-        height: 30px;
-        width: 30px;
-        border-radius: 9999px;
-        line-height: 30px;
-        transition: all 0.2s;
-        opacity: 1;
+    &-highlighted {
+        .picks-add, .picks-close {
+            top: -70px;
+            left: -35px;
+            height: 30px;
+            width: 30px;
+            border-radius: 9999px;
+            line-height: 30px;
+            transition: all 0.2s;
+            opacity: 1;
+            z-index: 3;
 
-        &:hover {
-            transition: all 0.15s ease-in-out;
-            height: 40px;
-            width: 40px;
-            margin-top: -5px;
-            margin-left: -5px;
-            line-height: 40px;
+            &:hover {
+                transition: all 0.15s ease-in-out;
+                height: 40px;
+                width: 40px;
+                margin-top: -5px;
+                margin-left: -5px;
+                line-height: 40px;
+            }
+        }
+
+        .picks-add {
+            left: 5px;
         }
     }
+}
 
-    .picks-add {
-        left: 5px;
+.climb-tooltip {
+    .picks-add, .picks-close {
+        background: $climb;
     }
 }
 
-.picks-tooltip-highlighted {
-//    transition: all 0.2s 0.2s;
-//    height: 100px;
-//    width: 100px;
-//    line-height: 60px;
-//    opacity: 1;
-//    margin-left: -40px;
-//    margin-top: -120px;
+.café-tooltip {
+    .picks-add, .picks-close {
+        background: $café;
+    }
+}
+
+.view-tooltip {
+    .picks-add, .picks-close {
+        background: $view;
+    }
 }
 
 @keyframes spin {
     0% {
-        transform: perspective( 400px ) rotateY(90deg);
+        transform: perspective(400px) rotateY(90deg);
         transform-style: preserve-3d;
     }
 
     100% {
-        transform: perspective( 400px ) rotateY(0deg);
+        transform: perspective(400px) rotateY(0deg);
         transform-style: preserve-3d;
     }
 }

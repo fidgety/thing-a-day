@@ -4,11 +4,13 @@ var find = require('../utils/array/find');
 
 var cutleryFactory = require('./picksDb/cutlery-factory');
 var glidingClub = require('./picksDb/gliding-club');
+var stanageEdge = require('./picksDb/stanage-edge');
+var theDale = require('./picksDb/the-dale');
 
 module.exports = Reflux.createStore({
     listenables: actions,
     store: {
-        picks: [glidingClub, cutleryFactory],
+        picks: [glidingClub, cutleryFactory, stanageEdge, theDale],
         highlighted: undefined
     },
     onPickHighlighted(name) {

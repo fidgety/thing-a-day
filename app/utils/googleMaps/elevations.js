@@ -28,7 +28,7 @@ module.exports = {
             var difference = prevValue - currentValue;
             var differenceAbs = Math.abs(difference);
 
-            if (differenceAbs < 10) {
+            if (differenceAbs < 1) {
                 stats.flatish += differenceAbs;
             }
             else {

@@ -48,6 +48,7 @@ module.exports = React.createClass({
                 if (!timer && !_lookupInProgress) {
                     timer = setTimeout(function () {
                         _lookupInProgress = true;
+                        console.log(e.latLng.toString());
                         actions.mapClicked(e.latLng);
                         timer = undefined;
                     }, 200);

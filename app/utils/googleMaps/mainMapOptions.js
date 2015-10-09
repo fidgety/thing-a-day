@@ -2,7 +2,7 @@ var snazzyMap = [{'elementType':'geometry','stylers':[{'hue':'#ff4400'},{'satura
 
 module.exports = {
     center: {lat: 53.32067152309183, lng: -1.6504383087158},
-    zoom: 10,
+    zoom: 12,
     styles: snazzyMap,
     disableDefaultUI: true
 };
