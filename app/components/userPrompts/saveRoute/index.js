@@ -47,8 +47,10 @@ module.exports = React.createClass({
             <div id="save">
                 <div className={activeClass} onClick={toggleDialog}>save</div>
                 <div className="saveDialog">
+                    <label>name</label>
                     <input className="name" name="save-name" type="text" userprompt="name"/>
-                    <textarea name="save-description" defaultValue="description"></textarea>
+                    <label>description</label>
+                    <textarea name="save-description" defaultValue=""></textarea>
                     <div className="save" onClick={save}>save</div>
                     <div className="cancel" onClick={toggleDialog}>cancel</div>
                 </div>

@@ -71,7 +71,7 @@ module.exports = React.createClass({
             if (pick.type === 'climb') {
                 var decodedRoute = polylineUtils.decode(pick.route);
                 var routeMiddle = decodedRoute[Math.floor(decodedRoute.length / 2)];
-                console.log(routeMiddle, pick.name, decodedRoute, Math.floor(decodedRoute.length / 2))
+
                 var polyline = new google.maps.Polyline({
                     path: decodedRoute
                 });

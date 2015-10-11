@@ -42,6 +42,7 @@
     }
 
     .saveDialog {
+        padding-top: 20px;
         position: absolute;
         background-color: rgba(0, 0, 0, 0.8);
         width: 0px;
@@ -60,9 +61,17 @@
         right: 20px;
     }
 
+    label {
+        margin-left: 5%;
+        text-transform: uppercase;
+        color: white;
+        padding-bottom: 10px;
+        display: block;
+    }
+
     input {
         display: block;
-        margin: 5%;
+        margin: 0 5% 5% 5%;
         border: 0;
         width: 84%;
         font-size: 20px;
@@ -75,7 +84,7 @@
     textarea {
         display: block;
         width: 84%;
-        margin: 5%;
+        margin: 0 5% 5% 5%;
         padding: 3%;
         font-size: 16px;
         line-height: 20px;
