@@ -2,7 +2,7 @@
 @import "breakpoints";
 @import "respond";
 
-.climb-marker, .café-marker, .view-marker {
+.climb-marker, .café-marker, .view-marker, .rouleur-marker {
     position: absolute;
     font-size: 30px;
     width: 20px;
@@ -37,7 +37,11 @@
     background-image: url('../../../../public/images/pins/view.png');
 }
 
-.climb-tooltip, .café-tooltip, .view-tooltip {
+.rouleur-marker {
+    background-image: url('../../../../public/images/pins/rouleur.png');
+}
+
+.climb-tooltip, .café-tooltip, .view-tooltip, .rouleur-tooltip {
     position: absolute;
 
     .picks-add, .picks-close {
@@ -98,6 +102,12 @@
 .café-tooltip {
     .picks-add, .picks-close {
         background: $café;
+    }
+}
+
+.rouleur-tooltip {
+    .picks-add, .picks-close {
+        background: $rouleur;
     }
 }
 

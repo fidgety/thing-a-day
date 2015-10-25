@@ -99,6 +99,16 @@
         }
     }
 
+    &.rouleur {
+        .button {
+            background: $rouleur;
+        }
+
+        .description {
+            border-color: $rouleur;
+        }
+    }
+
     &.view {
         .button {
             background: $view;

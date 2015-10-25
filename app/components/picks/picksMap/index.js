@@ -8,15 +8,12 @@ var picksStore = require('../../../stores/picks');
 var picksActions = require('../../../actions/picks');
 
 var Marker = require('../../marker');
-var Route = require('../../route');
-
-var polylineUtils = require('../../../utils/googleMaps/polyline');
+var PickRoute = require('./pickRoute');
 
 module.exports = React.createClass({
     mixins: [
         Reflux.listenTo(picksStore, 'onPicksChange')
     ],
-
     getInitialState: function () {
         return {
             picks: picksStore.getInitialState()
@@ -68,17 +65,18 @@ module.exports = React.createClass({
             var highlighted = this.state.picks.highlighted && pick.name === this.state.picks.highlighted.name;
             var tooltipDiv = this._makeToolTip(pick);
 
-            if (pick.type === 'climb') {
-                var decodedRoute = polylineUtils.decode(pick.route);
-                var routeMiddle = decodedRoute[Math.floor(decodedRoute.length / 2)];
-
-                var polyline = new google.maps.Polyline({
-                    path: decodedRoute
-                });
-                return  <div key={'route-holder' + pick.name}>
-                            <Route key={pick.name} route={polyline} map={this.props.map} strokeWeight="4" backgroundStrokeWeight="7" strokeColour="#CC2029" onClick={polyOnClick}/>
-                            <Marker key={pick.name + 'start' + this.props.map} latLng={routeMiddle} map={this.props.map} classPrefix="climb" tooltopDiv={tooltipDiv} highlighted={highlighted} onclick={onclick}/>
-                        </div>;
+            if (pick.type === 'climb' || pick.type === 'rouleur') {
+                return <PickRoute
+                    name={pick.name}
+                    map={this.props.map}
+                    route={pick.route}
+                    colour={pick.type === 'rouleur' ? '#60A589' : '#CC2029'}
+                    polyonclick={polyOnClick}
+                    tooltipdiv={tooltipDiv}
+                    highlighted={highlighted}
+                    onclick={onclick}
+                    type={pick.type}
+                />;
             }
 
             return <Marker key={pick.name + this.props.map} latLng={pick.latLng} map={this.props.map} classPrefix={pick.type} tooltopDiv={tooltipDiv} highlighted={highlighted} onclick={onclick}/>

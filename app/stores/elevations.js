@@ -44,7 +44,7 @@ module.exports = Reflux.createStore({
         this._updateStoreWithNewValues();
     },
     onRouteUpdated(latLngs) {
-        elevations.getElevations(routeUtils.makeSamplePoints(latLngs, undefined, 1000), results => {
+        elevations.getElevations(routeUtils.makeSamplePoints(latLngs, undefined, 100), results => {
             this._addLeg(results);
             this._updateStoreWithNewValues();
         });

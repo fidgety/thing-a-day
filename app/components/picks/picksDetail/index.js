@@ -78,18 +78,3 @@ module.exports = React.createClass({
         );
     }
 });
-
-//<div className="outer">
-//    <ul className="inner">
-//        <li>
-//            <h4></h4>
-//            <h3>{pick.name}</h3>
-//            <img src={pick.img}/>
-//            <div className="info">
-//                <div className="distance">{pick.distance}</div>
-//                <div className="ascending">{pick.elevation}</div>
-//            </div>
-//            {pick.description}
-//        </li>
-//    </ul>
-//</div>
