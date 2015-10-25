@@ -1,6 +1,6 @@
 var React = require('react');
 
-var Marker = require('../../../marker');
+var PickMarker = require('../pickMarker');
 var Route = require('../../../route');
 
 var polylineUtils = require('../../../../utils/googleMaps/polyline');
@@ -17,7 +17,16 @@ module.exports = React.createClass({
 
         return  <div key={'route-holder' + name}>
             <Route key={name} route={polyline} map={this.props.map} strokeWeight="4" backgroundStrokeWeight="7" strokeColour={this.props.colour} onClick={this.props.polyonclick}/>
-            <Marker key={name + 'start' + this.props.map} latLng={routeMiddle} map={this.props.map} classPrefix={this.props.type} tooltopDiv={this.props.tooltipDiv} highlighted={this.props.highlighted} onclick={this.props.onclick}/>
+            <PickMarker
+                name={name}
+                map={this.props.map}
+                latLng={routeMiddle}
+                type={this.props.type}
+                highlighted={this.props.highlighted}
+                onclick={this.props.onclick}
+                onAdd={this.props.onAdd}
+                onClose={this.props.onClose}
+            />
         </div>;
     }
 });
