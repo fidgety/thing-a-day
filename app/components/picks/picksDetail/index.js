@@ -3,7 +3,6 @@ require('./style.scss');
 var React = require('react');
 var Reflux = require('reflux');
 
-var actions = require('../../../actions/map');
 var picksActions = require('../../../actions/picks');
 
 var picksStore = require('../../../stores/picks');
@@ -40,7 +39,7 @@ module.exports = React.createClass({
         var activeClass = this.state.highlighted ? 'picks-active' : 'picks-inactive';
         activeClass += ' ' + pick.type;
         var close = function () {
-            actions.pickUnhighlighted(pick.name);
+            picksActions.pickUnhighlighted(pick.name);
         };
 
         var add = function () {

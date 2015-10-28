@@ -3,7 +3,6 @@ require('./style.scss');
 var React = require('react');
 var Reflux = require('reflux');
 
-var actions = require('../../../actions/map');
 var picksStore = require('../../../stores/picks');
 var picksActions = require('../../../actions/picks');
 
@@ -30,13 +29,17 @@ module.exports = React.createClass({
                 picksActions.pickSelected(pick);
             };
 
-            var onClose = function () {
-                actions.pickUnhighlighted(pick.name);
+            var onOpen = function () {
+                picksActions.pickHighlighted(pick.name);
             };
 
-            var onclick = function (currentlyHighlighted) {
+            var onClose = function () {
+                picksActions.pickUnhighlighted(pick.name);
+            };
+
+            var onMarkerClick = function (currentlyHighlighted) {
                 if (!currentlyHighlighted) {
-                    actions.pickHighlighted(pick.name);
+                    onOpen();
                 } else {
                     onClose();
                 }
@@ -50,9 +53,9 @@ module.exports = React.createClass({
                     map={this.props.map}
                     route={pick.route}
                     colour={pick.type === 'rouleur' ? '#60A589' : '#CC2029'}
-                    polyonclick={onAdd}
+                    polyonclick={onOpen}
                     highlighted={highlighted}
-                    onclick={onclick}
+                    onclick={onMarkerClick}
                     type={pick.type}
                     onAdd={onAdd}
                     onClose={onClose}
@@ -65,7 +68,7 @@ module.exports = React.createClass({
                 latLng={pick.latLng}
                 type={pick.type}
                 highlighted={highlighted}
-                onclick={onclick}
+                onclick={onMarkerClick}
                 onAdd={onAdd}
                 onClose={onClose}
             />

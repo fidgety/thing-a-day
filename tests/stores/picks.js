@@ -2,7 +2,7 @@ var React = require('react');
 var Reflux = require('reflux');
 var TestUtils = require('react/addons').addons.TestUtils;
 var picks = require('../../app/stores/picks');
-var actions = require('../../app/actions/map');
+var picksActions = require('../../app/actions/picks');
 
 var unlisten;
 
@@ -34,13 +34,13 @@ describe('picks store', function () {
             done();
         });
 
-        actions.pickHighlighted('gliding club');
+        picksActions.pickHighlighted('gliding club');
     });
 
     it('should reflect that a pick has been highlighted', function (done) {
         picks.getPicksForBounds();
         //actions.pickHighlighted('gliding club');
-        actions.pickUnhighlighted();
+        picksActions.pickUnhighlighted();
 
         unlisten = picks.listen(function (store) {
             expect(store.highlighted).to.equal(undefined);

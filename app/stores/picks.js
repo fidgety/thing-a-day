@@ -1,5 +1,6 @@
 var Reflux = require('reflux');
 var actions = require('../actions/map');
+var picksActions = require('../actions/picks');
 var find = require('../utils/array/find');
 
 var cutleryFactory = require('./picksDb/cutlery-factory');
@@ -9,7 +10,7 @@ var theDale = require('./picksDb/the-dale');
 var tissingtonTrail = require('./picksDb/tissington-trail');
 
 module.exports = Reflux.createStore({
-    listenables: actions,
+    listenables: [actions, picksActions],
     store: {
         picks: [glidingClub, cutleryFactory, stanageEdge, theDale, tissingtonTrail],
         highlighted: undefined

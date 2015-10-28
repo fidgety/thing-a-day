@@ -9,8 +9,6 @@ var mapActions = Reflux.createActions([
     'load',
     'updateRouteDetails',
     'elevationHover',
-    'pickHighlighted',
-    'pickUnhighlighted',
     'measurementChanged',
     'userLocationChanged',
     'newLeg'

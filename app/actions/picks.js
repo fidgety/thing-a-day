@@ -6,9 +6,12 @@ var routeUtils = require('../utils/googleMaps/route');
 var latLngUtils = require('../utils/googleMaps/latLng');
 var routeStore = require('../stores/route');
 
-var picksActions = Reflux.createActions({
+var picksActions = Reflux.createActions([{
     pickSelected: true
-});
+},
+    'pickHighlighted',
+    'pickUnhighlighted'
+]);
 
 function addRoute(pick) {
     var route = pick.route;
@@ -38,7 +41,7 @@ picksActions.pickSelected.listen((pick) => {
     } else {
         actions.mapClicked(pick.latLng, pick);
     }
-    actions.pickUnhighlighted(pick.name);
+    picksActions.pickUnhighlighted(pick.name);
 });
 
 module.exports = picksActions;
