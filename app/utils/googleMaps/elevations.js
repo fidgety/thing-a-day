@@ -35,11 +35,11 @@ module.exports = {
             }
             else if (difference > 0) {
                 stats.descending += differenceAbs;
-                stats.downHill += distanceBetweenElevations;
+                stats.downhill += distanceBetweenElevations;
             }
             else {
                 stats.ascending += differenceAbs;
-                stats.upHill += distanceBetweenElevations;
+                stats.uphill += distanceBetweenElevations;
             }
             return currentValue;
         });

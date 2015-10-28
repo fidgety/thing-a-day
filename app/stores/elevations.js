@@ -15,7 +15,9 @@ var _store = {
     legs: [],
     ascending: makeMetric(0),
     descending: makeMetric(0),
-    flatish: makeMetric(0)
+    flatish: makeMetric(0),
+    uphill: makeMetric(0),
+    downhill: makeMetric(0)
 };
 
 module.exports = Reflux.createStore({
@@ -75,5 +77,7 @@ module.exports = Reflux.createStore({
         _store.ascending = makeMetric(stats.ascending);
         _store.descending = makeMetric(stats.descending);
         _store.flatish = makeMetric(stats.flatish);
+        _store.uphill = makeMetric(stats.uphill);
+        _store.downhill = makeMetric(stats.downhill);
     }
 });
