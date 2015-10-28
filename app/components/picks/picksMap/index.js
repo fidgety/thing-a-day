@@ -49,6 +49,7 @@ module.exports = React.createClass({
 
             if (pick.type === 'climb' || pick.type === 'rouleur') {
                 return <PickRoute
+                    key={pick.name + 'route'}
                     name={pick.name}
                     map={this.props.map}
                     route={pick.route}
@@ -63,6 +64,7 @@ module.exports = React.createClass({
             }
 
             return <PickMarker
+                key={pick.name + 'marker'}
                 name={pick.name}
                 map={this.props.map}
                 latLng={pick.latLng}

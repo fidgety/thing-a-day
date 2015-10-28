@@ -14,7 +14,10 @@ module.exports = React.createClass({
     getInitialState: function () {
         return {
             highlighted: false,
-            highlightedItem: {}
+            highlightedItem: {
+                img: [],
+                stats: {}
+            }
         };
     },
     onPicksChange: function (updatedPicksStore) {
@@ -59,8 +62,12 @@ module.exports = React.createClass({
                             <div className="title">{pick.name}</div>
                             <div className="type">{pick.type}</div>
                             <div className="stats">
-                                <div className="elevation"><span className="number">£££</span><span className="unit">price</span></div>
-                                <div className="distance"><span className="number">****</span><span className="unit">quality</span></div>
+                                {Object.keys(pick.stats).map(statName => {
+                                    return <div key={statName} className="item">
+                                        <span className="number">{pick.stats[statName]}</span>
+                                        <span className="unit">{statName}</span>
+                                    </div>;
+                                })}
                             </div>
                         </div>
                         <div className="add-button button" onClick={add}>+</div>

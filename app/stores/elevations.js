@@ -5,18 +5,9 @@ var routeUtils = require('../utils/googleMaps/route');
 var flattenArray = require('../utils/array/flatten');
 
 var optionsStore = require('./options');
+var sampleRate = optionsStore.getState().sampleRate;
 
-var _elevationMetrics = {
-    unit: optionsStore.getState().elevationUnit,
-    converter: optionsStore.getState().elevationConverter
-};
-
-function makeMetric(value) {
-    return {
-        value: parseInt(value / _elevationMetrics.converter, 10),
-        unit: _elevationMetrics.unit
-    }
-}
+var makeMetric = optionsStore.createUnitAndValue.forElevation;
 
 var _store = {
     elevations: [],
@@ -32,11 +23,7 @@ module.exports = Reflux.createStore({
     init() {
         this.listenTo(optionsStore, this.optionsUpdated);
     },
-    optionsUpdated(newOptionsStoreValues) {
-        _elevationMetrics = {
-            unit: newOptionsStoreValues.elevationUnit,
-            converter: newOptionsStoreValues.elevationConverter
-        };
+    optionsUpdated() {
         this._updateStoreWithNewValues();
     },
     onUndo() {
@@ -44,7 +31,7 @@ module.exports = Reflux.createStore({
         this._updateStoreWithNewValues();
     },
     onRouteUpdated(latLngs) {
-        elevations.getElevations(routeUtils.makeSamplePoints(latLngs, undefined, 100), results => {
+        elevations.getElevations(routeUtils.makeSamplePoints(latLngs, undefined, sampleRate), results => {
             this._addLeg(results);
             this._updateStoreWithNewValues();
         });
@@ -83,7 +70,7 @@ module.exports = Reflux.createStore({
         });
     },
     _updateAscDesc() {
-        var stats = elevations.calculateUpsAndDowns(_store.elevations);
+        var stats = elevations.calculateUpsAndDowns(_store.elevations, sampleRate);
 
         _store.ascending = makeMetric(stats.ascending);
         _store.descending = makeMetric(stats.descending);

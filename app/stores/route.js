@@ -6,18 +6,11 @@ var flattenArray = require('../utils/array/flatten');
 var polyline = require('../utils/googleMaps/polyline');
 
 var optionsStore = require('./options');
-
-var _distanceMetrics = {
-    unit: optionsStore.getState().distanceUnit,
-    converter: optionsStore.getState().distanceConverter
-};
+var makeMetric = optionsStore.createUnitAndValue.forDistance;
 
 var _store = {
     legs: [],
-    distance: {
-        value: 0,
-        unit: _distanceMetrics.unit
-    },
+    distance: makeMetric(0),
     startingLatLng: undefined,
     endLatLng: undefined,
     elevationHover: undefined,
@@ -30,11 +23,7 @@ module.exports = Reflux.createStore({
     init() {
         this.listenTo(optionsStore, this.optionsUpdated);
     },
-    optionsUpdated(newOptionsStoreValues) {
-        _distanceMetrics = {
-            unit: newOptionsStoreValues.distanceUnit,
-            converter: newOptionsStoreValues.distanceConverter
-        };
+    optionsUpdated() {
         this._calcDistance();
         this.trigger(_store);
     },
@@ -98,10 +87,7 @@ module.exports = Reflux.createStore({
     _calcDistance() {
         var route = flattenArray(_store.legs.map(legPolyline => legPolyline.polyline.getPath().getArray()));
 
-        _store.distance = {
-            value: (polyline.distance(route) / _distanceMetrics.converter).toFixed(1) || 0,
-            unit: _distanceMetrics.unit
-        };
+        _store.distance = makeMetric(polyline.distance(route));
     },
     _setStartAndEnd() {
         _store.startingLatLng = this._startOfRoute();

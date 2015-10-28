@@ -13,11 +13,13 @@ module.exports = {
             console.log('bad response from elevations service', samplePoints, results, status);
         });
     },
-    calculateUpsAndDowns(elevations) {
+    calculateUpsAndDowns(elevations, distanceBetweenElevations) {
         var stats = {
             ascending: 0,
             descending: 0,
-            flatish: 0
+            flatish: 0,
+            uphill: 0,
+            downhill: 0
         };
 
         if (elevations.length === 0) {
@@ -29,10 +31,15 @@ module.exports = {
             var differenceAbs = Math.abs(difference);
 
             if (differenceAbs < 1) {
-                stats.flatish += differenceAbs;
+                stats.flatish += distanceBetweenElevations;
+            }
+            else if (difference > 0) {
+                stats.descending += differenceAbs;
+                stats.downHill += distanceBetweenElevations;
             }
             else {
-                difference > 0 ? stats.descending += differenceAbs : stats.ascending += differenceAbs;
+                stats.ascending += differenceAbs;
+                stats.upHill += distanceBetweenElevations;
             }
             return currentValue;
         });

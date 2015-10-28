@@ -57,22 +57,26 @@
 
     .stats {
         padding-top: 20px;
-    }
 
-    .elevation {
-        float: left;
-        margin-right: 10px;
-        padding-right: 10px;
-        border-right: 1px solid white;
-    }
+        .item {
+            float: left;
+            margin-right: 10px;
+            padding-right: 10px;
+            border-right: 1px solid white;
+        }
 
-    .number {
-        padding-right: 5px;
-        font-weight: bold;
-    }
+        .item:last-child {
+            border: none;
+        }
 
-    .unit {
-        text-transform: uppercase;
+        .number {
+            padding-right: 5px;
+            font-weight: bold;
+        }
+
+        .unit {
+            text-transform: uppercase;
+        }
     }
 
     .button {
