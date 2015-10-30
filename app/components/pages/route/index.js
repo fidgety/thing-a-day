@@ -26,7 +26,9 @@ module.exports = React.createClass({
             distance: routeOverviewStatus.distance,
             ascending: routeOverviewStatus.ascending,
             descending: routeOverviewStatus.descending,
-            flatish: routeOverviewStatus.flatish
+            flatish: routeOverviewStatus.flatish,
+            uphill: routeOverviewStatus.uphill,
+            downhill: routeOverviewStatus.downhill
         };
     },
     componentDidMount() {
@@ -45,6 +47,8 @@ module.exports = React.createClass({
                     ascending={this.state.ascending}
                     descending={this.state.descending}
                     flatish={this.state.flatish}
+                    uphill={this.state.uphill}
+                    downhill={this.state.downhill}
                 />
             </div>
         );

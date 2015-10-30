@@ -31,7 +31,9 @@ module.exports = React.createClass({
             positions: elevations.positions,
             ascending: elevations.ascending,
             descending: elevations.descending,
-            flatish: elevations.flatish
+            flatish: elevations.flatish,
+            uphill: elevations.uphill,
+            downhill: elevations.downhill
         });
     },
     getInitialState: function () {
@@ -43,7 +45,9 @@ module.exports = React.createClass({
             distance: routeStore.getState().distance,
             ascending: elevationsStore.getState().ascending,
             descending: elevationsStore.getState().descending,
-            flatish: elevationsStore.getState().flatish
+            flatish: elevationsStore.getState().flatish,
+            uphill: elevationsStore.getState().uphill,
+            downhill: elevationsStore.getState().downhill
         };
     },
     onOptionsChange(newOptions) {
@@ -67,6 +71,8 @@ module.exports = React.createClass({
                     ascending={this.state.ascending}
                     descending={this.state.descending}
                     flatish={this.state.flatish}
+                    uphill={this.state.uphill}
+                    downhill={this.state.downhill}
                 />
             </div>
         );

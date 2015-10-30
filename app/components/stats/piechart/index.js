@@ -18,7 +18,7 @@ module.exports = React.createClass({
     render: function () {
         var data = [
             {
-                value: this.props.ascending.value || 1,
+                value: this.props.uphill.value || 1,
                 color:'#FF6339',
                 highlight: '#FF5A5E',
                 label: 'ascending'
@@ -30,7 +30,7 @@ module.exports = React.createClass({
                 label: 'flat (sort of)'
             },
             {
-                value: this.props.descending.value || 1,
+                value: this.props.downhill.value || 1,
                 color: '#2ecc71',
                 highlight: '#5AD3D1',
                 label: 'descending'

@@ -30,7 +30,7 @@ module.exports = {
             var difference = prevValue - currentValue;
             var differenceAbs = Math.abs(difference);
 
-            if (differenceAbs < 1) {
+            if (differenceAbs < 5) {
                 stats.flatish += distanceBetweenElevations;
             }
             else if (difference > 0) {

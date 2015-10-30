@@ -73,7 +73,6 @@ module.exports = Reflux.createStore({
     },
     _updateAscDesc() {
         var stats = elevations.calculateUpsAndDowns(_store.elevations, sampleRate);
-
         _store.ascending = makeMetric(stats.ascending);
         _store.descending = makeMetric(stats.descending);
         _store.flatish = makeMetric(stats.flatish);

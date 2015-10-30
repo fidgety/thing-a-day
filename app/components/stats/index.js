@@ -17,6 +17,8 @@ module.exports = React.createClass({
                     ascending={this.props.ascending}
                     descending={this.props.descending}
                     flatish={this.props.flatish}
+                    uphill={this.props.uphill}
+                    downhill={this.props.downhill}
                 />
             </div>
         </div>
