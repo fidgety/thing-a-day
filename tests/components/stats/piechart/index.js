@@ -1,7 +1,7 @@
 var React = require('react');
 var TestUtils = require('react/addons').addons.TestUtils;
 
-function setUpComponent(distance, ascending, descending) {
+function setUpComponent(distance, ascending, descending, uphill, downhill) {
     var PieChartFactory = require('inject!../../../../app/components/stats/piechart');
     var PieChart = PieChartFactory({
         'react-chartjs': {
@@ -13,7 +13,7 @@ function setUpComponent(distance, ascending, descending) {
         }
     });
 
-    var componentUnderTest = TestUtils.renderIntoDocument(<PieChart flatish={{value:0}} ascending={{value:ascending}} descending={{value:descending}} distance={{value:distance}}/>);
+    var componentUnderTest = TestUtils.renderIntoDocument(<PieChart flatish={{value:0}} ascending={{value:ascending}} descending={{value:descending}} distance={{value:distance}} uphill={{value:uphill}} downhill={{value:downhill}}/>);
     var dom = TestUtils.findRenderedComponentWithType(componentUnderTest, PieChart).getDOMNode();
 
     return dom;
@@ -21,7 +21,7 @@ function setUpComponent(distance, ascending, descending) {
 
 describe('stats component', function () {
     it('should update overall distance', function (done) {
-        var dom = setUpComponent(92.0, 10, 12);
+        var dom = setUpComponent(92.0, 10, 12, 10, 12);
 
         setTimeout(() => {
             dom.getElementsByTagName('span')[3].innerHTML.should.equal('92');
@@ -30,7 +30,7 @@ describe('stats component', function () {
     });
 
     it('should update overall ascending', function (done) {
-        var dom = setUpComponent(92.0, 10, 12);
+        var dom = setUpComponent(92.0, 10, 12, 10, 12);
 
         setTimeout(() => {
             dom.getElementsByClassName('desc')[0].getElementsByTagName('span')[0].innerHTML.should.equal('12');
@@ -39,7 +39,7 @@ describe('stats component', function () {
     });
 
     it('should update overall descending', function (done) {
-        var dom = setUpComponent(92.0, 10, 12);
+        var dom = setUpComponent(92.0, 10, 12, 10, 12);
         setTimeout(() => {
             dom.getElementsByClassName('asc')[0].getElementsByTagName('span')[0].innerHTML.should.equal('10');
             done();
