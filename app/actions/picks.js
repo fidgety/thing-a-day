@@ -14,6 +14,7 @@ var picksActions = Reflux.createActions([{
 ]);
 
 function addRoute(pick) {
+    console.log(pick)
     var route = pick.route;
     var latestUserWaypoint = routeStore.getState().endLatLng;
     var latLngs = polylineUtils.decode(route);
@@ -36,7 +37,7 @@ function addRoute(pick) {
 }
 
 picksActions.pickSelected.listen((pick) => {
-    if (pick.type === 'climb') {
+    if (['climb', 'rouleur'].indexOf(pick.type) !== -1) {
         addRoute(pick);
     } else {
         actions.mapClicked(pick.latLng, pick);
