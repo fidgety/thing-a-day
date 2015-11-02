@@ -57,6 +57,8 @@ module.exports = Reflux.createStore({
         _store.ascending = makeElevationMetric(stats.ascending);
         _store.descending = makeElevationMetric(stats.descending);
         _store.flatish = makeElevationMetric(stats.flatish);
+        _store.uphill = makeElevationMetric(stats.uphill);
+        _store.downhill = makeElevationMetric(stats.downhill);
     },
     _loadElevations(loadedElevations) {
         loadedElevations.forEach(item => {

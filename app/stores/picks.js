@@ -9,11 +9,21 @@ var stanageEdge = require('./picksDb/stanage-edge');
 var theDale = require('./picksDb/the-dale');
 var tissingtonTrail = require('./picksDb/tissington-trail');
 
+var picks = [glidingClub, cutleryFactory, stanageEdge, theDale, tissingtonTrail];
+
 module.exports = Reflux.createStore({
     listenables: [actions, picksActions],
     store: {
-        picks: [glidingClub, cutleryFactory, stanageEdge, theDale, tissingtonTrail],
+        picks: picks,
         highlighted: undefined
+    },
+    onLoad(routeName) {
+        var route = JSON.parse(window.localStorage.getItem(routeName));
+        var picksInRoute = route.picks.split(',');
+        this.store.picks = picks.filter(pick => {
+            return picksInRoute.indexOf(pick.name) !== -1;
+        });
+        this.trigger(this.store);
     },
     onPickHighlighted(name) {
         this.store.highlighted = find(this.store.picks, function (pick) {

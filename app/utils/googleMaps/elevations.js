@@ -13,7 +13,7 @@ module.exports = {
             console.log('bad response from elevations service', samplePoints, results, status);
         });
     },
-    calculateUpsAndDowns(elevations, distanceBetweenElevations) {
+    calculateUpsAndDowns(elevations, distanceBetweenElevations = 1000) {
         var stats = {
             ascending: 0,
             descending: 0,

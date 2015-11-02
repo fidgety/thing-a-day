@@ -4,7 +4,7 @@ var React = require('react');
 var Reflux = require('reflux');
 
 var Map = require('../../maps/route');
-var PicksDetail = require('../../picks/picksDetail');
+var PicksTiles = require('../../picks/picksTiles');
 var Stats = require('../../stats');
 var actions = require('../../../actions/map');
 
@@ -38,7 +38,7 @@ module.exports = React.createClass({
         return (
             <div id="route">
                 <Header/>
-                <PicksDetail/>
+                <PicksTiles/>
                 <Map/>
                 <Stats
                     elevations={this.state.elevations}
