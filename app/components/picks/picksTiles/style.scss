@@ -14,6 +14,18 @@
             width: 100%;
         }
 
+        &.climb {
+            .info {
+                border-top: 4px solid $climb;
+            }
+        }
+
+        &.view {
+            .info {
+                border-top: 4px solid $view;
+            }
+        }
+
         .info {
             text-align: center;
             background: rgba(0,0,0,0.8);
