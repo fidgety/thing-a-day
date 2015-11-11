@@ -4,6 +4,7 @@ var React = require('react');
 var Reflux = require('reflux');
 
 var picksActions = require('../../../actions/picks');
+var PicksStats = require('../picksStats');
 
 var picksStore = require('../../../stores/picks');
 
@@ -61,14 +62,7 @@ module.exports = React.createClass({
                         <div className="inner">
                             <div className="title">{pick.name}</div>
                             <div className="type">{pick.type}</div>
-                            <div className="stats">
-                                {Object.keys(pick.stats).map(statName => {
-                                    return <div key={statName} className="item">
-                                        <span className="number">{pick.stats[statName]}</span>
-                                        <span className="unit">{statName}</span>
-                                    </div>;
-                                })}
-                            </div>
+                            <PicksStats stats={pick.stats}/>
                         </div>
                         <div className="add-button button" onClick={add}>+</div>
                         <div className="close-button button" onClick={close}>-</div>

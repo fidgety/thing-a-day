@@ -6,6 +6,7 @@ var Reflux = require('reflux');
 var Map = require('../../maps/route');
 var PicksTiles = require('../../picks/picksTiles');
 var Stats = require('../../stats');
+var RouteHeader = require('../../routeHeader');
 var actions = require('../../../actions/map');
 
 var Header = require('../../header');
@@ -38,19 +39,22 @@ module.exports = React.createClass({
         return (
             <div id="route">
                 <Header/>
+                <RouteHeader/>
                 <PicksTiles/>
                 <Map/>
-                <Stats
-                    elevations={this.state.elevations}
-                    positions={this.state.positions}
-                    distance={this.state.distance}
-                    ascending={this.state.ascending}
-                    descending={this.state.descending}
-                    flatish={this.state.flatish}
-                    uphill={this.state.uphill}
-                    downhill={this.state.downhill}
-                />
+
             </div>
         );
     }
 });
+
+//<Stats
+//    elevations={this.state.elevations}
+//    positions={this.state.positions}
+//    distance={this.state.distance}
+//    ascending={this.state.ascending}
+//    descending={this.state.descending}
+//    flatish={this.state.flatish}
+//    uphill={this.state.uphill}
+//    downhill={this.state.downhill}
+///>
