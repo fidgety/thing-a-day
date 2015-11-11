@@ -3,7 +3,7 @@ require('./style.scss');
 var React = require('react');
 var Reflux = require('reflux');
 
-var picksActions = require('../../../actions/picks');
+//var picksActions = require('../../../actions/picks');
 
 var picksStore = require('../../../stores/picks');
 

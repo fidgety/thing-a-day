@@ -5,7 +5,7 @@ var Reflux = require('reflux');
 
 var Map = require('../../maps/route');
 var PicksTiles = require('../../picks/picksTiles');
-var Stats = require('../../stats');
+//var Stats = require('../../stats');
 var RouteHeader = require('../../routeHeader');
 var actions = require('../../../actions/map');
 
