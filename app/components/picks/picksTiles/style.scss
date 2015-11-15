@@ -12,14 +12,14 @@
     }
 
     ul {
-        padding-top: 10px;
     }
 
     li {
         position: relative;
-        width: 32%;
+        width: 98%;
         float: left;
         padding-right: 1.2%;
+        padding-top: 10px;
 
         img {
             width: 100%;
@@ -54,7 +54,17 @@
         }
     }
 
-    @include respond-min($x-small) {
 
+
+    @include respond-min($x-small) {
+        li {
+            width: 48%;
+        }
+    }
+
+    @include respond-min($small) {
+        li {
+            width: 32%;
+        }
     }
 }

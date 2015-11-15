@@ -36,7 +36,6 @@ module.exports = React.createClass({
 
         return (
             <div id="picksTiles">
-                <h2>Picks on this route</h2>
                 <ul>{pickList}</ul>
             </div>);
     }
